@@ -817,3 +817,68 @@ img {
 .toast--info {
   background: var(--color-primary);
 }
+
+/* ==========================================================================
+   Lumina Commerce - Product Page Foundation
+   ========================================================================== */
+
+
+.pdp {
+  width: 100%;
+}
+
+
+.pdp__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+
+.pdp__thumb {
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+
+.pdp__thumb.is-active {
+  border-color: var(--color-primary);
+}
+
+
+.pdp__cta,
+.pdp__buynow {
+
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:1rem;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+}
+
+
+.pdp__buynow {
+
+  margin-top:1rem;
+
+  background:transparent;
+
+  border:2px solid var(--color-primary);
+
+}
+
+
+@media(max-width:768px){
+
+  .pdp__grid{
+    grid-template-columns:1fr;
+    gap:2rem;
+  }
+
+}

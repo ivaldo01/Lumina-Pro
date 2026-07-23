@@ -1,82 +1,134 @@
 /* ==========================================================================
-   Product Page Functionality
+   Lumina Commerce - Product Page
    ========================================================================== */
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Gallery thumbnails
-  const thumbnails = document.querySelectorAll('.product-gallery__thumbnail');
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ------------------------------
+     Gallery
+  ------------------------------ */
+
+  const thumbnails = document.querySelectorAll('.pdp__thumb');
   const mainImage = document.getElementById('product-main-image');
-  
-  thumbnails.forEach(thumb => {
-    thumb.addEventListener('click', function() {
-      const newImage = this.dataset.image;
-      const newZoom = this.dataset.zoom;
-      
-      mainImage.src = newImage;
-      mainImage.dataset.zoom = newZoom;
-      
-      // Update active state
-      thumbnails.forEach(t => t.style.borderColor = 'var(--color-border)');
-      this.style.borderColor = 'var(--color-primary)';
-    });
-  });
 
-  // Quantity buttons
-  const quantityInput = document.getElementById('quantity');
-  const quantityBtns = document.querySelectorAll('.quantity-btn');
-  
-  quantityBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const action = this.dataset.action;
-      const currentValue = parseInt(quantityInput.value) || 1;
-      const newValue = action === 'increase' ? currentValue + 1 : Math.max(1, currentValue - 1);
-      quantityInput.value = newValue;
-    });
-  });
+  if (thumbnails.length && mainImage) {
 
-  // Product tabs
-  const tabButtons = document.querySelectorAll('.product-tabs__button');
-  const tabPanels = document.querySelectorAll('.product-tabs__panel');
-  
-  tabButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const targetTab = this.dataset.tab;
-      
-      // Update button states
-      tabButtons.forEach(btn => {
-        btn.classList.remove('active');
-        btn.style.borderBottomColor = 'transparent';
-        btn.style.color = 'var(--color-text-primary)';
+    thumbnails.forEach(function (thumb) {
+
+      thumb.addEventListener('click', function () {
+
+        const newImage = this.dataset.image;
+        const newZoom = this.dataset.zoom;
+
+        mainImage.src = newImage;
+        mainImage.dataset.zoom = newZoom;
+
+        thumbnails.forEach(function (item) {
+          item.classList.remove('is-active');
+        });
+
+        this.classList.add('is-active');
+
       });
-      this.classList.add('active');
-      this.style.borderBottomColor = 'var(--color-primary)';
-      this.style.color = 'var(--color-primary)';
-      
-      // Update panel visibility
-      tabPanels.forEach(panel => {
-        if (panel.dataset.panel === targetTab) {
-          panel.style.display = 'block';
-        } else {
-          panel.style.display = 'none';
-        }
-      });
-    });
-  });
 
-  // Variant change handler
-  const variantSelect = document.getElementById('variant-select');
-  if (variantSelect) {
-    variantSelect.addEventListener('change', function() {
-      const selectedOption = this.options[this.selectedIndex];
-      const priceText = selectedOption.text;
-      const priceMatch = priceText.match(/R\$\s*[\d.,]+/);
-      
-      if (priceMatch) {
-        const priceElement = document.querySelector('.product-info__price-current');
-        if (priceElement) {
-          priceElement.textContent = priceMatch[0];
-        }
-      }
     });
+
   }
+
+
+  /* ------------------------------
+     Quantity
+  ------------------------------ */
+
+  const quantityInput = document.getElementById('quantity');
+  const quantityButtons = document.querySelectorAll('.quantity-btn');
+
+  if (quantityInput && quantityButtons.length) {
+
+    quantityButtons.forEach(function (button) {
+
+      button.addEventListener('click', function () {
+
+        const action = this.dataset.action;
+        let value = parseInt(quantityInput.value) || 1;
+
+        if (action === 'increase') {
+          value++;
+        }
+
+        if (action === 'decrease') {
+          value = Math.max(1, value - 1);
+        }
+
+        quantityInput.value = value;
+
+      });
+
+    });
+
+  }
+
+
+  /* ------------------------------
+     Product Tabs
+  ------------------------------ */
+
+  const tabs = document.querySelectorAll('.product-tabs__button');
+  const panels = document.querySelectorAll('.product-tabs__panel');
+
+  tabs.forEach(function (tab) {
+
+    tab.addEventListener('click', function () {
+
+      const target = this.dataset.tab;
+
+      tabs.forEach(function (item) {
+        item.classList.remove('active');
+      });
+
+      panels.forEach(function (panel) {
+        panel.hidden = true;
+      });
+
+
+      this.classList.add('active');
+
+      const panel = document.querySelector(
+        '.product-tabs__panel[data-panel="' + target + '"]'
+      );
+
+      if (panel) {
+        panel.hidden = false;
+      }
+
+    });
+
+  });
+
+
+  /* ------------------------------
+     Variant Price Update
+  ------------------------------ */
+
+  const variantSelect = document.getElementById('variant-select');
+  const priceElement = document.querySelector('.pdp__price-current');
+
+
+  if (variantSelect && priceElement) {
+
+    variantSelect.addEventListener('change', function () {
+
+      const option = this.options[this.selectedIndex];
+
+      const match = option.text.match(/R\$\s?[\d.,]+/);
+
+      if (match) {
+        priceElement.textContent = match[0];
+      }
+
+    });
+
+  }
+
+
 });

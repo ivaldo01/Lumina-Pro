@@ -140,7 +140,18 @@
             {% endif %}
           </div>
 
-          <a href="/checkout" class="pdp__buynow">Comprar agora</a>
+          <button 
+  type="submit" 
+  name="checkout" 
+  class="pdp__buynow"
+  {% unless product.available %}disabled{% endunless %}
+>
+  {% if product.available %}
+    Comprar agora
+  {% else %}
+    Produto esgotado
+  {% endif %}
+</button>
         </form>
 
         <div class="pdp__pays">

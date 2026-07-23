@@ -1,0 +1,157 @@
+<section class="collection-page" style="max-width: var(--container-width); margin: var(--spacing-lg) auto; padding: 0 var(--spacing-sm);">
+  <div class="collection-page__header" style="margin-bottom: 2rem;">
+    <h1 class="section-title">{{ collection.title | escape }}</h1>
+    {% if collection.description %}
+      <p style="color: #666; margin-top: 0.5rem;">{{ collection.description }}</p>
+    {% endif %}
+  </div>
+
+  <div class="collection-page__layout" style="display: grid; grid-template-columns: 250px 1fr; gap: 2rem; align-items: start;">
+    
+    <!-- Filters Sidebar -->
+    <aside class="collection-filters" style="background: #fff; padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--color-border); position: sticky; top: 1rem;">
+      <div class="collection-filters__header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700;">{{ 'collections.filters' | t }}</h3>
+        <a href="{{ collection.url }}" class="collection-filters__clear" style="font-size: 0.85rem; color: var(--color-primary); text-decoration: underline;">
+          {{ 'collections.clear_filters' | t }}
+        </a>
+      </div>
+
+      <!-- Price Filter -->
+      <div class="collection-filters__group" style="margin-bottom: 1.5rem;">
+        <h4 style="font-weight: 600; margin-bottom: 0.75rem;">{{ 'collections.sort_by' | t }}</h4>
+        <select id="sort-by" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-family: var(--font-body);">
+          <option value="manual">{{ 'collections.sort_featured' | t }}</option>
+          <option value="price-ascending">{{ 'collections.sort_price_asc' | t }}</option>
+          <option value="price-descending">{{ 'collections.sort_price_desc' | t }}</option>
+          <option value="created-descending">{{ 'collections.sort_newest' | t }}</option>
+          <option value="best-selling">{{ 'collections.sort_best_selling' | t }}</option>
+        </select>
+      </div>
+
+      <!-- Tag Filters -->
+      {% if collection.all_tags.size > 0 %}
+        <div class="collection-filters__group">
+          <h4 style="font-weight: 600; margin-bottom: 0.75rem;">Filtrar por Tag</h4>
+          <ul style="list-style: none; padding: 0;">
+            {% for tag in collection.all_tags %}
+              {% if current_tags contains tag %}
+                <li style="margin-bottom: 0.5rem;">
+                  <span style="color: var(--color-primary); font-weight: 600;">✓ {{ tag | escape }}</span>
+                </li>
+              {% else %}
+                <li style="margin-bottom: 0.5rem;">
+                  <a href="{{ collection.url }}/{{ tag | handle }}" style="color: var(--color-text-primary); text-decoration: none;">
+                    {{ tag | escape }}
+                  </a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </aside>
+
+    <!-- Products Grid -->
+    <div class="collection-products">
+      <!-- Product Count -->
+      <div class="collection-products__count" style="margin-bottom: 1rem; color: #666; font-size: 0.9rem;">
+        {{ collection.products_count }} {{ 'collections.products' | t }}
+      </div>
+
+      <div class="product-grid">
+        {% paginate collection.products by 16 %}
+          {% for product in collection.products %}
+            <div class="product-card">
+              {% if product.compare_at_price > product.price %}
+                <span class="product-card__badge">OFERTA</span>
+              {% endif %}
+              
+              <a href="{{ product.url }}" class="product-card__link">
+                <img class="product-card__image" 
+                     src="{{ product.featured_image | img_url: '600x' }}" 
+                     alt="{{ product.title | escape }}"
+                     loading="lazy">
+                <h3 class="product-card__title">{{ product.title | escape }}</h3>
+              </a>
+              
+              <div class="product-card__price-wrapper">
+                {% if product.compare_at_price > product.price %}
+                  <span class="product-card__price-old">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+                <span class="product-card__price">{{ product.price | money }}</span>
+              </div>
+
+              <form action="/cart/add" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button type="submit" class="button">{{ 'products.add_to_cart' | t }} 🛒</button>
+              </form>
+            </div>
+          {% else %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: #fff; border-radius: var(--radius-md); border: 1px solid var(--color-border);">
+              <p style="font-size: 1.2rem; color: #666;">{{ 'collections.no_products' | t }}</p>
+            </div>
+          {% endfor %}
+
+          <!-- Pagination -->
+          {% if paginate.pages > 1 %}
+            <div class="pagination" style="grid-column: 1 / -1; display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem;">
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="pagination__link" style="padding: 0.5rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); text-decoration: none; color: var(--color-text-primary);">
+                  ←
+                </a>
+              {% endif %}
+
+              {% for part in paginate.parts %}
+                {% if part.is_link %}
+                  <a href="{{ part.url }}" class="pagination__link" style="padding: 0.5rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); text-decoration: none; color: var(--color-text-primary);">
+                    {{ part.title }}
+                  </a>
+                {% else %}
+                  <span class="pagination__current" style="padding: 0.5rem 1rem; background: var(--color-primary); color: #fff; border-radius: var(--radius-sm); font-weight: 700;">
+                    {{ part.title }}
+                  </span>
+                {% endif %}
+              {% endfor %}
+
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="pagination__link" style="padding: 0.5rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); text-decoration: none; color: var(--color-text-primary);">
+                  →
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coleção Principal",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 8,
+      "label": "Produtos por Página",
+      "default": 16
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Mostrar Filtros",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort",
+      "label": "Mostrar Ordenação",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

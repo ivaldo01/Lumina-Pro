@@ -1,0 +1,60 @@
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu__overlay" data-mobile-menu-close></div>
+  <div class="mobile-menu__content">
+    <div class="mobile-menu__header">
+      <span class="mobile-menu__title">{{ 'general.menu' | t }}</span>
+      <button class="mobile-menu__close" data-mobile-menu-close aria-label="{{ 'general.close' | t }}">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <nav class="mobile-menu__nav">
+      <a href="/collections/all" class="mobile-menu__link mobile-menu__link--departments">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+        {{ 'header.departments' | t }}
+      </a>
+      
+      {% for link in linklists[section.settings.main_menu].links %}
+        {% if link.links != blank %}
+          <div class="mobile-menu__dropdown">
+            <button class="mobile-menu__link mobile-menu__link--dropdown" data-mobile-menu-toggle>
+              {{ link.title | escape }}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="mobile-menu__submenu">
+              {% for sublink in link.links %}
+                <a href="{{ sublink.url }}" class="mobile-menu__link mobile-menu__link--sub">{{ sublink.title | escape }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title | escape }}</a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+    
+    <div class="mobile-menu__footer">
+      <a href="{{ routes.account_url }}" class="mobile-menu__link mobile-menu__link--account">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{ 'header.my_account' | t }}
+      </a>
+      <a href="{{ routes.cart_url }}" class="mobile-menu__link mobile-menu__link--cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{ 'header.my_cart' | t }}
+        {% if cart.item_count > 0 %}
+          <span class="mobile-menu__cart-count">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</div>

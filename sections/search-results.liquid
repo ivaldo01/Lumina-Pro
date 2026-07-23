@@ -1,0 +1,58 @@
+<section class="search-results page-content" aria-label="Resultados da Busca" style="padding: var(--spacing-lg) 0;">
+  <div class="search-results__header" style="max-width: var(--container-width); margin: 0 auto 2rem; padding: 0 var(--spacing-sm);">
+    <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.75rem; color: var(--color-text-primary);">
+      {% if settings.search_page_title != blank %}{{ settings.search_page_title }}{% else %}{{ 'search.title' | t }}{% endif %}
+    </h1>
+    {% if search.performed %}
+      <p style="color: var(--color-text-secondary); font-size: 1rem; max-width: 720px;">
+        {{ 'search.query' | t }} “<strong>{{ search.terms | escape }}</strong>”
+      </p>
+    {% endif %}
+  </div>
+
+  {% if search.results_count > 0 %}
+    {% assign search_layout = settings.search_results_layout | default: 'grid' %}
+    <div class="search-results__{{ search_layout }}" style="display: grid; gap: 1.5rem; grid-template-columns: {% if search_layout == 'grid' %}repeat(auto-fit, minmax(260px, 1fr)){% else %}1fr{% endif %}; max-width: var(--container-width); margin: 0 auto; padding: 0 var(--spacing-sm);">
+      {% for result in search.results %}
+        {% if result.object_type == 'product' %}
+          <article class="search-result-card" style="background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); transition: transform var(--transition-fast);">
+            <a href="{{ result.url }}" style="display: block; color: inherit; text-decoration: none;">
+              {% if result.featured_image %}
+                <div style="overflow: hidden; height: 220px;">
+                  <img src="{{ result.featured_image | img_url: '720x' }}" alt="{{ result.title | escape }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                </div>
+              {% else %}
+                <div style="height: 220px; display: grid; place-items: center; background: var(--color-background); color: var(--color-text-secondary);">
+                  <span>Sem imagem</span>
+                </div>
+              {% endif %}
+              <div style="padding: 1.25rem;">
+                <h2 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">{{ result.title | escape }}</h2>
+                {% if result.price %}
+                  <p style="color: var(--color-price); font-weight: 700; margin-bottom: 0.75rem;">{{ result.price | money }}</p>
+                {% elsif result.price_min %}
+                  <p style="color: var(--color-price); font-weight: 700; margin-bottom: 0.75rem;">{{ result.price_min | money }}</p>
+                {% endif %}
+                <p style="color: var(--color-text-secondary); font-size: 0.95rem; line-height: 1.6;">{{ result.description | strip_html | truncate: 120 }}</p>
+              </div>
+            </a>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="search-results__empty" style="max-width: 720px; margin: 0 auto; padding: 0 var(--spacing-sm); text-align: center;">
+      <p style="font-size: 1.25rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
+        {% if settings.search_empty_text != blank %}{{ settings.search_empty_text }}{% else %}Nenhum resultado encontrado para a sua busca.{% endif %}
+      </p>
+      <a href="{{ routes.root_url }}" class="button" style="display: inline-block; max-width: 240px;">Continuar navegando</a>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Search Results",
+  "settings": []
+}
+{% endschema %}

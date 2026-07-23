@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "featured-products",
+      "settings": {
+        "title": "PRODUTOS EM DESTAQUE"
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "featured_collection"
+  ]
+}

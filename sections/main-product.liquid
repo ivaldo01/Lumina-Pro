@@ -1,0 +1,371 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign has_discount = false -%}
+{%- if product.compare_at_price > product.price -%}{%- assign has_discount = true -%}{%- endif -%}
+
+<section class="pdp">
+  <nav class="pdp__crumbs" aria-label="Breadcrumb">
+    <a href="/">Início</a>
+    <span>/</span>
+    {% if collection %}<a href="{{ collection.url }}">{{ collection.title }}</a><span>/</span>{% endif %}
+    <span class="pdp__crumbs-current">{{ product.title | escape }}</span>
+  </nav>
+
+  <div class="pdp__grid">
+    <!-- Gallery -->
+    <div class="pdp__gallery">
+      <div class="pdp__media">
+        {% if has_discount and settings.show_savings %}
+          <span class="pdp__flag">-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</span>
+        {% endif %}
+        {% if product.featured_image %}
+          <img id="product-main-image"
+               src="{{ product.featured_image | img_url: '1200x' }}"
+               alt="{{ product.featured_image.alt | escape }}"
+               data-zoom="{{ product.featured_image | img_url: '2000x' }}">
+        {% else %}
+          <div class="pdp__media-empty">Sem imagem</div>
+        {% endif %}
+      </div>
+
+      {% if product.images.size > 1 %}
+        <div class="pdp__thumbs">
+          {% for image in product.images %}
+            <button type="button"
+                    class="pdp__thumb {% if forloop.first %}is-active{% endif %}"
+                    data-image="{{ image | img_url: '1200x' }}"
+                    data-zoom="{{ image | img_url: '2000x' }}"
+                    aria-label="Ver imagem {{ forloop.index }}">
+              <img src="{{ image | img_url: '200x' }}" alt="{{ image.alt | escape }}" loading="lazy">
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Info -->
+    <div class="pdp__info">
+      <div class="pdp__info-inner">
+        {% if settings.show_vendor and product.vendor %}
+          <div class="pdp__vendor">{{ product.vendor | escape }}</div>
+        {% endif %}
+
+        <h1 class="pdp__title">{{ product.title | escape }}</h1>
+
+        <div class="pdp__rating">
+          <span class="pdp__stars" aria-hidden="true">★★★★★</span>
+          <span class="pdp__rating-text">4.9 · Mais de 1.200 clientes satisfeitos</span>
+        </div>
+
+        <div class="pdp__price">
+          <span class="pdp__price-current">{{ product.price | money }}</span>
+          {% if has_discount and settings.show_compare_price %}
+            <span class="pdp__price-old">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+          {% if has_discount %}
+            <span class="pdp__price-save">Você economiza {{ product.compare_at_price | minus: product.price | money }}</span>
+          {% endif %}
+        </div>
+
+        <div class="pdp__installments">
+          ou até <strong>12x de {{ product.price | divided_by: 12 | money }}</strong> sem juros
+        </div>
+
+        {% if settings.show_stock_status %}
+          <div class="pdp__stock">
+            {% if product.available %}
+              {% if current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity <= 5 and current_variant.inventory_quantity > 0 %}
+                <span class="pdp__stock-low">⚡ Restam apenas {{ current_variant.inventory_quantity }} unidades!</span>
+              {% else %}
+                <span class="pdp__stock-ok">● Em estoque · pronto para envio</span>
+              {% endif %}
+            {% else %}
+              <span class="pdp__stock-out">● Esgotado</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <form action="/cart/add" method="post" enctype="multipart/form-data" class="pdp__form">
+          {% if product.has_only_default_variant == false %}
+            <div class="pdp__field">
+              <label for="variant-select" class="pdp__label">Selecione uma opção</label>
+              <div class="pdp__select">
+                <select id="variant-select" name="id">
+                  {% for variant in product.variants %}
+                    <option value="{{ variant.id }}"
+                      {% if variant == current_variant %}selected{% endif %}
+                      {% unless variant.available %}disabled{% endunless %}>
+                      {{ variant.title | escape }} — {{ variant.price | money }}{% unless variant.available %} (Esgotado){% endunless %}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          {% else %}
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+          {% endif %}
+
+          <div class="pdp__row">
+            {% if settings.show_quantity %}
+              <div class="pdp__field pdp__field--qty">
+                <label for="quantity" class="pdp__label">Quantidade</label>
+                <div class="pdp__qty">
+                  <button type="button" class="quantity-btn" data-action="decrease" aria-label="Diminuir">−</button>
+                  <input type="number" id="quantity" name="quantity" value="1" min="1">
+                  <button type="button" class="quantity-btn" data-action="increase" aria-label="Aumentar">+</button>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="pdp__actions">
+            <button type="submit" class="pdp__cta" {% unless product.available %}disabled{% endunless %}>
+              {% if product.available %}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                Adicionar ao carrinho
+              {% else %}
+                Produto esgotado
+              {% endif %}
+            </button>
+
+            {% if settings.show_wishlist_button %}
+              <button type="button" class="pdp__wishlist wishlist-button"
+                data-product-id="{{ product.id }}"
+                data-product-title="{{ product.title | escape }}"
+                data-product-url="{{ product.url }}"
+                data-product-image="{{ product.featured_image | img_url: '200x' }}"
+                data-product-price="{{ product.price | money }}"
+                aria-label="Adicionar à lista de desejos">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </button>
+            {% endif %}
+          </div>
+
+          <a href="/checkout" class="pdp__buynow">Comprar agora</a>
+        </form>
+
+        <div class="pdp__pays">
+          <span>Formas de pagamento:</span>
+          <div class="pdp__pays-icons">
+            <span>Mastercard</span><span>PayPal</span><span>Maestro</span><span>Visa</span><span>Amex</span>
+          </div>
+        </div>
+
+        {% if settings.show_trust_badges %}
+          <ul class="pdp__trust">
+            <li>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <div><strong>Compra Segura</strong><span>Ambiente 100% protegido</span></div>
+            </li>
+            <li>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              <div><strong>Envio Rápido</strong><span>Entrega para todo Brasil</span></div>
+            </li>
+            <li>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><polyline points="3 4 3 12 11 12"/></svg>
+              <div><strong>Troca Grátis</strong><span>Até 7 dias após receber</span></div>
+            </li>
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if settings.show_product_tabs %}
+    <div class="pdp__tabs">
+      <div class="pdp__tabs-nav" role="tablist">
+        <button class="product-tabs__button pdp__tab is-active" data-tab="description" role="tab">Descrição</button>
+        <button class="product-tabs__button pdp__tab" data-tab="specifications" role="tab">Especificações</button>
+        <button class="product-tabs__button pdp__tab" data-tab="reviews" role="tab">Avaliações</button>
+      </div>
+      <div class="pdp__tabs-content">
+        <div class="product-tabs__panel pdp__panel is-active" data-panel="description">
+          <div class="pdp__prose">{{ product.description }}</div>
+        </div>
+        <div class="product-tabs__panel pdp__panel" data-panel="specifications" hidden>
+          <p>Especificações técnicas do produto serão exibidas aqui.</p>
+        </div>
+        <div class="product-tabs__panel pdp__panel" data-panel="reviews" hidden>
+          <p style="margin-bottom: 1rem;">Seja o primeiro a avaliar este produto!</p>
+          <button type="button" class="button button--secondary" style="width:auto;">Escrever avaliação</button>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if settings.show_related_products and collection %}
+    <div class="pdp__related">
+      <div class="pdp__related-head">
+        <h2 class="section-title" style="margin:0;">Você também pode gostar</h2>
+        <a href="{{ collection.url }}" class="pdp__related-link">Ver todos →</a>
+      </div>
+      <div class="product-grid">
+        {% assign related_products = collection.products | sample: 4 %}
+        {% for related_product in related_products %}
+          {% unless related_product.id == product.id %}
+            <div class="product-card">
+              <a href="{{ related_product.url }}" class="product-card__link">
+                <img class="product-card__image" src="{{ related_product.featured_image | img_url: '600x' }}" alt="{{ related_product.title | escape }}" loading="lazy">
+                <h3 class="product-card__title">{{ related_product.title | escape }}</h3>
+              </a>
+              <div class="product-card__price-wrapper">
+                <span class="product-card__price">{{ related_product.price | money }}</span>
+              </div>
+            </div>
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<style>
+  .pdp{max-width:var(--container-width);margin:var(--spacing-lg) auto;padding:0 var(--spacing-sm);color:var(--color-text-primary);}
+  .pdp__crumbs{display:flex;flex-wrap:wrap;gap:.4rem;font-size:.85rem;color:#7a7a7a;margin-bottom:1.25rem;}
+  .pdp__crumbs a{color:#7a7a7a;text-decoration:none;}
+  .pdp__crumbs a:hover{color:var(--color-primary);}
+  .pdp__crumbs-current{color:var(--color-text-primary);font-weight:500;}
+
+  .pdp__grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:3.5rem;align-items:start;}
+
+  /* Gallery */
+  .pdp__gallery{position:sticky;top:100px;}
+  .pdp__media{position:relative;background:#f6f6f4;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;}
+  .pdp__media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;cursor:zoom-in;}
+  .pdp__media:hover img{transform:scale(1.03);}
+  .pdp__media-empty{color:#999;}
+  .pdp__flag{position:absolute;top:16px;left:16px;background:var(--color-accent,#E74C3C);color:#fff;font-weight:700;font-size:.8rem;padding:.35rem .7rem;border-radius:999px;z-index:2;letter-spacing:.02em;}
+  .pdp__thumbs{display:flex;gap:.6rem;margin-top:1rem;overflow-x:auto;padding-bottom:.25rem;}
+  .pdp__thumb{width:78px;height:78px;flex-shrink:0;border-radius:var(--radius-sm);overflow:hidden;border:2px solid transparent;background:#f6f6f4;padding:0;cursor:pointer;transition:border-color .2s ease, transform .2s ease;}
+  .pdp__thumb img{width:100%;height:100%;object-fit:cover;}
+  .pdp__thumb:hover{transform:translateY(-2px);}
+  .pdp__thumb.is-active{border-color:var(--color-primary);}
+
+  /* Info */
+  .pdp__info-inner{display:flex;flex-direction:column;gap:1.1rem;}
+  .pdp__vendor{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary);}
+  .pdp__title{font-family:var(--font-heading,inherit);font-size:clamp(1.6rem,2.4vw,2.25rem);font-weight:700;line-height:1.15;margin:0;}
+  .pdp__rating{display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:#666;}
+  .pdp__stars{color:#f5a623;letter-spacing:2px;font-size:1rem;}
+
+  .pdp__price{display:flex;align-items:baseline;flex-wrap:wrap;gap:.75rem;padding:1rem 1.25rem;background:linear-gradient(135deg,#faf7f1,#f2ede3);border-radius:var(--radius-md);}
+  .pdp__price-current{font-size:2.1rem;font-weight:800;color:var(--color-price,var(--color-primary));line-height:1;}
+  .pdp__price-old{font-size:1rem;color:#999;text-decoration:line-through;}
+  .pdp__price-save{width:100%;font-size:.85rem;color:#16A085;font-weight:600;}
+  .pdp__installments{font-size:.9rem;color:#555;margin-top:-.25rem;}
+  .pdp__installments strong{color:var(--color-text-primary);}
+
+  .pdp__stock{font-size:.9rem;font-weight:600;}
+  .pdp__stock-ok{color:#16A085;}
+  .pdp__stock-low{color:#E67E22;}
+  .pdp__stock-out{color:#E74C3C;}
+
+  .pdp__form{display:flex;flex-direction:column;gap:1rem;margin-top:.25rem;}
+  .pdp__label{display:block;font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem;color:#333;}
+  .pdp__select{position:relative;}
+  .pdp__select::after{content:"";position:absolute;right:14px;top:50%;width:8px;height:8px;border-right:2px solid #666;border-bottom:2px solid #666;transform:translateY(-70%) rotate(45deg);pointer-events:none;}
+  .pdp__select select{width:100%;padding:.9rem 2.5rem .9rem 1rem;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);font-size:1rem;font-family:inherit;background:#fff;appearance:none;cursor:pointer;transition:border-color .2s;}
+  .pdp__select select:focus{outline:none;border-color:var(--color-primary);}
+
+  .pdp__row{display:flex;gap:1rem;align-items:flex-end;}
+  .pdp__qty{display:inline-flex;align-items:center;border:1.5px solid var(--color-border);border-radius:var(--radius-sm);overflow:hidden;background:#fff;}
+  .pdp__qty .quantity-btn{width:42px;height:46px;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#333;transition:background .2s;}
+  .pdp__qty .quantity-btn:hover{background:#f4f4f0;}
+  .pdp__qty input{width:56px;height:46px;text-align:center;border:none;font-size:1rem;font-weight:600;font-family:inherit;background:transparent;}
+  .pdp__qty input:focus{outline:none;}
+
+  .pdp__actions{display:flex;gap:.75rem;align-items:stretch;}
+  .pdp__cta{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:1.05rem 1.5rem;background:var(--color-primary);color:var(--color-primary-foreground,#fff);border:none;border-radius:var(--radius-md);font-size:1.02rem;font-weight:700;letter-spacing:.02em;cursor:pointer;transition:transform .15s ease, box-shadow .2s ease, background .2s ease;box-shadow:0 8px 20px -12px rgba(0,0,0,.35);}
+  .pdp__cta:hover:not([disabled]){transform:translateY(-1px);box-shadow:0 14px 26px -14px rgba(0,0,0,.4);}
+  .pdp__cta[disabled]{opacity:.55;cursor:not-allowed;}
+  .pdp__wishlist{width:52px;background:#fff;border:1.5px solid var(--color-border);border-radius:var(--radius-md);cursor:pointer;color:#333;display:inline-flex;align-items:center;justify-content:center;transition:color .2s, border-color .2s, background .2s;}
+  .pdp__wishlist:hover{color:#E74C3C;border-color:#E74C3C;background:#fff5f4;}
+
+  .pdp__buynow{display:block;text-align:center;padding:.95rem 1.5rem;border:1.5px solid var(--color-primary);color:var(--color-primary);border-radius:var(--radius-md);font-weight:700;text-decoration:none;transition:background .2s, color .2s;}
+  .pdp__buynow:hover{background:var(--color-primary);color:var(--color-primary-foreground,#fff);}
+
+  .pdp__pays{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;font-size:.8rem;color:#666;border-top:1px dashed var(--color-border);padding-top:1rem;margin-top:.25rem;}
+  .pdp__pays-icons{display:flex;flex-wrap:wrap;gap:.4rem;}
+  .pdp__pays-icons span{background:#fff;border:1px solid var(--color-border);border-radius:6px;padding:.3rem .55rem;font-size:.72rem;font-weight:600;letter-spacing:.02em;color:#444;}
+
+  .pdp__trust{list-style:none;padding:1.1rem;margin:.25rem 0 0;background:#faf7f1;border-radius:var(--radius-md);display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;}
+  .pdp__trust li{display:flex;gap:.65rem;align-items:flex-start;font-size:.82rem;color:#555;}
+  .pdp__trust svg{color:var(--color-primary);flex-shrink:0;margin-top:2px;}
+  .pdp__trust strong{display:block;font-size:.85rem;color:#222;font-weight:700;}
+  .pdp__trust span{display:block;font-size:.75rem;color:#777;line-height:1.35;}
+
+  /* Tabs */
+  .pdp__tabs{margin-top:4rem;}
+  .pdp__tabs-nav{display:flex;flex-wrap:wrap;gap:.25rem;border-bottom:1px solid var(--color-border);margin-bottom:1.75rem;}
+  .pdp__tab{padding:.9rem 1.25rem;background:none;border:none;border-bottom:2px solid transparent;font-weight:600;color:#777;cursor:pointer;font-size:.95rem;transition:color .2s, border-color .2s;}
+  .pdp__tab:hover{color:var(--color-text-primary);}
+  .pdp__tab.is-active,.pdp__tab.active{color:var(--color-primary);border-bottom-color:var(--color-primary);}
+  .pdp__panel{line-height:1.75;color:#444;font-size:.98rem;}
+  .pdp__panel.is-active,.pdp__panel.active{display:block;}
+  .pdp__prose :is(h2,h3){color:var(--color-text-primary);margin-top:1.25rem;}
+  .pdp__prose strong{color:var(--color-text-primary);}
+
+  /* Related */
+  .pdp__related{margin-top:4rem;}
+  .pdp__related-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+  .pdp__related-link{color:var(--color-primary);font-weight:600;text-decoration:none;font-size:.9rem;}
+  .pdp__related-link:hover{text-decoration:underline;}
+
+  @media (max-width: 900px){
+    .pdp__grid{grid-template-columns:1fr;gap:2rem;}
+    .pdp__gallery{position:static;}
+    .pdp__trust{grid-template-columns:1fr;}
+    .pdp__price-current{font-size:1.75rem;}
+  }
+</style>
+
+<script>
+  (function(){
+    var main = document.getElementById('product-main-image');
+    var thumbs = document.querySelectorAll('.pdp__thumb');
+    thumbs.forEach(function(t){
+      t.addEventListener('click', function(){
+        var src = t.getAttribute('data-image');
+        var zoom = t.getAttribute('data-zoom');
+        if (main && src) { main.src = src; main.setAttribute('data-zoom', zoom || src); }
+        thumbs.forEach(function(x){ x.classList.remove('is-active'); });
+        t.classList.add('is-active');
+      });
+    });
+
+    var qty = document.getElementById('quantity');
+    document.querySelectorAll('.pdp__qty .quantity-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if (!qty) return;
+        var v = parseInt(qty.value || '1', 10);
+        v = btn.getAttribute('data-action') === 'increase' ? v + 1 : Math.max(1, v - 1);
+        qty.value = v;
+      });
+    });
+
+    var tabs = document.querySelectorAll('.pdp__tab');
+    var panels = document.querySelectorAll('.pdp__panel');
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var target = tab.getAttribute('data-tab');
+        tabs.forEach(function(t){ t.classList.remove('is-active','active'); });
+        panels.forEach(function(p){
+          var match = p.getAttribute('data-panel') === target;
+          p.classList.toggle('is-active', match);
+          p.classList.toggle('active', match);
+          if (match) { p.removeAttribute('hidden'); } else { p.setAttribute('hidden',''); }
+        });
+        tab.classList.add('is-active','active');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Produto Principal",
+  "settings": [
+    { "type": "checkbox", "id": "show_trust_badges", "label": "Mostrar Selos de Confiança", "default": true },
+    { "type": "checkbox", "id": "show_related_products", "label": "Mostrar Produtos Relacionados", "default": true }
+  ]
+}
+{% endschema %}

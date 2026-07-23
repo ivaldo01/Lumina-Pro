@@ -1,0 +1,108 @@
+<section class="wishlist-page page-content" aria-label="{{ 'wishlist.title' | t }}" style="padding: var(--spacing-lg) 0;">
+  <div style="max-width: var(--container-width); margin: 0 auto; padding: 0 var(--spacing-sm);">
+    <div style="margin-bottom: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
+      <div style="flex: 1; min-width: 260px;">
+        <h1 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; color: var(--color-text-primary); margin-bottom: 0.5rem;">{% if settings.wishlist_page_title != blank %}{{ settings.wishlist_page_title }}{% else %}{{ 'wishlist.title' | t }}{% endif %}</h1>
+        <p style="color: var(--color-text-secondary); font-size: 1rem; max-width: 720px;">{% if settings.wishlist_empty_text != blank %}{{ settings.wishlist_empty_text }}{% else %}Acompanhe seus produtos favoritos em um só lugar e volte quando quiser.{% endif %}</p>
+      </div>
+      {% if settings.wishlist_enable_share %}
+        <button type="button" id="wishlist-share-button" class="button button--secondary" style="height: fit-content;">{{ settings.wishlist_share_button_text | default: 'Compartilhar Lista' }}</button>
+      {% endif %}
+    </div>
+
+    <div id="wishlist-content" class="wishlist-page__content" style="min-height: 320px;">
+      <div class="wishlist-page__empty" style="text-align: center; padding: 3rem 1rem; border: 1px dashed var(--color-border); border-radius: var(--radius-lg); background: var(--color-surface);">
+        <p style="font-size: 1.2rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 1rem;">{{ 'wishlist.empty' | t }}</p>
+        <a href="{{ routes.root_url }}" class="button" style="display: inline-block; max-width: 240px;">Continuar comprando</a>
+      </div>
+
+      <div class="wishlist-page__items" hidden style="display: grid; gap: 1.5rem;"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const wishlistConfig = {
+      showImage: {{ settings.wishlist_show_product_image | json }},
+      showPrice: {{ settings.wishlist_show_price | json }},
+      showViewButton: {{ settings.wishlist_show_view_button | json }},
+      shareEnabled: {{ settings.wishlist_enable_share | json }},
+      shareText: {{ settings.wishlist_share_button_text | escape }}
+    };
+
+    function renderWishlist() {
+      const wishlistItems = window.Wishlist ? window.Wishlist.get() : [];
+      const emptyState = document.querySelector('.wishlist-page__empty');
+      const itemsContainer = document.querySelector('.wishlist-page__items');
+
+      if (!itemsContainer || !emptyState) return;
+
+      if (!wishlistItems.length) {
+        itemsContainer.hidden = true;
+        emptyState.hidden = false;
+        return;
+      }
+
+      emptyState.hidden = true;
+      itemsContainer.hidden = false;
+      itemsContainer.innerHTML = wishlistItems.map(product => `
+        <article class="wishlist-card" style="display: grid; grid-template-columns: ${wishlistConfig.showImage ? '120px minmax(0,1fr) auto' : 'minmax(0,1fr) auto'}; gap: 1rem; align-items: center; padding: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: #fff;">
+          ${wishlistConfig.showImage ? `<a href="${product.url}" style="display: block; overflow: hidden; border-radius: var(--radius-sm); height: 120px;"><img src="${product.image}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover; display: block;" /></a>` : ''}
+          <div>
+            <a href="${product.url}" style="display: inline-block; font-weight: 700; color: var(--color-text-primary); font-size: 1rem; margin-bottom: 0.5rem;">${product.title}</a>
+            ${wishlistConfig.showPrice ? `<p style="color: var(--color-price); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">${product.price}</p>` : ''}
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; justify-content: center; align-items: flex-end;">
+            ${wishlistConfig.showViewButton ? `<a href="${product.url}" class="button" style="width: 100%; max-width: 160px;">Ver produto</a>` : ''}
+            <button type="button" class="button button--secondary wishlist-item-remove" data-wishlist-remove="${product.id}" style="width: 100%; max-width: 160px;">Remover</button>
+          </div>
+        </article>
+      `).join('');
+
+      itemsContainer.querySelectorAll('.wishlist-item-remove').forEach(button => {
+        button.addEventListener('click', function() {
+          const productId = this.dataset.wishlistRemove;
+          if (window.Wishlist) {
+            window.Wishlist.remove(productId);
+            renderWishlist();
+          }
+        });
+      });
+    }
+
+    function initShareButton() {
+      const shareButton = document.getElementById('wishlist-share-button');
+      if (!shareButton || !wishlistConfig.shareEnabled) return;
+
+      shareButton.addEventListener('click', function() {
+        const shareData = {
+          title: {% if settings.wishlist_page_title != blank %}"{{ settings.wishlist_page_title | escape }}"{% else %}"{{ 'wishlist.title' | t | escape }}"{% endif %},
+          text: {% if settings.wishlist_empty_text != blank %}"{{ settings.wishlist_empty_text | escape }}"{% else %}"Compartilhe sua lista de desejos com amigos."{% endif %},
+          url: window.location.href
+        };
+
+        if (navigator.share) {
+          navigator.share(shareData).catch(() => {});
+        } else {
+          window.prompt('Copie o link para compartilhar:', window.location.href);
+        }
+      });
+    }
+
+    if (window.Wishlist) {
+      renderWishlist();
+      initShareButton();
+    } else {
+      window.addEventListener('load', function() {
+        renderWishlist();
+        initShareButton();
+      });
+</script>
+
+{% schema %}
+{
+  "name": "Wishlist Page",
+  "settings": []
+}
+{% endschema %}

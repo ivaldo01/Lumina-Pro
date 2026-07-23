@@ -1,0 +1,455 @@
+{% assign hdr = section.settings %}
+
+<style>
+  .lumina-header {
+    background: {{ hdr.header_bg | default: '#ffffff' }};
+    border-bottom: 1px solid {{ hdr.header_border_color | default: '#e5e5e5' }};
+    position: {{ hdr.sticky_header | default: true | json | replace: 'true', 'sticky' | replace: 'false', 'relative' }};
+    top: 0;
+    z-index: 1000;
+  }
+  .lumina-header a,
+  .lumina-header button.icon-btn {
+    color: {{ hdr.header_text_color | default: '#0a0a0a' }};
+  }
+  .lumina-header nav a:hover {
+    color: var(--color-primary);
+  }
+  .lumina-header nav a::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+    transform-origin: left;
+  }
+  .lumina-header nav a:hover::after {
+    transform: scaleX(1);
+  }
+  .lumina-header .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+  .lumina-header .icon-btn:hover { color: var(--color-primary); }
+  .lumina-header .cart-badge {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 10px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .lumina-header .header-search-input {
+    width: {{ hdr.search_input_width | default: 200 }}px;
+    padding: 0.6rem 2.8rem 0.6rem 1rem;
+    border-radius: 999px;
+    border: 1px solid {{ hdr.header_border_color | default: '#e5e5e5' }};
+    background: #f9f9f9;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s, width 0.3s;
+  }
+  .lumina-header .header-search-input:focus {
+    border-color: var(--color-primary);
+    background: #fff;
+  }
+  .lumina-announcement {
+    background: {{ hdr.announcement_bg | default: '#0a0a0a' }};
+    color: {{ hdr.announcement_text_color | default: '#ffffff' }};
+    text-align: center;
+    padding: 9px 20px;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .lumina-announcement a {
+    color: {{ hdr.announcement_text_color | default: '#ffffff' }};
+    text-decoration: none;
+    opacity: 0.85;
+  }
+  @media (max-width: 900px) {
+    .lumina-header .desktop-nav { display: none !important; }
+    .lumina-header .header-search-input { width: 140px; }
+    .lumina-header .mobile-toggle { display: flex !important; }
+  }
+  @media (min-width: 901px) {
+    .lumina-header .mobile-toggle { display: none !important; }
+  }
+</style>
+
+<div class="header-wrapper">
+  {% if hdr.announcement_bar_enabled %}
+    <div class="lumina-announcement">
+      {% if hdr.announcement_link != blank %}
+        <a href="{{ hdr.announcement_link }}">{{ hdr.announcement_text }}</a>
+      {% else %}
+        {{ hdr.announcement_text }}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <header class="lumina-header">
+    <div style="max-width: {{ hdr.header_max_width | default: 1600 }}px; margin: 0 auto; padding: {{ hdr.header_padding_y | default: 18 }}px 40px; display: flex; align-items: center; gap: 2rem;">
+
+      <!-- Logo -->
+      <div style="flex-shrink: 0;">
+        <a href="{{ routes.root_url }}" style="display: block; text-decoration: none;">
+          {%- assign _logo = hdr.logo | default: settings.logo -%}
+          {%- assign _logo_width = hdr.logo_height | default: settings.logo_width | default: 45 -%}
+          {% if _logo != blank %}
+            <img src="{{ _logo | image_url: width: 800 }}"
+                 alt="{{ shop.name | escape }}"
+                 style="height: {{ _logo_width }}px; width: auto; object-fit: contain; display: block;">
+          {% else %}
+            <span style="font-size: {{ hdr.logo_text_size | default: 22 }}px; font-weight: {{ hdr.logo_text_weight | default: '700' }}; color: {{ hdr.header_text_color | default: '#0a0a0a' }}; letter-spacing: 3px; text-transform: uppercase; text-decoration: none;">
+              {{ shop.name | escape }}
+            </span>
+          {% endif %}
+        </a>
+      </div>
+
+      <!-- Navegação Desktop -->
+      <nav class="desktop-nav" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: {{ hdr.nav_gap | default: 32 }}px;">
+        {% for link in linklists[hdr.main_menu].links %}
+          <a href="{{ link.url }}"
+             style="font-size: {{ hdr.nav_font_size | default: 14 }}px; font-weight: {{ hdr.nav_font_weight | default: '500' }}; {% if hdr.nav_uppercase %}text-transform: uppercase; letter-spacing: 1px;{% endif %} text-decoration: none; padding: 6px 0; position: relative;">
+            {{ link.title | escape }}
+          </a>
+        {% endfor %}
+        {% if hdr.show_blog_link %}
+          <a href="/blogs/news" style="font-size: {{ hdr.nav_font_size | default: 14 }}px; font-weight: {{ hdr.nav_font_weight | default: '500' }}; {% if hdr.nav_uppercase %}text-transform: uppercase; letter-spacing: 1px;{% endif %} text-decoration: none; padding: 6px 0; position: relative;">
+            Blog
+          </a>
+        {% endif %}
+        {% if hdr.show_all_collections_link %}
+          <a href="{{ routes.collections_url }}" style="font-size: {{ hdr.nav_font_size | default: 14 }}px; font-weight: {{ hdr.nav_font_weight | default: '500' }}; {% if hdr.nav_uppercase %}text-transform: uppercase; letter-spacing: 1px;{% endif %} text-decoration: none; padding: 6px 0; position: relative;">
+            Coleções
+          </a>
+        {% endif %}
+      </nav>
+
+      <!-- Ícones e ações -->
+      <div style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
+
+        {% if hdr.show_search %}
+          <form class="header__search" action="{{ routes.search_url }}" method="get" role="search"
+                data-enable-search-suggestions="{{ settings.enable_search_suggestions }}"
+                style="position: relative; display: flex; align-items: center;">
+            <input
+              type="search"
+              name="q"
+              class="header-search-input"
+              placeholder="{{ hdr.search_placeholder | default: 'Buscar produtos...' }}"
+              aria-label="Buscar"
+              autocomplete="off"
+            >
+            <button type="submit" class="icon-btn" aria-label="Buscar"
+                    style="position: absolute; right: 0.4rem; top: 50%; transform: translateY(-50%); padding: 2px;">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" style="width: 18px; height: 18px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </button>
+          </form>
+        {% endif %}
+
+        {% if hdr.show_account %}
+          <a href="{{ routes.account_url }}" class="icon-btn" aria-label="Minha Conta" style="text-decoration: none; position: relative;">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" style="width: {{ hdr.icon_size | default: 22 }}px; height: {{ hdr.icon_size | default: 22 }}px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+          </a>
+        {% endif %}
+
+        {% if hdr.show_wishlist %}
+          <a href="/pages/wishlist" class="icon-btn" aria-label="Lista de Desejos" style="text-decoration: none; position: relative;">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" style="width: {{ hdr.icon_size | default: 22 }}px; height: {{ hdr.icon_size | default: 22 }}px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </a>
+        {% endif %}
+
+        {% if hdr.show_cart %}
+          <a href="{{ routes.cart_url }}" class="icon-btn" aria-label="Carrinho" style="text-decoration: none; position: relative;">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" style="width: {{ hdr.icon_size | default: 22 }}px; height: {{ hdr.icon_size | default: 22 }}px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            {% if cart.item_count > 0 %}
+              <span class="cart-badge">{{ cart.item_count }}</span>
+            {% endif %}
+          </a>
+        {% endif %}
+
+        <button class="icon-btn mobile-toggle" data-mobile-menu-open aria-label="Menu"
+                style="display: none; padding: 6px;">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" style="width: 26px; height: 26px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  {% render 'mobile-menu', section: section %}
+</div>
+
+{% schema %}
+{
+  "name": "Header Lumina",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Barra de Anúncio"
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_bar_enabled",
+      "label": "Ativar Barra de Anúncio",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Texto do Anúncio",
+      "default": "Frete grátis acima de R$ 299 🎉"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Link do Anúncio"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg",
+      "label": "Cor de Fundo do Anúncio",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "label": "Cor do Texto do Anúncio",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo da Loja"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Altura do Logo",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "logo_text_size",
+      "label": "Tamanho do Nome (sem logo)",
+      "min": 14,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "select",
+      "id": "logo_text_weight",
+      "label": "Peso da Fonte do Nome",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Regular" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "900", "label": "Black" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "header",
+      "content": "Navegação"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Menu Principal",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_blog_link",
+      "label": "Mostrar link Blog",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_all_collections_link",
+      "label": "Mostrar link Coleções",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "nav_uppercase",
+      "label": "Menu em MAIÚSCULAS",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "label": "Tamanho da Fonte do Menu",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "nav_font_weight",
+      "label": "Peso da Fonte do Menu",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "range",
+      "id": "nav_gap",
+      "label": "Espaçamento entre links",
+      "min": 12,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Ícones e Ações"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Mostrar Campo de Busca",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Placeholder da Busca",
+      "default": "Buscar produtos..."
+    },
+    {
+      "type": "range",
+      "id": "search_input_width",
+      "label": "Largura do Campo de Busca",
+      "min": 120,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Mostrar Ícone de Conta",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Mostrar Ícone de Wishlist",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Mostrar Ícone de Carrinho",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Tamanho dos Ícones",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Estilo do Header"
+    },
+    {
+      "type": "color",
+      "id": "header_bg",
+      "label": "Cor de Fundo do Header",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Cor do Texto e Ícones",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "header_border_color",
+      "label": "Cor da Borda Inferior",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Header Fixo (Sticky)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "header_padding_y",
+      "label": "Espaçamento Vertical do Header",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "header_max_width",
+      "label": "Largura Máxima do Header",
+      "min": 960,
+      "max": 1920,
+      "step": 40,
+      "unit": "px",
+      "default": 1600
+    }
+  ]
+}
+{% endschema %}

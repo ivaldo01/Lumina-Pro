@@ -1,0 +1,186 @@
+<footer class="footer-{{ section.id }}" style="padding: 100px 40px 60px;">
+  <style>
+    .footer-{{ section.id }} {
+      background: {{ section.settings.footer_bg | default: '#0a0a0a' }};
+      color: {{ section.settings.footer_text | default: '#ffffff' }};
+    }
+    .footer-{{ section.id }} a {
+      color: {{ section.settings.footer_link | default: '#CCCCCC' }};
+      transition: color 0.3s ease;
+      text-decoration: none;
+    }
+    .footer-{{ section.id }} a:hover {
+      color: {{ section.settings.footer_link_hover | default: '#ffffff' }};
+    }
+    .footer-{{ section.id }} .footer-grid {
+      display: grid;
+      grid-template-columns: repeat({{ section.settings.footer_columns | default: 4 }}, minmax(0, 1fr));
+      gap: 60px;
+    }
+    @media (max-width: 900px) {
+      .footer-{{ section.id }} .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 560px) {
+      .footer-{{ section.id }} .footer-grid { grid-template-columns: 1fr; }
+    }
+    .footer-{{ section.id }} .footer-column h4 {
+      color: {{ section.settings.footer_title_color | default: '#ffffff' }};
+      font-size: 12px; font-weight: 400; margin-bottom: 24px;
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .footer-{{ section.id }} .footer-column p,
+    .footer-{{ section.id }} .footer-column li {
+      color: rgba(255,255,255,0.75); font-size: 13px; line-height: 1.9; font-weight: 300;
+    }
+    .footer-{{ section.id }} .footer-column ul { list-style: none; padding: 0; margin: 0; }
+    .footer-{{ section.id }} .footer-column li { margin-bottom: 12px; }
+    .footer-{{ section.id }} .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      margin-top: 70px;
+      padding-top: 32px;
+    }
+  </style>
+
+  <div style="max-width: 1600px; margin: 0 auto;">
+    <div class="footer-grid">
+      {%- comment -%} Blocos personalizados (opcional) {%- endcomment -%}
+      {% for block in section.blocks %}
+        <div class="footer-column" {{ block.shopify_attributes }}>
+          {% case block.type %}
+            {% when 'text' %}
+              <h4>{{ block.settings.title | escape }}</h4>
+              <div>{{ block.settings.text }}</div>
+            {% when 'link_list' %}
+              <h4>{{ block.settings.title | escape }}</h4>
+              <ul>
+                {% for link in linklists[block.settings.menu].links %}
+                  <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                {% endfor %}
+                {% if linklists[block.settings.menu].links == blank %}
+                  <li><a href="#">Link Exemplo 1</a></li>
+                  <li><a href="#">Link Exemplo 2</a></li>
+                {% endif %}
+              </ul>
+          {% endcase %}
+        </div>
+      {% endfor %}
+
+      {%- comment -%} Coluna de Contato — renderiza automaticamente se houver dados {%- endcomment -%}
+      {% assign has_contact = false %}
+      {% if section.settings.footer_contact_phone != blank or section.settings.footer_contact_email != blank or section.settings.footer_contact_address != blank or shop.phone != blank or shop.email != blank %}
+        {% assign has_contact = true %}
+      {% endif %}
+      {% if has_contact %}
+        <div class="footer-column">
+          <h4>Contato</h4>
+          <div>
+            {% if section.settings.footer_contact_phone != blank %}
+              <p>{{ section.settings.footer_contact_phone }}</p>
+            {% elsif shop.phone != blank %}
+              <p>{{ shop.phone }}</p>
+            {% endif %}
+            {% if section.settings.footer_contact_email != blank %}
+              <p><a href="mailto:{{ section.settings.footer_contact_email }}">{{ section.settings.footer_contact_email }}</a></p>
+            {% elsif shop.email != blank %}
+              <p><a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+            {% endif %}
+            {% if section.settings.footer_contact_address != blank %}
+              <p>{{ section.settings.footer_contact_address | newline_to_br }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {%- comment -%} Coluna de Redes Sociais — renderiza automaticamente {%- endcomment -%}
+      {% assign has_social = false %}
+      {% if section.settings.footer_social_facebook != blank or section.settings.footer_social_instagram != blank or section.settings.footer_social_twitter != blank or section.settings.footer_social_youtube != blank or section.settings.footer_social_tiktok != blank or section.settings.footer_social_whatsapp != blank %}
+        {% assign has_social = true %}
+      {% endif %}
+      {% if has_social %}
+        <div class="footer-column">
+          <h4>Siga-nos</h4>
+          <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+            {% if section.settings.footer_social_facebook != blank %}<a href="{{ section.settings.footer_social_facebook }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
+            {% if section.settings.footer_social_instagram != blank %}<a href="{{ section.settings.footer_social_instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+            {% if section.settings.footer_social_twitter != blank %}<a href="{{ section.settings.footer_social_twitter }}" target="_blank" rel="noopener">Twitter</a>{% endif %}
+            {% if section.settings.footer_social_youtube != blank %}<a href="{{ section.settings.footer_social_youtube }}" target="_blank" rel="noopener">YouTube</a>{% endif %}
+            {% if section.settings.footer_social_tiktok != blank %}<a href="{{ section.settings.footer_social_tiktok }}" target="_blank" rel="noopener">TikTok</a>{% endif %}
+            {% if section.settings.footer_social_whatsapp != blank %}<a href="{{ section.settings.footer_social_whatsapp }}" target="_blank" rel="noopener">WhatsApp</a>{% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if section.blocks.size == 0 and has_contact == false and has_social == false %}
+        <div class="footer-column">
+          <h4>{{ shop.name }}</h4>
+          <p>Preencha as configurações do rodapé ou adicione blocos no editor de temas.</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="footer-bottom" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; color: rgba(255,255,255,0.5); font-size: 12px; font-weight: 300; letter-spacing: 1px;">
+      <p>{{ section.settings.footer_copyright | default: '© 2026 Lumina Commerce. Todos os direitos reservados.' }}</p>
+      {% if section.settings.show_payment_icons %}
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 13px;">
+          <span>Visa</span><span>Mastercard</span><span>PayPal</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer Lumina",
+  "settings": [
+    { "type": "select", "id": "footer_columns", "label": "Número de Colunas",
+      "options": [
+        { "value": "2", "label": "2 Colunas" },
+        { "value": "3", "label": "3 Colunas" },
+        { "value": "4", "label": "4 Colunas" }
+      ], "default": "4" },
+    { "type": "color", "id": "footer_bg", "label": "Cor de Fundo do Footer", "default": "#0a0a0a" },
+    { "type": "color", "id": "footer_text", "label": "Cor do Texto do Footer", "default": "#ffffff" },
+    { "type": "color", "id": "footer_link", "label": "Cor dos Links do Footer", "default": "#cccccc" },
+    { "type": "color", "id": "footer_link_hover", "label": "Cor dos Links - Hover", "default": "#ffffff" },
+    { "type": "text", "id": "footer_contact_phone", "label": "Telefone do Rodapé", "default": "+55 (11) 99999-9999" },
+    { "type": "text", "id": "footer_contact_email", "label": "E-mail do Rodapé", "default": "contato@loja.com" },
+    { "type": "textarea", "id": "footer_contact_address", "label": "Endereço do Rodapé", "default": "Rua Exemplo, 123 - São Paulo, SP" },
+    { "type": "url", "id": "footer_social_facebook", "label": "Facebook" },
+    { "type": "url", "id": "footer_social_instagram", "label": "Instagram" },
+    { "type": "url", "id": "footer_social_twitter", "label": "Twitter" },
+    { "type": "url", "id": "footer_social_youtube", "label": "YouTube" },
+    { "type": "url", "id": "footer_social_tiktok", "label": "TikTok" },
+    { "type": "url", "id": "footer_social_whatsapp", "label": "WhatsApp" },
+    { "type": "textarea", "id": "footer_copyright", "label": "Texto de Copyright", "default": "© 2026 Lumina Commerce. Todos os direitos reservados." },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Mostrar ícones de pagamento", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "link_list", "name": "Menu de Links",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título da Coluna", "default": "Links Rápidos" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    },
+    {
+      "type": "text", "name": "Texto / Sobre",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título da Coluna", "default": "Sobre a Loja" },
+        { "type": "richtext", "id": "text", "label": "Conteúdo", "default": "<p>Insira detalhes sobre sua loja aqui.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Lumina",
+      "category": "Footer",
+      "blocks": [
+        { "type": "text", "settings": { "title": "Sobre a Loja", "text": "<p>Insira detalhes sobre sua loja aqui.</p>" } },
+        { "type": "link_list", "settings": { "title": "Links Rápidos", "menu": "main-menu" } },
+        { "type": "link_list", "settings": { "title": "Políticas", "menu": "policies" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

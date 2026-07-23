@@ -1,0 +1,11 @@
+Copyright (c) 2026 Ivaldo Silva
+
+Este documento serve como prova de autoria e propriedade do tema Shopify denominado "Lumina Commerce", desenvolvido sob medida.
+
+O proprietário deste tema possui direitos integrais e exclusivos para:
+1. Utilizar, modificar e adaptar o código-fonte em suas próprias lojas Shopify.
+2. Distribuir e comercializar os produtos através do uso desta interface.
+
+Este tema foi construído do zero, sendo um trabalho original e livre de royalties de terceiros, garantindo ao proprietário total segurança contra reivindicações de direitos autorais referentes ao código estrutural do template.
+
+O código-fonte e o design são de propriedade total e irrevogável do titular da loja.

@@ -1,0 +1,15 @@
+<div id="search-suggestions" class="search-suggestions" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid var(--color-border); border-radius: 0 0 var(--radius-sm) var(--radius-sm); box-shadow: var(--shadow-hover); z-index: 1000; max-height: 400px; overflow-y: auto;">
+  <div class="search-suggestions__loading" style="padding: 1rem; text-align: center; color: #666; display: none;">
+    {{ 'general.loading' | t }}...
+  </div>
+  
+  <div class="search-suggestions__results" style="padding: 0.5rem 0;">
+    <!-- Results will be injected here via JS -->
+  </div>
+  
+  <div class="search-suggestions__footer" style="padding: 0.75rem; border-top: 1px solid var(--color-border); text-align: center;">
+    <a href="{{ routes.search_url }}" class="search-suggestions__view-all" style="color: var(--color-primary); text-decoration: none; font-weight: 600;">
+      {{ 'search.view_all_results' | t }}
+    </a>
+  </div>
+</div>

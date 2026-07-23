@@ -1,0 +1,23 @@
+# Shopify
+/shopify/
+/theme/
+/.theme-cache
+/.sl
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Dependencies
+node_modules/
+package-lock.json

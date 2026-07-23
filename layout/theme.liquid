@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="{{ canonical_url }}">
+    
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ page_title | escape }}">
+    <meta property="og:type" content="{% if template contains 'product' %}product{% elsif template contains 'article' %}article{% else %}website{% endif %}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    {% if template contains 'product' %}
+      <meta property="og:image" content="{{ product.featured_image | img_url: 'master' }}">
+      <meta property="og:description" content="{{ product.description | strip_html | truncate: 160 | escape }}">
+      <meta property="product:price:amount" content="{{ product.price | money_without_currency }}">
+      <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
+    {% elsif template contains 'article' %}
+      <meta property="og:image" content="{{ article.image | img_url: 'master' }}">
+      <meta property="og:description" content="{{ article.excerpt | strip_html | truncate: 160 | escape }}">
+    {% else %}
+      <meta property="og:image" content="{{ 'logo.png' | asset_url }}">
+      <meta property="og:description" content="{{ shop.description | default: page_description | escape }}">
+    {% endif %}
+    <meta property="og:site_name" content="{{ shop.name | escape }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title | escape }}">
+    <meta name="twitter:description" content="{{ page_description | default: shop.description | escape }}">
+
+    <!-- Fontes Dinâmicas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family={{ settings.font_family_body }}:wght@300;400;500;600;700&family={{ settings.font_family_heading }}:wght@400;500;600;700;800;900&family={{ settings.font_family_button }}:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Injeção Dinâmica de Variáveis de Tema -->
+    <style>
+      :root {
+        /* Cores Principais */
+        --color-primary: {{ settings.color_primary }};
+        --color-primary-hover: {{ settings.color_primary_hover }};
+        --color-secondary: {{ settings.color_secondary }};
+        --color-accent: {{ settings.color_accent }};
+        --color-accent-hover: {{ settings.color_accent_hover }};
+        
+        /* Fundo e Superfícies */
+        --color-background: {{ settings.color_background }};
+        --color-surface: {{ settings.color_surface }};
+        --color-surface-alt: {{ settings.color_surface_alt }};
+        
+        /* Texto e Tipografia */
+        --color-text: {{ settings.color_text }};
+        --color-text-secondary: {{ settings.color_text_secondary }};
+        --color-text-light: {{ settings.color_text_light }};
+        --color-heading: {{ settings.color_heading }};
+        --color-link: {{ settings.color_link }};
+        --color-link-hover: {{ settings.color_link_hover }};
+        
+        /* Bordas e Divisores */
+        --color-border: {{ settings.color_border }};
+        --color-border-light: {{ settings.color_border_light }};
+        --color-divider: {{ settings.color_divider }};
+        
+        /* Preços */
+        --color-price: {{ settings.color_price }};
+        --color-price-compare: {{ settings.color_price_compare }};
+        --color-price-sale: {{ settings.color_price_sale }};
+        
+        /* Estados de Feedback */
+        --color-success: {{ settings.color_success }};
+        --color-warning: {{ settings.color_warning }};
+        --color-error: {{ settings.color_error }};
+        --color-info: {{ settings.color_info }};
+        
+        /* Tipografia */
+        --font-body: '{{ settings.font_family_body }}', sans-serif;
+        --font-heading: '{{ settings.font_family_heading }}', sans-serif;
+        --font-button: '{{ settings.font_family_button }}', sans-serif;
+        
+        /* Tamanhos de Fonte */
+        --font-size-base: {{ settings.font_size_base }}px;
+        --font-size-h1: {{ settings.font_size_h1 }}px;
+        --font-size-h2: {{ settings.font_size_h2 }}px;
+        --font-size-h3: {{ settings.font_size_h3 }}px;
+        --font-size-h4: {{ settings.font_size_h4 }}px;
+        --font-size-h5: {{ settings.font_size_h5 }}px;
+        --font-size-h6: {{ settings.font_size_h6 }}px;
+        --font-size-small: {{ settings.font_size_small }}px;
+        
+        /* Pesos de Fonte */
+        --font-weight-body: {{ settings.font_weight_body }};
+        --font-weight-heading: {{ settings.font_weight_heading }};
+        
+        /* Line Height e Letter Spacing */
+        --line-height-body: {{ settings.line_height_body }};
+        --line-height-heading: {{ settings.line_height_heading }};
+        --letter-spacing-body: {{ settings.letter_spacing_body }}em;
+        --letter-spacing-heading: {{ settings.letter_spacing_heading }}em;
+        
+        /* Layout e Espaçamento */
+        --container-width: {{ settings.page_width }}px;
+        --container-padding: {{ settings.container_padding }}px;
+        --spacing-xs: {{ settings.spacing_xs }}px;
+        --spacing-sm: {{ settings.spacing_sm }}px;
+        --spacing-md: {{ settings.spacing_md }}px;
+        --spacing-lg: {{ settings.spacing_lg }}px;
+        --spacing-xl: {{ settings.spacing_xl }}px;
+        
+        /* Bordas e Sombras */
+        --border-radius-sm: {{ settings.border_radius_sm }}px;
+        --border-radius-md: {{ settings.border_radius_md }}px;
+        --border-radius-lg: {{ settings.border_radius_lg }}px;
+        --border-radius-full: {{ settings.border_radius_full }}px;
+        
+        /* Estilo de Sombra */
+        {% case settings.shadow_style %}
+          {% when 'none' %}
+            --shadow-card: none;
+            --shadow-hover: none;
+          {% when 'subtle' %}
+            --shadow-card: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-hover: 0 4px 8px rgba(0,0,0,0.1);
+          {% when 'medium' %}
+            --shadow-card: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-hover: 0 8px 12px rgba(0,0,0,0.12);
+          {% when 'strong' %}
+            --shadow-card: 0 8px 16px rgba(0,0,0,0.1);
+            --shadow-hover: 0 12px 24px rgba(0,0,0,0.15);
+          {% when 'dramatic' %}
+            --shadow-card: 0 16px 32px rgba(0,0,0,0.15);
+            --shadow-hover: 0 24px 48px rgba(0,0,0,0.2);
+        {% endcase %}
+      }
+    </style>
+
+    <!-- CSS e JS -->
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'security.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'mobile-menu.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'product.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'search.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
+
+    <!-- Structured Data for SEO -->
+    {% render 'structured-data' %}
+
+    <!-- Custom CSS -->
+    {% if settings.custom_css != blank %}
+      <style>{{ settings.custom_css }}</style>
+    {% endif %}
+
+    {{ content_for_header }}
+  </head>
+  <body class="template-{{ template.name | handle }} protected-content">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      Skip to content
+    </a>
+
+    {% section 'header' %}
+
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+  </body>
+</html>

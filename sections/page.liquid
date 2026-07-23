@@ -1,0 +1,14 @@
+<section class="page-content" style="max-width: var(--container-width); margin: var(--spacing-lg) auto; padding: 0 var(--spacing-sm);">
+  <h1 class="section-title">{{ page.title | escape }}</h1>
+  
+  <div class="page-content__body" style="line-height: 1.8; color: var(--color-text-primary);">
+    {{ page.content }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Página Padrão",
+  "settings": []
+}
+{% endschema %}

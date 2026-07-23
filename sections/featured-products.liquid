@@ -1,0 +1,254 @@
+<section style="background: #fafafa; padding: 80px 40px;">
+  
+  <h2 style="font-size: 14px; font-weight: 400; color: #0a0a0a; text-align: center; margin-bottom: 60px; letter-spacing: 4px; text-transform: uppercase;">
+    {{ section.settings.title }}
+  </h2>
+
+  <!-- Custom CSS for Grid Columns -->
+  <style>
+    .product-grid-{{ section.id }} {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
+    }
+    @media (min-width: 768px) {
+      .product-grid-{{ section.id }} {
+        grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+      }
+    }
+    .product-card-{{ section.id }} {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card-{{ section.id }}:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .product-card-{{ section.id }} img {
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card-{{ section.id }}:hover img {
+      transform: scale(1.05);
+    }
+  </style>
+
+  <div class="product-grid product-grid-{{ section.id }}" style="max-width: 1600px; margin: 0 auto; display: grid; gap: 40px;">
+    {% assign collection = collections[section.settings.collection] %}
+    
+    {% if collection != blank and collection.products_count > 0 %}
+      {% for product in collection.products limit: section.settings.limit %}
+        <div class="product-card-{{ section.id }}" style="background: #fff; border: 1px solid #f0f0f0; border-radius: 0; overflow: hidden; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+          
+          <!-- Wishlist Button -->
+          <div style="position: absolute; top: 20px; right: 20px; z-index: 3; opacity: 1; transition: opacity 0.3s;">
+            {% render 'wishlist-button', product: product %}
+          </div>
+          
+          <a href="{{ product.url }}" style="display: block; text-decoration: none; color: inherit;">
+            <div style="position: relative; overflow: hidden; background: #fff;">
+              <img src="{{ product.featured_image | img_url: '800x' }}" 
+                   alt="{{ product.title | escape }}"
+                   loading="lazy"
+                   style="width: 100%; aspect-ratio: 3/4; object-fit: cover;">
+            </div>
+            
+            <div style="padding: 30px 25px;">
+              <h3 style="font-size: 13px; font-weight: 400; color: #0a0a0a; margin-bottom: 15px; line-height: 1.6; letter-spacing: 0.5px; min-height: 42px;">{{ product.title | escape }}</h3>
+              
+              <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 0.75rem;">
+                {% if section.settings.show_badge and product.compare_at_price > product.price %}
+                  <span style="font-size: 11px; color: #fff; background: {{ section.settings.badge_color }}; padding: 0.35rem 0.75rem; border-radius: 999px; letter-spacing: 0.08em; font-weight: 700;">{{ section.settings.badge_text }}</span>
+                {% endif %}
+              </div>
+
+              <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 1rem;">
+                {% if product.compare_at_price > product.price %}
+                  <span style="font-size: 12px; color: #9CA3AF; text-decoration: line-through; font-weight: 400;">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+                <span style="font-size: 18px; font-weight: 600; color: #0a0a0a;">{{ product.price | money }}</span>
+              </div>
+
+              {% if section.settings.show_pix_text %}
+              <p style="font-size: 0.8rem; color: #6B7280; margin-bottom: 1rem;">{{ section.settings.pix_text }}</p>
+              {% endif %}
+            </div>
+          </a>
+
+          {% if section.settings.show_buy_button %}
+          <form action="/cart/add" method="post" enctype="multipart/form-data" style="padding: 0 25px 30px;">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <button type="submit" style="width: 100%; background: {{ section.settings.button_color }}; color: #fff; border: none; padding: 16px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border-radius: 999px; transition: background 0.3s;">{{ section.settings.button_label }}</button>
+          </form>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <!-- Placeholder Products -->
+      {% for i in (1..section.settings.limit) %}
+        <div class="product-card-{{ section.id }}" style="background: #fff; border: 1px solid #f0f0f0; border-radius: 0; overflow: hidden; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+          <a href="#" style="display: block; text-decoration: none; color: inherit;">
+            <div style="position: relative; overflow: hidden; background: #fff;">
+              <img src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=800&auto=format&fit=crop" 
+                   alt="Placeholder" loading="lazy"
+                   style="width: 100%; aspect-ratio: 3/4; object-fit: cover;">
+            </div>
+            
+            <div style="padding: 30px 25px;">
+              <h3 style="font-size: 13px; font-weight: 400; color: #0a0a0a; margin-bottom: 15px; line-height: 1.6; letter-spacing: 0.5px; min-height: 42px;">Produto de Exemplo {{ i }}</h3>
+              
+              <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px;">
+                <span style="font-size: 12px; color: #999; text-decoration: line-through; font-weight: 400;">R$ 299,90</span>
+                <span style="font-size: 18px; font-weight: 300; color: #0a0a0a;">R$ 149,90</span>
+              </div>
+              
+              {% if section.settings.show_buy_button %}
+              <button style="width: 100%; background: #0a0a0a; color: #fff; border: none; padding: 18px; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.3s;">
+                Adicionar ao Carrinho
+              </button>
+              {% endif %}
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vitrine Customizável",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "PRODUTOS EM DESTAQUE"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Alinhamento do Título",
+      "options": [
+        { "value": "flex-start", "label": "Esquerda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "flex-end", "label": "Direita" }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Mostrar Ícone no Título",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Cor do Ícone",
+      "default": "#FF6500"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção para exibir"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "min": 4,
+      "max": 20,
+      "step": 4,
+      "label": "Quantidade de Produtos",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Colunas no Computador",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Colunas no Celular",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Configurações do Produto"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Mostrar Selo de Oferta",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Texto do Selo",
+      "default": "OFERTA"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Cor do Selo",
+      "default": "#FF6500"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pix_text",
+      "label": "Mostrar Subtexto (ex: PIX)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "pix_text",
+      "label": "Subtexto de Preço",
+      "default": "À vista no PIX"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_buy_button",
+      "label": "Mostrar Botão Comprar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto do Botão",
+      "default": "COMPRAR 🛒"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Cor do Botão Comprar",
+      "default": "#FF6500"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Cor de Fundo da Seção",
+      "default": "transparent"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "label": "Espaçamento Vertical (px)",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vitrine Lumina",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,59 @@
+<section class="error-page" style="max-width: 600px; margin: 4rem auto; padding: 3rem 2rem; text-align: center; background: #fff; border-radius: var(--radius-md); border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
+  <div class="error-page__icon" style="margin-bottom: 2rem;">
+    <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1" style="opacity: 0.3;">
+      <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 8v4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 16h.01" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  
+  <h1 class="error-page__title" style="font-size: 3rem; font-weight: 900; color: var(--color-primary); margin-bottom: 1rem;">404</h1>
+  
+  <h2 class="error-page__subtitle" style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">{{ '404.title' | t }}</h2>
+  
+  <p class="error-page__message" style="color: #666; line-height: 1.6; margin-bottom: 2rem;">{{ '404.message' | t }}</p>
+  
+  <div class="error-page__actions" style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+    <a href="{{ routes.root_url }}" class="button" style="width: auto; padding: 1rem 2rem;">
+      {{ '404.back_home' | t }}
+    </a>
+    
+    <a href="/collections/all" style="color: var(--color-primary); text-decoration: underline;">
+      {{ 'collections.view_all' | t }}
+    </a>
+  </div>
+  
+  <div class="error-page__search" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-border);">
+    <form action="{{ routes.search_url }}" method="get" style="display: flex; gap: 0.5rem; max-width: 400px; margin: 0 auto;">
+      <input 
+        type="text" 
+        name="q" 
+        placeholder="{{ 'general.search_placeholder' | default: 'Buscar produtos...' }}" 
+        style="flex: 1; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm);"
+      >
+      <button type="submit" class="button" style="width: auto; padding: 0.75rem 1.5rem;">
+        {{ 'general.search' | t }}
+      </button>
+    </form>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Página 404",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título Personalizado",
+      "default": "Página Não Encontrada"
+    },
+    {
+      "type": "textarea",
+      "id": "message",
+      "label": "Mensagem Personalizada",
+      "default": "Desculpe, a página que você está procurando não existe ou foi movida."
+    }
+  ]
+}
+{% endschema %}

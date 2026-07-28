@@ -92,11 +92,11 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Testar cartão recusado.
 - [x] Testar erro do gateway de cartão.
 - [ ] Testar parcelamento exibido pelo provedor.
-- [ ] Realizar pedido completo usando modo de teste.
-- [ ] Confirmar página de agradecimento.
-- [ ] Confirmar criação do pedido no Admin.
-- [ ] Confirmar baixa ou atualização de estoque.
-- [ ] Confirmar cancelamento e reembolso de teste.
+- [x] Realizar pedido completo usando modo de teste.
+- [x] Confirmar página de agradecimento.
+- [x] Confirmar criação do pedido no Admin.
+- [x] Confirmar baixa ou atualização de estoque.
+- [x] Confirmar cancelamento e reembolso de teste.
 
 ## 6. Contas de clientes
 
@@ -116,7 +116,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 - [ ] Verificar domínio do remetente.
 - [ ] Personalizar os modelos de notificação da Shopify.
-- [ ] Testar confirmação de pedido.
+- [x] Testar confirmação de pedido.
 - [ ] Testar confirmação de pagamento.
 - [ ] Testar pedido enviado e código de rastreamento.
 - [ ] Testar cancelamento e reembolso.

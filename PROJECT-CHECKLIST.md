@@ -49,15 +49,15 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Menus do rodapé selecionados.
 - [x] Conteúdo “Quem Somos” incluído.
 - [x] Rodapé configurado para usar nome, descrição, contato e endereço da Shopify.
-- [ ] Confirmar telefone oficial no Admin da Shopify.
-- [ ] Confirmar e-mail remetente e e-mail de atendimento.
-- [ ] Confirmar endereço comercial que poderá ser exibido publicamente.
-- [ ] Preencher links oficiais de Instagram, Facebook, TikTok, YouTube e WhatsApp.
-- [ ] Conferir todos os menus do cabeçalho e do rodapé.
-- [ ] Publicar e revisar os posts do blog.
-- [ ] Revisar textos, ortografia e chamadas de todas as seções.
-- [ ] Remover todos os endereços, telefones e textos demonstrativos restantes.
-- [ ] Conferir moeda, idioma e mercados atendidos.
+- [x] Confirmar telefone oficial no Admin da Shopify.
+- [x] Confirmar e-mail remetente e e-mail de atendimento.
+- [x] Confirmar endereço comercial que poderá ser exibido publicamente.
+- [x] Preencher links oficiais de Instagram, Facebook, TikTok, YouTube e WhatsApp.
+- [x] Conferir todos os menus do cabeçalho e do rodapé.
+- [x] Publicar e revisar os posts do blog.
+- [x] Revisar textos, ortografia e chamadas de todas as seções.
+- [x] Remover todos os endereços, telefones e textos demonstrativos restantes.
+- [x] Conferir moeda, idioma e mercados atendidos.
 
 ## 4. Catálogo e conteúdo
 

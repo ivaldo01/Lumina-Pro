@@ -138,15 +138,15 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Política de reporte de vulnerabilidades documentada.
 - [x] Revisar todos os aplicativos e embeds instalados.
 - [x] Desativar aplicativos, pixels e scripts sem uso.
-- [ ] Revisar as permissões concedidas aos aplicativos mantidos.
+- [x] Revisar as permissões concedidas aos aplicativos mantidos.
 - [x] Manter apenas uma fonte de JSON-LD/SEO e desativar embeds duplicados.
 - [x] Desativar o embed externo do Google Analytics até haver configuração validada de consentimento.
 - [x] Desativar o popup de e-mail sem modo LGPD.
-- [ ] Ativar autenticação em dois fatores para proprietário e equipe.
-- [ ] Revisar contas de equipe e acessos de colaboradores.
+- [x] Ativar autenticação em dois fatores para proprietário e equipe.
+- [x] Revisar contas de equipe e acessos de colaboradores.
 - [x] Confirmar que nenhum segredo ou token está no repositório.
 - [x] Configurar domínio e HTTPS definitivos.
-- [ ] Confirmar DNS definitivo e registros de e-mail.
+- [x] Confirmar DNS definitivo e registros de autenticação do e-mail.
 - [ ] Definir rotina de backup e recuperação.
 - [ ] Definir plano de resposta a incidentes.
 

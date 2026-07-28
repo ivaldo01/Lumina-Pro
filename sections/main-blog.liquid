@@ -20,7 +20,12 @@
             <a class="article-card__media" href="{{ article.url }}">{% if article.image %}{{ article.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900' }}{% endif %}</a>
             <div class="article-card__body"><p class="article-card__meta">{{ article.published_at | date: format: 'date' }} · {{ article.author | escape }}</p><a href="{{ article.url }}"><h2>{{ article.title | escape }}</h2></a><p>{{ article.excerpt_or_content | strip_html | truncatewords: 24 }}</p></div>
           </article>
-        {% else %}<p>Nenhum artigo publicado.</p>{% endfor %}
+        {% else %}
+          <div class="article-card__body">
+            <h2>Nenhum artigo publicado</h2>
+            <p>Publique o primeiro artigo deste blog no painel da Shopify para que ele apareça aqui.</p>
+          </div>
+        {% endfor %}
       </div>
       {% if paginate.pages > 1 %}<nav class="blog-main__pagination" aria-label="Paginação do blog">{{ paginate | default_pagination }}</nav>{% endif %}
     {% endpaginate %}

@@ -143,9 +143,9 @@
             {{ link.title | escape }}
           </a>
         {% endfor %}
-        {% if hdr.show_blog_link %}
-          <a href="/blogs/news" style="font-size: {{ hdr.nav_font_size | default: 14 }}px; font-weight: {{ hdr.nav_font_weight | default: '500' }}; {% if hdr.nav_uppercase %}text-transform: uppercase; letter-spacing: 1px;{% endif %} text-decoration: none; padding: 6px 0; position: relative;">
-            Blog
+        {% if hdr.show_blog_link and hdr.featured_blog != blank %}
+          <a href="{{ hdr.featured_blog.url }}" style="font-size: {{ hdr.nav_font_size | default: 14 }}px; font-weight: {{ hdr.nav_font_weight | default: '500' }}; {% if hdr.nav_uppercase %}text-transform: uppercase; letter-spacing: 1px;{% endif %} text-decoration: none; padding: 6px 0; position: relative;">
+            {{ hdr.blog_link_label | default: hdr.featured_blog.title | escape }}
           </a>
         {% endif %}
         {% if hdr.show_all_collections_link %}
@@ -365,6 +365,17 @@
       "id": "show_blog_link",
       "label": "Mostrar link Blog",
       "default": false
+    },
+    {
+      "type": "blog",
+      "id": "featured_blog",
+      "label": "Blog para abrir"
+    },
+    {
+      "type": "text",
+      "id": "blog_link_label",
+      "label": "Texto do link do blog",
+      "default": "Blog"
     },
     {
       "type": "checkbox",

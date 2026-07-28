@@ -63,17 +63,17 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 - [x] Revisar títulos de todos os produtos.
 - [x] Revisar descrições e especificações.
-- [ ] Revisar fornecedores exibidos nos cards.
+- [x] Revisar fornecedores exibidos nos cards.
 - [x] Revisar preços, preços comparativos e descontos.
 - [x] Revisar variantes e combinações indisponíveis.
 - [x] Revisar estoque e política de continuar vendendo sem estoque.
 - [x] Revisar qualidade, proporção e enquadramento das imagens.
 - [x] Adicionar texto alternativo às imagens importantes.
 - [x] Testar produto disponível, esgotado, com desconto e sem desconto.
-- [ ] Testar produto com uma imagem e com várias imagens.
-- [ ] Testar produto com uma variante e com várias variantes.
-- [ ] Testar coleção vazia, pequena e paginada.
-- [ ] Confirmar que não há avaliações ou alegações fictícias.
+- [x] Testar produto com uma imagem e com várias imagens.
+- [x] Testar produto com uma variante e com várias variantes.
+- [x] Testar coleção vazia, pequena e paginada.
+- [x] Confirmar que não há avaliações ou alegações fictícias.
 
 ## 5. Fluxo de compra
 

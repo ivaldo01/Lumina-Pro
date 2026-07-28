@@ -136,8 +136,9 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Opções de aceitar, rejeitar e personalizar consentimento.
 - [x] Revogação disponível pelo rodapé.
 - [x] Política de reporte de vulnerabilidades documentada.
-- [ ] Revisar todos os aplicativos instalados e suas permissões.
-- [ ] Remover aplicativos, pixels e scripts sem uso.
+- [x] Revisar todos os aplicativos e embeds instalados.
+- [x] Desativar aplicativos, pixels e scripts sem uso.
+- [ ] Revisar as permissões concedidas aos aplicativos mantidos.
 - [x] Manter apenas uma fonte de JSON-LD/SEO e desativar embeds duplicados.
 - [x] Desativar o embed externo do Google Analytics até haver configuração validada de consentimento.
 - [x] Desativar o popup de e-mail sem modo LGPD.

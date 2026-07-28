@@ -44,6 +44,17 @@
   }
 {% endstyle %}
 
+{% liquid
+  assign footer_phone = section.settings.footer_contact_phone
+  assign footer_email = section.settings.footer_contact_email
+  assign footer_address = section.settings.footer_contact_address
+  if section.settings.use_shop_contact_info
+    assign footer_phone = shop.phone
+    assign footer_email = shop.email
+  endif
+  assign footer_phone_url = footer_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+%}
+
 <footer class="footer-pro-{{ section.id }}">
   <div class="footer-pro__inner">
     {% if section.settings.show_trust_strip %}
@@ -71,7 +82,11 @@
     <div class="footer-pro__grid">
       <div class="footer-pro__brand">
         {% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 500 | image_tag: class: 'footer-pro__logo', loading: 'lazy' }}{% else %}<h2 class="footer-pro__brand-name">{{ shop.name | escape }}</h2>{% endif %}
-        {% if section.settings.brand_text != blank %}<div class="footer-pro__brand-text">{{ section.settings.brand_text }}</div>{% endif %}
+        {% if section.settings.use_shop_description and shop.description != blank %}
+          <div class="footer-pro__brand-text"><p>{{ shop.description | escape }}</p></div>
+        {% elsif section.settings.brand_text != blank %}
+          <div class="footer-pro__brand-text">{{ section.settings.brand_text }}</div>
+        {% endif %}
         <div class="footer-pro__socials">
           {% if section.settings.footer_social_instagram != blank %}<a class="footer-pro__social" href="{{ section.settings.footer_social_instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
           {% if section.settings.footer_social_facebook != blank %}<a class="footer-pro__social" href="{{ section.settings.footer_social_facebook }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
@@ -96,15 +111,19 @@
       <div class="footer-pro__column">
         <h3>Fale conosco</h3>
         <div class="footer-pro__contact-list">
-          {% if section.settings.footer_contact_phone != blank %}<div class="footer-pro__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.7 19.7 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:{{ section.settings.footer_contact_phone | remove: ' ' }}">{{ section.settings.footer_contact_phone | escape }}</a></div>{% endif %}
-          {% if section.settings.footer_contact_email != blank %}<div class="footer-pro__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:{{ section.settings.footer_contact_email }}">{{ section.settings.footer_contact_email | escape }}</a></div>{% endif %}
-          {% if section.settings.footer_contact_address != blank %}<div class="footer-pro__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><p>{{ section.settings.footer_contact_address | newline_to_br }}</p></div>{% endif %}
+          {% if footer_phone != blank %}<div class="footer-pro__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.7 19.7 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:{{ footer_phone_url }}">{{ footer_phone | escape }}</a></div>{% endif %}
+          {% if footer_email != blank %}<div class="footer-pro__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:{{ footer_email | escape }}">{{ footer_email | escape }}</a></div>{% endif %}
+          {% if section.settings.use_shop_contact_info and shop.address != blank %}
+            <div class="footer-pro__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><div>{{ shop.address | format_address }}</div></div>
+          {% elsif footer_address != blank %}
+            <div class="footer-pro__contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.5"/></svg><p>{{ footer_address | escape | newline_to_br }}</p></div>
+          {% endif %}
         </div>
       </div>
     </div>
 
     <div class="footer-pro__bottom">
-      <div><p>{{ section.settings.footer_copyright | default: '© 2026 Lumina Commerce. Todos os direitos reservados.' }}</p><button type="button" class="footer-pro__privacy-link" data-privacy-open>Preferências de privacidade</button></div>
+      <div><p>{% if section.settings.use_dynamic_copyright or section.settings.footer_copyright == blank %}© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}. Todos os direitos reservados.{% else %}{{ section.settings.footer_copyright | escape }}{% endif %}</p><button type="button" class="footer-pro__privacy-link" data-privacy-open>Preferências de privacidade</button></div>
       {% if section.settings.show_payment_icons %}
         <div class="footer-pro__payments" aria-label="Formas de pagamento">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag: class: 'payment-icon' }}{% else %}<span>Pagamento seguro</span>{% endfor %}</div>
       {% endif %}
@@ -120,6 +139,7 @@
     { "type": "header", "content": "Marca" },
     { "type": "image_picker", "id": "logo", "label": "Logo do rodapé" },
     { "type": "range", "id": "logo_width", "min": 80, "max": 280, "step": 10, "unit": "px", "label": "Largura da logo", "default": 180 },
+    { "type": "checkbox", "id": "use_shop_description", "label": "Usar descrição cadastrada na Shopify", "default": true },
     { "type": "richtext", "id": "brand_text", "label": "Descrição da loja", "default": "<p>Produtos selecionados para surpreender, facilitar sua rotina e transformar cada compra em uma ótima experiência.</p>" },
     { "type": "header", "content": "Newsletter" },
     { "type": "checkbox", "id": "show_newsletter", "label": "Mostrar newsletter", "default": true },
@@ -131,9 +151,11 @@
     { "type": "header", "content": "Confiança" },
     { "type": "checkbox", "id": "show_trust_strip", "label": "Mostrar faixa de benefícios", "default": true },
     { "type": "header", "content": "Contato" },
-    { "type": "text", "id": "footer_contact_phone", "label": "Telefone", "default": "+55 (11) 99999-9999" },
-    { "type": "text", "id": "footer_contact_email", "label": "E-mail", "default": "contato@loja.com" },
-    { "type": "textarea", "id": "footer_contact_address", "label": "Endereço", "default": "Rua Exemplo, 123 - São Paulo, SP" },
+    { "type": "checkbox", "id": "use_shop_contact_info", "label": "Usar dados cadastrados na Shopify", "default": true },
+    { "type": "paragraph", "content": "Quando ativado, usa telefone, e-mail e endereço de Configurações > Informações da loja. Desative para preencher manualmente abaixo." },
+    { "type": "text", "id": "footer_contact_phone", "label": "Telefone manual" },
+    { "type": "text", "id": "footer_contact_email", "label": "E-mail manual" },
+    { "type": "textarea", "id": "footer_contact_address", "label": "Endereço manual" },
     { "type": "header", "content": "Redes sociais" },
     { "type": "url", "id": "footer_social_facebook", "label": "Facebook" },
     { "type": "url", "id": "footer_social_instagram", "label": "Instagram" },
@@ -150,7 +172,8 @@
     { "type": "color", "id": "footer_link", "label": "Cor dos links", "default": "#aeb8c7" },
     { "type": "color", "id": "footer_link_hover", "label": "Links ao passar o mouse", "default": "#ffffff" },
     { "type": "color", "id": "accent", "label": "Cor de destaque", "default": "#135ee8" },
-    { "type": "textarea", "id": "footer_copyright", "label": "Copyright", "default": "© 2026 Lumina Commerce. Todos os direitos reservados." },
+    { "type": "checkbox", "id": "use_dynamic_copyright", "label": "Usar nome da loja e ano atual", "default": true },
+    { "type": "textarea", "id": "footer_copyright", "label": "Copyright personalizado", "info": "Desative a opção automática acima para usar este texto." },
     { "type": "checkbox", "id": "show_payment_icons", "label": "Mostrar meios de pagamento", "default": true },
     { "type": "checkbox", "id": "show_back_to_top", "label": "Mostrar botão voltar ao topo", "default": true }
   ],

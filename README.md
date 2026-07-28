@@ -70,7 +70,7 @@ Consulte [LGPD-CHECKLIST.md](LGPD-CHECKLIST.md).
 - Scripts e fontes do tema são servidos pela CDN da Shopify.
 - Checkout, autenticação, pagamentos e infraestrutura são controlados pela Shopify.
 
-Consulte [SECURITY.md](SECURITY.md) para limitações e reporte responsável.
+Consulte [SECURITY.md](SECURITY.md) para limitações e reporte responsável. Os procedimentos operacionais estão em [BACKUP-RECOVERY.md](BACKUP-RECOVERY.md) e [INCIDENT-RESPONSE.md](INCIDENT-RESPONSE.md).
 
 ## Metafields opcionais
 

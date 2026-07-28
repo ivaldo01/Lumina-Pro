@@ -147,8 +147,12 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Confirmar que nenhum segredo ou token está no repositório.
 - [x] Configurar domínio e HTTPS definitivos.
 - [x] Confirmar DNS definitivo e registros de autenticação do e-mail.
-- [ ] Definir rotina de backup e recuperação.
-- [ ] Definir plano de resposta a incidentes.
+- [x] Documentar a rotina de backup e recuperação em `BACKUP-RECOVERY.md`.
+- [ ] Executar o primeiro backup completo e registrar o resultado.
+- [ ] Executar um teste de recuperação em tema não publicado.
+- [x] Documentar o plano de resposta a incidentes em `INCIDENT-RESPONSE.md`.
+- [ ] Preencher os contatos responsáveis do plano de incidentes.
+- [ ] Realizar uma simulação de incidente e registrar o resultado.
 
 ## 9. LGPD e documentos legais
 

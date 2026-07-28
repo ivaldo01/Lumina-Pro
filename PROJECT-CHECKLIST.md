@@ -86,7 +86,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Testar cupom válido, inválido e expirado.
 - [x] Calcular e selecionar frete no checkout com um CEP válido.
 - [x] Testar cálculo de frete para diferentes CEPs.
-- [ ] Testar item sem frete disponível.
+- [x] Testar item sem frete disponível.
 - [x] Testar PIX.
 - [x] Testar cartão aprovado.
 - [x] Testar cartão recusado.
@@ -115,7 +115,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 ## 7. E-mails e atendimento
 
 - [x] Verificar domínio do remetente.
-- [ ] Personalizar os modelos de notificação da Shopify.
+- [x] Personalizar os modelos de notificação da Shopify.
 - [x] Testar confirmação de pedido.
 - [x] Testar confirmação de pagamento.
 - [x] Testar pedido enviado e código de rastreamento.
@@ -157,18 +157,18 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 ## 9. LGPD e documentos legais
 
 - [ ] Identificar controlador, operadores e canal de privacidade.
-- [ ] Mapear dados coletados pela Shopify, aplicativos, pixels e logística.
+- [x] Mapear dados coletados pela Shopify, aplicativos, pixels e logística.
 - [ ] Documentar finalidade, base legal, retenção e compartilhamento.
-- [ ] Publicar Política de Privacidade revisada.
-- [ ] Publicar Política de Cookies revisada.
-- [ ] Publicar Termos de Serviço.
-- [ ] Publicar Política de Trocas, Devoluções e Reembolso.
-- [ ] Publicar Política de Frete e Entrega.
-- [ ] Configurar as regiões de consentimento no Admin.
-- [ ] Testar aceitar, rejeitar e personalizar cookies.
+- [x] Publicar Política de Privacidade revisada.
+- [x] Publicar Política de Cookies revisada.
+- [x] Publicar Termos de Serviço.
+- [x] Publicar Política de Trocas, Devoluções e Reembolso.
+- [x] Publicar Política de Frete e Entrega.
+- [x] Configurar as regiões de consentimento no Admin.
+- [x] Testar aceitar, rejeitar e personalizar cookies.
 - [ ] Confirmar funcionamento da loja com cookies opcionais recusados.
-- [ ] Definir processo para solicitações dos titulares.
-- [ ] Fazer revisão jurídica antes da publicação comercial.
+- [x] Definir processo para solicitações dos titulares.
+- [x] Fazer revisão jurídica antes da publicação comercial.
 
 ## 10. Acessibilidade e responsividade
 
@@ -189,14 +189,14 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 ## 11. Navegadores e dispositivos reais
 
-- [ ] Chrome no Windows.
-- [ ] Edge no Windows.
-- [ ] Firefox.
-- [ ] Safari no iPhone.
-- [ ] Safari no Mac.
-- [ ] Chrome no Android.
-- [ ] Samsung Internet.
-- [ ] Testar conexão móvel lenta.
+- [x] Chrome no Windows.
+- [x] Edge no Windows.
+- [x] Firefox.
+- [x] Safari no iPhone.
+- [x] Safari no Mac.
+- [x] Chrome no Android.
+- [x] Samsung Internet.
+- [x] Testar conexão móvel lenta.
 - [ ] Confirmar que menus, modais e campos não ficam cortados.
 
 ## 12. Desempenho e SEO

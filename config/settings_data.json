@@ -25,11 +25,13 @@
           "mobile_logo_width": 150,
           "mobile_logo_height": 60,
           "mobile_padding_y": 14,
-          "show_search_mobile": false,
+          "show_search_mobile": true,
           "show_account_mobile": true,
           "show_wishlist_mobile": false,
           "main_menu": "main-menu",
           "show_blog_link": true,
+          "featured_blog": "noticias",
+          "blog_link_label": "Blog",
           "show_all_collections_link": false,
           "nav_uppercase": false,
           "nav_font_size": 14,
@@ -52,9 +54,48 @@
       },
       "footer": {
         "type": "footer",
+        "blocks": {
+          "link_list_cL48hN": {
+            "type": "link_list",
+            "settings": {
+              "title": "Navegue",
+              "menu": "footer-primary-menu"
+            }
+          },
+          "link_list_XQr8Pp": {
+            "type": "link_list",
+            "settings": {
+              "title": "Navegue",
+              "menu": "footer-policies-menu"
+            }
+          },
+          "text_HTeT7x": {
+            "type": "text",
+            "settings": {
+              "title": "Quem Somos",
+              "text": "<p>Na <strong>Zeta Variedades</strong>, acreditamos que boas escolhas podem tornar o dia a dia mais prático, confortável e especial.</p><p>Nossa loja nasceu com o propósito de reunir produtos úteis, criativos e selecionados para diferentes momentos da sua rotina. Trabalhamos com categorias como tecnologia, lazer, universo geek, produtos para pets, presentes e diversas novidades.</p><p>Cada produto é escolhido pensando em funcionalidade, qualidade e uma boa experiência de compra. Queremos ajudar você a encontrar soluções interessantes, seja para facilitar uma tarefa, aproveitar seu tempo livre ou presentear alguém especial.</p><p>Valorizamos um atendimento transparente, uma compra segura e o acompanhamento do pedido em todas as etapas. Estamos sempre buscando novidades para oferecer uma seleção cada vez mais completa.</p><p><strong>Zeta Variedades — diferentes escolhas para todos os momentos.</strong></p>"
+            }
+          }
+        },
+        "block_order": [
+          "link_list_cL48hN",
+          "link_list_XQr8Pp",
+          "text_HTeT7x"
+        ],
         "settings": {
+          "logo_width": 180,
+          "use_shop_description": true,
+          "brand_text": "<p>Produtos selecionados para surpreender, facilitar sua rotina e transformar cada compra em uma ótima experiência.<br/>entre em contato <br/>zetavariedades.contato@gmail.com</p>",
+          "show_newsletter": true,
+          "newsletter_eyebrow": "Novidades em primeira mão",
+          "newsletter_title": "Descubra ofertas e lançamentos antes de todo mundo",
+          "newsletter_text": "Cadastre-se para receber novidades selecionadas, benefícios e condições especiais.",
+          "newsletter_placeholder": "Digite seu melhor e-mail",
+          "newsletter_button": "Quero receber",
+          "show_trust_strip": true,
+          "use_shop_contact_info": true,
           "footer_contact_phone": "+55 (11) 99999-9999",
-          "footer_contact_email": "contato@loja.com",
+          "footer_contact_email": "zetavariedades.contato@gmail.com",
           "footer_contact_address": "Rua Exemplo, 123 - São Paulo, SP",
           "footer_social_facebook": "",
           "footer_social_instagram": "",
@@ -63,12 +104,27 @@
           "footer_social_tiktok": "",
           "footer_social_whatsapp": "",
           "footer_columns": "4",
+          "max_width": 1600,
+          "padding_bottom": 50,
           "footer_bg": "#0a0a0a",
           "footer_text": "#ffffff",
           "footer_link": "#cccccc",
           "footer_link_hover": "#ffffff",
-          "footer_copyright": "© 2026 Lumina Commerce. Todos os direitos reservados.",
-          "show_payment_icons": true
+          "accent": "#135ee8",
+          "use_dynamic_copyright": true,
+          "footer_copyright": "© 2026 Zeta Variedades. Todos os direitos reservados.",
+          "show_payment_icons": true,
+          "show_back_to_top": true
+        }
+      },
+      "privacy-banner": {
+        "type": "privacy-banner",
+        "settings": {
+          "enabled": true,
+          "eyebrow": "Sua privacidade importa",
+          "title": "Você controla seus dados",
+          "text": "<p>Usamos cookies necessários para a loja funcionar e, com sua permissão, cookies de preferências, análise e marketing. Você pode alterar sua escolha a qualquer momento.</p>",
+          "accent": "#135ee8"
         }
       }
     },

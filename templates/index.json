@@ -46,7 +46,7 @@
             "desktop_position": "center",
             "mobile_position": "center",
             "eyebrow": "",
-            "heading": "Frete Sem Complição",
+            "heading": "Frete Sem Complicação",
             "text": "<p>Acompanhe tudo do ínicio ao fim de sua compra</p>",
             "button_label": "",
             "button_link": "",
@@ -263,6 +263,8 @@
           "settings": {
             "product": "revoltech-yamaguchi-ninja-gaiden-ryu-hayabusa-figura-de-acao-articulada-em-escal",
             "after_rows": 2,
+            "image_fit": "contain",
+            "image_position": "center",
             "image_side": "right",
             "eyebrow": "DESTAQUE ESPECIAL",
             "title": "O item para sua coleção que faltava!",
@@ -278,6 +280,8 @@
           "settings": {
             "product": "controle-sem-fio-easysmx-d10-para-pc-com-base-de-carregamento-tmr-compativel-co",
             "after_rows": 4,
+            "image_fit": "contain",
+            "image_position": "center",
             "image_side": "left",
             "eyebrow": "ESCOLHA PREMIUM",
             "title": "Chega de perder a Kill",

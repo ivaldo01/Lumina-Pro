@@ -87,11 +87,11 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Calcular e selecionar frete no checkout com um CEP válido.
 - [x] Testar cálculo de frete para diferentes CEPs.
 - [ ] Testar item sem frete disponível.
-- [ ] Testar PIX.
+- [x] Testar PIX.
 - [x] Testar cartão aprovado.
 - [x] Testar cartão recusado.
 - [x] Testar erro do gateway de cartão.
-- [ ] Testar parcelamento exibido pelo provedor.
+- [x] Testar parcelamento exibido pelo provedor.
 - [x] Realizar pedido completo usando modo de teste.
 - [x] Confirmar página de agradecimento.
 - [x] Confirmar criação do pedido no Admin.
@@ -105,7 +105,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [ ] Criar uma conta usando um e-mail de teste.
 - [ ] Confirmar recebimento e uso do código de seis dígitos.
 - [x] Confirmar histórico e detalhes do pedido na conta do cliente.
-- [ ] Confirmar edição de perfil e endereços.
+- [x] Confirmar edição de perfil e endereços.
 - [ ] Confirmar saída da conta.
 - [ ] Definir se a conta será opcional ou obrigatória no checkout.
 - [x] Personalizar logo, cores, tipografia e estilo das contas no editor de checkout e contas.
@@ -117,9 +117,9 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [ ] Verificar domínio do remetente.
 - [ ] Personalizar os modelos de notificação da Shopify.
 - [x] Testar confirmação de pedido.
-- [ ] Testar confirmação de pagamento.
-- [ ] Testar pedido enviado e código de rastreamento.
-- [ ] Testar cancelamento e reembolso.
+- [x] Testar confirmação de pagamento.
+- [x] Testar pedido enviado e código de rastreamento.
+- [x] Testar cancelamento e reembolso.
 - [ ] Testar formulário de contato.
 - [ ] Testar inscrição na newsletter.
 - [ ] Confirmar funcionamento do chat e canais de suporte.

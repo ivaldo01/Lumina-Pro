@@ -168,7 +168,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Testar aceitar, rejeitar e personalizar cookies.
 - [ ] Confirmar funcionamento da loja com cookies opcionais recusados.
 - [x] Definir processo para solicitações dos titulares.
-- [x] Fazer revisão jurídica antes da publicação comercial.
+- [ ] Fazer revisão jurídica antes da publicação comercial.
 
 ## 10. Acessibilidade e responsividade
 

@@ -78,6 +78,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 ## 5. Fluxo de compra
 
 - [x] Navegação do carrinho para o checkout confirmada.
+- [x] Modo de teste do cartão Appmax ativado.
 - [ ] Adicionar produto ao carrinho pela página do produto.
 - [ ] Adicionar produto pelas vitrines e coleções.
 - [ ] Alterar a quantidade no carrinho.

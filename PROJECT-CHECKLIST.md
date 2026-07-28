@@ -102,27 +102,27 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 - [x] Link de conta direcionando para as novas contas da Shopify.
 - [x] Tela unificada de entrar/criar conta confirmada.
-- [ ] Criar uma conta usando um e-mail de teste.
-- [ ] Confirmar recebimento e uso do código de seis dígitos.
+- [x] Criar uma conta usando um e-mail de teste.
+- [x] Confirmar recebimento e uso do código de seis dígitos.
 - [x] Confirmar histórico e detalhes do pedido na conta do cliente.
 - [x] Confirmar edição de perfil e endereços.
-- [ ] Confirmar saída da conta.
-- [ ] Definir se a conta será opcional ou obrigatória no checkout.
+- [x] Confirmar saída da conta.
+- [x] Definir se a conta será opcional ou obrigatória no checkout.
 - [x] Personalizar logo, cores, tipografia e estilo das contas no editor de checkout e contas.
 - [x] Implementar fluxo de solicitação de cancelamento antes do processamento.
 - [x] Definir regras e prazo de cancelamento exibidos ao cliente.
 
 ## 7. E-mails e atendimento
 
-- [ ] Verificar domínio do remetente.
+- [x] Verificar domínio do remetente.
 - [ ] Personalizar os modelos de notificação da Shopify.
 - [x] Testar confirmação de pedido.
 - [x] Testar confirmação de pagamento.
 - [x] Testar pedido enviado e código de rastreamento.
 - [x] Testar cancelamento e reembolso.
-- [ ] Testar formulário de contato.
-- [ ] Testar inscrição na newsletter.
-- [ ] Confirmar funcionamento do chat e canais de suporte.
+- [x] Testar formulário de contato.
+- [x] Testar inscrição na newsletter.
+- [x] Confirmar funcionamento do chat e canais de suporte.
 
 ## 8. Segurança e privacidade
 

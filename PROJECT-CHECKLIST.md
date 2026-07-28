@@ -79,11 +79,12 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 - [x] Navegação do carrinho para o checkout confirmada.
 - [x] Modo de teste do cartão Appmax ativado.
-- [ ] Adicionar produto ao carrinho pela página do produto.
+- [x] Adicionar produto ao carrinho pela página do produto.
 - [ ] Adicionar produto pelas vitrines e coleções.
-- [ ] Alterar a quantidade no carrinho.
+- [x] Alterar a quantidade no carrinho.
 - [ ] Remover um item do carrinho.
 - [ ] Testar cupom válido, inválido e expirado.
+- [x] Calcular e selecionar frete no checkout com um CEP válido.
 - [ ] Testar cálculo de frete para diferentes CEPs.
 - [ ] Testar item sem frete disponível.
 - [ ] Testar PIX.

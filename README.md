@@ -6,6 +6,10 @@ Tema Online Store 2.0 responsivo para lojas de catálogo variado, com foco em ap
 
 `1.0.0`
 
+## Acompanhamento do projeto
+
+Use a [checklist mestre](PROJECT-CHECKLIST.md) como controle oficial da homologação, publicação na Zeta Variedades e preparação da edição comercial.
+
 ## Recursos
 
 - Página inicial modular com slideshow, benefícios, mosaico e vitrine premium.

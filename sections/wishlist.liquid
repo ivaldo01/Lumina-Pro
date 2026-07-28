@@ -28,8 +28,25 @@
       showPrice: {{ settings.wishlist_show_price | json }},
       showViewButton: {{ settings.wishlist_show_view_button | json }},
       shareEnabled: {{ settings.wishlist_enable_share | json }},
-      shareText: {{ settings.wishlist_share_button_text | escape }}
+      shareText: {{ settings.wishlist_share_button_text | json }}
     };
+
+    function escapeHtml(value) {
+      const node = document.createElement('div');
+      node.textContent = String(value || '');
+      return node.innerHTML;
+    }
+
+    function safeProductUrl(value) {
+      const url = String(value || '');
+      return url.startsWith('/') ? url : '#';
+    }
+
+    function safeImageUrl(value) {
+      const url = String(value || '');
+      if (url.startsWith('/') || url.startsWith('https://cdn.shopify.com/')) return url;
+      return '';
+    }
 
     function renderWishlist() {
       const wishlistItems = window.Wishlist ? window.Wishlist.get() : [];
@@ -46,19 +63,25 @@
 
       emptyState.hidden = true;
       itemsContainer.hidden = false;
-      itemsContainer.innerHTML = wishlistItems.map(product => `
+      itemsContainer.innerHTML = wishlistItems.map(product => {
+        const productUrl = safeProductUrl(product.url);
+        const productTitle = escapeHtml(product.title);
+        const productImage = escapeHtml(safeImageUrl(product.image));
+        const productPrice = escapeHtml(product.price);
+        const productId = escapeHtml(product.id);
+        return `
         <article class="wishlist-card" style="display: grid; grid-template-columns: ${wishlistConfig.showImage ? '120px minmax(0,1fr) auto' : 'minmax(0,1fr) auto'}; gap: 1rem; align-items: center; padding: 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: #fff;">
-          ${wishlistConfig.showImage ? `<a href="${product.url}" style="display: block; overflow: hidden; border-radius: var(--radius-sm); height: 120px;"><img src="${product.image}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover; display: block;" /></a>` : ''}
+          ${wishlistConfig.showImage ? `<a href="${productUrl}" style="display: block; overflow: hidden; border-radius: var(--radius-sm); height: 120px;"><img src="${productImage}" alt="${productTitle}" width="120" height="120" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" /></a>` : ''}
           <div>
-            <a href="${product.url}" style="display: inline-block; font-weight: 700; color: var(--color-text-primary); font-size: 1rem; margin-bottom: 0.5rem;">${product.title}</a>
-            ${wishlistConfig.showPrice ? `<p style="color: var(--color-price); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">${product.price}</p>` : ''}
+            <a href="${productUrl}" style="display: inline-block; font-weight: 700; color: var(--color-text-primary); font-size: 1rem; margin-bottom: 0.5rem;">${productTitle}</a>
+            ${wishlistConfig.showPrice ? `<p style="color: var(--color-price); font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">${productPrice}</p>` : ''}
           </div>
           <div style="display: flex; flex-direction: column; gap: 0.75rem; justify-content: center; align-items: flex-end;">
-            ${wishlistConfig.showViewButton ? `<a href="${product.url}" class="button" style="width: 100%; max-width: 160px;">Ver produto</a>` : ''}
-            <button type="button" class="button button--secondary wishlist-item-remove" data-wishlist-remove="${product.id}" style="width: 100%; max-width: 160px;">Remover</button>
+            ${wishlistConfig.showViewButton ? `<a href="${productUrl}" class="button" style="width: 100%; max-width: 160px;">Ver produto</a>` : ''}
+            <button type="button" class="button button--secondary wishlist-item-remove" data-wishlist-remove="${productId}" style="width: 100%; max-width: 160px;">Remover</button>
           </div>
         </article>
-      `).join('');
+      `}).join('');
 
       itemsContainer.querySelectorAll('.wishlist-item-remove').forEach(button => {
         button.addEventListener('click', function() {
@@ -77,8 +100,8 @@
 
       shareButton.addEventListener('click', function() {
         const shareData = {
-          title: {% if settings.wishlist_page_title != blank %}"{{ settings.wishlist_page_title | escape }}"{% else %}"{{ 'wishlist.title' | t | escape }}"{% endif %},
-          text: {% if settings.wishlist_empty_text != blank %}"{{ settings.wishlist_empty_text | escape }}"{% else %}"Compartilhe sua lista de desejos com amigos."{% endif %},
+          title: {% if settings.wishlist_page_title != blank %}{{ settings.wishlist_page_title | json }}{% else %}{{ 'wishlist.title' | t | json }}{% endif %},
+          text: {% if settings.wishlist_empty_text != blank %}{{ settings.wishlist_empty_text | json }}{% else %}"Compartilhe sua lista de desejos com amigos."{% endif %},
           url: window.location.href
         };
 
@@ -98,6 +121,8 @@
         renderWishlist();
         initShareButton();
       });
+    }
+  });
 </script>
 
 {% schema %}

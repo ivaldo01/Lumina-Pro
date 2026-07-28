@@ -1,0 +1,29 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex">
+    {% assign gift_card_value = gift_card.initial_value | money_without_trailing_zeros %}
+    <title>Cartão-presente de {{ gift_card_value }} — {{ shop.name | escape }}</title>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+    <style>
+      body{display:grid;min-height:100vh;place-items:center;padding:1.25rem;background:#f2f5f9}
+      .gift-card{width:min(100%,620px);padding:clamp(1.5rem,5vw,3.5rem);border:1px solid #e2e8f0;border-radius:24px;background:#fff;box-shadow:0 30px 80px rgba(15,23,42,.12);text-align:center}
+      .gift-card h1{font-size:clamp(1.8rem,5vw,3rem)}.gift-card__value{margin:1rem 0;color:var(--color-primary);font-size:2rem;font-weight:850}.gift-card__code{display:block;margin:1.25rem 0;padding:1rem;border:1px dashed #cbd5e1;border-radius:12px;font-family:monospace;letter-spacing:.08em}.gift-card a{display:inline-flex;padding:.8rem 1.1rem;border-radius:10px;background:var(--color-primary);color:#fff;font-weight:750}
+    </style>
+  </head>
+  <body>
+    <main class="gift-card">
+      <p>{{ shop.name | escape }}</p>
+      <h1>Seu cartão-presente</h1>
+      <p class="gift-card__value">{{ gift_card.balance | money }}</p>
+      {% if gift_card.expired %}<p>Este cartão-presente expirou.</p>{% endif %}
+      {% if gift_card.enabled == false %}<p>Este cartão-presente não está mais ativo.</p>{% endif %}
+      <span class="gift-card__code">{{ gift_card.code | format_code }}</span>
+      <a href="{{ shop.url }}">Visitar a loja</a>
+    </main>
+  </body>
+</html>

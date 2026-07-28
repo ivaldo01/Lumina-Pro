@@ -3,18 +3,29 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', function () {
+  const MAX_WISHLIST_ITEMS = 100;
+  const text = (value, maxLength = 300) => String(value || '').slice(0, maxLength);
+  const productUrl = value => {
+    const url = text(value, 500);
+    return url.startsWith('/products/') ? url : '';
+  };
+  const imageUrl = value => {
+    const url = text(value, 700);
+    return url.startsWith('/') || url.startsWith('https://cdn.shopify.com/') ? url : '';
+  };
+
   function normalizeWishlist(rawWishlist) {
     if (!Array.isArray(rawWishlist)) return [];
-    return rawWishlist.map(item => {
+    return rawWishlist.slice(0, MAX_WISHLIST_ITEMS).map(item => {
       if (typeof item === 'string' || typeof item === 'number') {
-        return { id: String(item), title: '', url: '', image: '', price: '' };
+        return { id: text(item, 80), title: '', url: '', image: '', price: '' };
       }
       return {
-        id: String(item.id || ''),
-        title: item.title || '',
-        url: item.url || '',
-        image: item.image || '',
-        price: item.price || ''
+        id: text(item.id, 80),
+        title: text(item.title, 300),
+        url: productUrl(item.url),
+        image: imageUrl(item.image),
+        price: text(item.price, 80)
       };
     }).filter(item => item.id);
   }
@@ -28,7 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function saveWishlist(wishlist) {
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    try {
+      localStorage.setItem('wishlist', JSON.stringify(normalizeWishlist(wishlist)));
+    } catch (error) {
+      showToast('Não foi possível salvar sua lista neste navegador', 'error');
+    }
   }
 
   function isInWishlist(productId) {
@@ -41,13 +56,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const wishlist = getWishlist();
     if (!isInWishlist(product.id)) {
-      wishlist.push({
-        id: String(product.id),
-        title: product.title || '',
-        url: product.url || '',
-        image: product.image || '',
-        price: product.price || ''
-      });
+      if (wishlist.length >= MAX_WISHLIST_ITEMS) {
+        showToast('Sua lista atingiu o limite de produtos', 'info');
+        return;
+      }
+      wishlist.push(normalizeWishlist([product])[0]);
       saveWishlist(wishlist);
       showToast('Produto adicionado à lista de desejos', 'success');
       updateWishlistButtons();

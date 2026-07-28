@@ -1,0 +1,16 @@
+{% style %}
+  .article-main-{{ section.id }}{padding:clamp(2rem,6vw,6rem) 1rem}.article-main-{{ section.id }} .article-main__inner{width:min(100%,900px);margin:auto}.article-main-{{ section.id }} .article-main__header{text-align:center}.article-main-{{ section.id }} .article-main__meta{color:#6b7280;font-size:.75rem}.article-main-{{ section.id }} h1{margin:.7rem 0 1.5rem;font-size:clamp(2rem,5vw,4rem);line-height:1.05;letter-spacing:-.045em}.article-main-{{ section.id }} .article-main__image{width:100%;max-height:620px;object-fit:cover;margin-bottom:2rem;border-radius:24px}.article-main-{{ section.id }} .article-main__content{color:#3f4858;font-size:1rem;line-height:1.8}.article-main-{{ section.id }} .article-main__content :is(h2,h3,h4){margin:1.6em 0 .55em;line-height:1.2}.article-main-{{ section.id }} .article-main__content :is(p,ul,ol,blockquote){margin:1rem 0}.article-main-{{ section.id }} .article-main__content :is(ul,ol){padding-left:1.5rem}.article-main-{{ section.id }} .article-main__content img{height:auto;margin:1.5rem auto;border-radius:16px}.article-main-{{ section.id }} .article-main__back{display:inline-flex;margin-top:2rem;color:{{ section.settings.accent }};font-weight:750}
+{% endstyle %}
+
+<article class="article-main-{{ section.id }}">
+  <div class="article-main__inner">
+    <header class="article-main__header" data-reveal><p class="article-main__meta">{{ article.published_at | date: format: 'date' }} · {{ article.author | escape }}</p><h1>{{ article.title | escape }}</h1></header>
+    {% if article.image %}{{ article.image | image_url: width: 1800 | image_tag: class: 'article-main__image', loading: 'eager', widths: '750, 1100, 1500, 1800' }}{% endif %}
+    <div class="article-main__content rte">{{ article.content }}</div>
+    <a class="article-main__back" href="{{ blog.url }}">← Voltar para {{ blog.title | escape }}</a>
+  </div>
+</article>
+
+{% schema %}
+{"name":"Artigo principal","settings":[{"type":"color","id":"accent","label":"Cor de destaque","default":"#135ee8"}]}
+{% endschema %}

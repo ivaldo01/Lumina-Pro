@@ -2,7 +2,7 @@
   <h1 class="section-title">{{ 'cart.title' | t }}</h1>
   
   {% if cart.item_count > 0 %}
-    <form action="/cart" method="post" novalidate>
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
       <div class="cart-items" style="display: flex; flex-direction: column; gap: 1.5rem;">
         {% for item in cart.items %}
           <div class="cart-item" style="display: grid; grid-template-columns: 100px 1fr auto; gap: 1.5rem; padding: 1.5rem; background: #fff; border-radius: var(--radius-md); border: 1px solid var(--color-border); box-shadow: var(--shadow-card);">
@@ -10,8 +10,10 @@
             <div class="cart-item__image">
               <a href="{{ item.url }}">
                 <img 
-                  src="{{ item | img_url: '300x' }}" 
+                  src="{{ item.image | image_url: width: 300 }}"
                   alt="{{ item.title | escape }}" 
+                  width="{{ item.image.width }}"
+                  height="{{ item.image.height }}"
                   style="width: 100px; height: 100px; object-fit: contain; border-radius: var(--radius-sm);"
                 >
               </a>
@@ -69,7 +71,7 @@
                 {{ item.line_price | money }}
               </div>
               <a 
-                href="/cart/change?line={{ forloop.index }}&amp;quantity=0" 
+                href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0"
                 class="cart-item__remove"
                 style="color: #E74C3C; font-size: 0.85rem; text-decoration: underline; cursor: pointer;"
               >

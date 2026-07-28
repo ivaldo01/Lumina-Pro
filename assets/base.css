@@ -47,6 +47,7 @@ body {
   background-color: var(--color-background);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -63,6 +64,26 @@ a {
 img {
   display: block;
   max-width: 100%;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms),
+              transform 0.7s cubic-bezier(.2,.8,.2,1) var(--reveal-delay, 0ms);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .visually-hidden {
@@ -754,6 +775,81 @@ select:focus {
 /* ==========================================================================
    Search Suggestions
    ========================================================================== */
+.search-suggestions {
+  position: absolute;
+  z-index: 1000;
+  top: calc(100% + 8px);
+  right: 0;
+  left: 0;
+  min-width: min(92vw, 380px);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 20px 55px rgba(15, 23, 42, .16);
+}
+
+.search-suggestions[hidden],
+.search-suggestions__loading[hidden] {
+  display: none;
+}
+
+.search-suggestions__loading,
+.search-suggestions__empty {
+  padding: 1rem;
+  color: #667085;
+  text-align: center;
+  font-size: .8rem;
+}
+
+.search-suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .7rem .85rem;
+  border-bottom: 1px solid #edf0f4;
+}
+
+.search-suggestion-item img {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  background: #f4f6f8;
+  object-fit: contain;
+}
+
+.search-suggestion-item__content {
+  display: grid;
+  min-width: 0;
+  gap: .25rem;
+}
+
+.search-suggestion-item__content strong {
+  overflow: hidden;
+  color: #111827;
+  font-size: .78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-suggestion-item__content span {
+  color: var(--color-price);
+  font-size: .75rem;
+  font-weight: 750;
+}
+
+.search-suggestions__footer {
+  padding: .75rem;
+  text-align: center;
+}
+
+.search-suggestions__view-all {
+  color: var(--color-primary);
+  font-size: .75rem;
+  font-weight: 750;
+}
+
 .search-suggestion-item:hover {
   background-color: var(--color-background) !important;
 }

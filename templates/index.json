@@ -1,18 +1,358 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_banner": {
       "type": "hero-banner",
-      "settings": {}
+      "blocks": {
+        "slide_Vnzemi": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/banners-6a5410c88a885.webp",
+            "desktop_position": "center",
+            "mobile_position": "center",
+            "eyebrow": "Checkout seguro, compra tranquila",
+            "heading": "Seus dados e pagamentos protegidos em todas as etapas.",
+            "text": "<p>Acompanhe seu pedido e consulte as condições de entrega.</p>",
+            "button_label": "",
+            "button_link": "",
+            "secondary_button_label": "Ver coleções",
+            "secondary_button_link": "",
+            "text_color": "#3019c5",
+            "button_background": "#ffffff",
+            "button_text": "#071427",
+            "horizontal_alignment": "flex-end",
+            "vertical_alignment": "center",
+            "text_alignment": "right",
+            "mobile_horizontal_alignment": "center",
+            "mobile_vertical_alignment": "flex-end",
+            "mobile_text_alignment": "center",
+            "overlay_opacity": 90,
+            "overlay_direction": "90deg"
+          }
+        },
+        "slide_BNpE8Q": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/banners-6a5410c88a884.webp",
+            "mobile_image": "shopify://shop_images/Imagem_1_gerada_4.png",
+            "desktop_position": "center",
+            "mobile_position": "center",
+            "eyebrow": "",
+            "heading": "Frete Sem Complição",
+            "text": "<p>Acompanhe tudo do ínicio ao fim de sua compra</p>",
+            "button_label": "",
+            "button_link": "",
+            "secondary_button_label": "",
+            "secondary_button_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text": "#071427",
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
+            "text_alignment": "center",
+            "mobile_horizontal_alignment": "center",
+            "mobile_vertical_alignment": "flex-end",
+            "mobile_text_alignment": "center",
+            "overlay_opacity": 85,
+            "overlay_direction": "90deg"
+          }
+        },
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/BANNER_3_0b7e4743-ded5-41e9-b23a-9fb861432400.png",
+            "mobile_image": "shopify://shop_images/Imagem_1_gerada_3.png",
+            "desktop_position": "center",
+            "mobile_position": "center",
+            "eyebrow": "Novidades selecionadas",
+            "heading": "Design que transforma o cotidiano",
+            "text": "<p>Descubra produtos escolhidos para surpreender, facilitar e inspirar.</p>",
+            "button_label": "Explorar agora",
+            "button_link": "",
+            "secondary_button_label": "Ver coleções",
+            "secondary_button_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text": "#071427",
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-end",
+            "text_alignment": "left",
+            "mobile_horizontal_alignment": "center",
+            "mobile_vertical_alignment": "flex-end",
+            "mobile_text_alignment": "center",
+            "overlay_opacity": 50,
+            "overlay_direction": "90deg"
+          }
+        }
+      },
+      "block_order": [
+        "slide_Vnzemi",
+        "slide_BNpE8Q",
+        "slide_1"
+      ],
+      "settings": {
+        "desktop_height": 650,
+        "max_width": 1600,
+        "content_width": 560,
+        "heading_size": 68,
+        "border_radius": 0,
+        "mobile_height": 580,
+        "mobile_heading_size": 38,
+        "mobile_border_radius": 0,
+        "mobile_full_buttons": true,
+        "autoplay": true,
+        "autoplay_speed": 6,
+        "show_arrows": true,
+        "show_dots": true,
+        "image_fit": "cover",
+        "button_radius": 8,
+        "background": "#071427",
+        "text_color": "#ffffff"
+      }
+    },
+    "premium_benefits": {
+      "type": "premium-benefits",
+      "blocks": {
+        "benefit_1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "truck",
+            "heading": "Envio nacional",
+            "text": "Rastreamento em todas as etapas"
+          }
+        },
+        "benefit_2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "shield",
+            "heading": "Compra protegida",
+            "text": "Pagamento seguro e criptografado"
+          }
+        },
+        "benefit_3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "refresh",
+            "heading": "Troca simplificada",
+            "text": "Atendimento rápido e sem complicação"
+          }
+        },
+        "benefit_4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "chat",
+            "heading": "Suporte humano",
+            "text": "Equipe pronta para ajudar você"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_1",
+        "benefit_2",
+        "benefit_3",
+        "benefit_4"
+      ],
+      "settings": {
+        "accessibility_label": "Vantagens da loja",
+        "max_width": 1600,
+        "padding_y": 20,
+        "background": "#ffffff",
+        "text_color": "#111827",
+        "border_color": "#e7e9ee",
+        "icon_background": "#f1f5ff",
+        "icon_color": "#135ee8",
+        "icon_radius": 24,
+        "mobile_columns": "2",
+        "mobile_gap": 10,
+        "mobile_padding_y": 20,
+        "mobile_card_padding": 14,
+        "mobile_card_radius": 14,
+        "mobile_card_background": "#ffffff"
+      }
+    },
+    "category_showcase": {
+      "type": "category-showcase",
+      "blocks": {
+        "category_TnpQen": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/Imagem_1_gerada_5.png",
+            "kicker": "Presenteie quem você ama",
+            "heading": "Com Novidades Selecionadas",
+            "link": "shopify://collections/new-arrivals"
+          }
+        },
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/geek_53b17e54-0d7c-4e39-a3c6-4b00ec2ba493.png",
+            "kicker": "Explore",
+            "heading": "Geek",
+            "link": "shopify://collections/geek"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/lazer_ed780317-791a-40ac-85e4-31d3f83d7845.png",
+            "kicker": "Descubra",
+            "heading": "O Melhor Para o Seu Lazer",
+            "link": "shopify://collections/lazer-zeta"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/pets_5a504b3e-2822-4474-9847-08c79d4b4f93.png",
+            "kicker": "Para eles",
+            "heading": "Universo pet",
+            "link": "shopify://collections/pets"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/tecnologia_72f66ca5-7e85-4c06-8c16-6e4e3fb1cae3.png",
+            "kicker": "Surpreenda",
+            "heading": "Tecnologia Que Impressiona",
+            "link": "shopify://collections/lazer"
+          }
+        }
+      },
+      "block_order": [
+        "category_TnpQen",
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4"
+      ],
+      "settings": {
+        "eyebrow": "Explore seu estilo",
+        "heading": "Categorias em destaque",
+        "intro": "<p><strong>Do tech ao geek, do pet ao lazer — tudo que você ama em um só lugar.</strong></p>",
+        "link_label": "Ver todas",
+        "link": "",
+        "max_width": 1600,
+        "row_height": 400,
+        "gap": 18,
+        "radius": 18,
+        "padding_top": 90,
+        "padding_bottom": 90,
+        "mobile_columns": "1",
+        "mobile_gap": 12,
+        "mobile_card_height": 420,
+        "mobile_padding_top": 60,
+        "mobile_padding_bottom": 60,
+        "background": "#f6f7f9",
+        "accent": "#135ee8"
+      }
     },
     "featured_collection": {
       "type": "featured-products",
+      "blocks": {
+        "spotlight_first": {
+          "type": "product_spotlight",
+          "settings": {
+            "product": "revoltech-yamaguchi-ninja-gaiden-ryu-hayabusa-figura-de-acao-articulada-em-escal",
+            "after_rows": 2,
+            "image_side": "right",
+            "eyebrow": "DESTAQUE ESPECIAL",
+            "title": "O item para sua coleção que faltava!",
+            "text": "<p>Uma escolha especial para surpreender, com qualidade e condições exclusivas.</p>",
+            "button_label": "CONHECER PRODUTO",
+            "background": "#071329",
+            "text_color": "#ffffff",
+            "accent_color": "#135ee8"
+          }
+        },
+        "spotlight_second": {
+          "type": "product_spotlight",
+          "settings": {
+            "product": "controle-sem-fio-easysmx-d10-para-pc-com-base-de-carregamento-tmr-compativel-co",
+            "after_rows": 4,
+            "image_side": "left",
+            "eyebrow": "ESCOLHA PREMIUM",
+            "title": "Chega de perder a Kill",
+            "text": "<p>O item que faltava para suas horas de jogatina.</p>",
+            "button_label": "VER DETALHES",
+            "background": "#101827",
+            "text_color": "#ffffff",
+            "accent_color": "#ff6500"
+          }
+        }
+      },
+      "block_order": [
+        "spotlight_first",
+        "spotlight_second"
+      ],
       "settings": {
-        "title": "PRODUTOS EM DESTAQUE"
+        "eyebrow": "Escolhas que surpreendem",
+        "title": "PRODUTOS EM DESTAQUE",
+        "subtitle": "<p>Uma seleção especial dos produtos que nossos clientes mais amam.</p>",
+        "title_alignment": "flex-start",
+        "show_view_all": true,
+        "view_all_label": "Ver todos",
+        "show_product_count": true,
+        "show_benefits": true,
+        "benefit_1_title": "Envio para todo o Brasil",
+        "benefit_1_text": "Entrega rastreada do início ao fim",
+        "benefit_2_title": "Compra protegida",
+        "benefit_2_text": "Seus dados sempre protegidos",
+        "benefit_3_title": "Pagamento seguro",
+        "benefit_3_text": "Ambiente criptografado e confiável",
+        "collection": "todos-os-produtos",
+        "limit": 20,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "compact_mobile": true,
+        "show_secondary_image": true,
+        "show_wishlist": true,
+        "show_vendor": true,
+        "show_rating": false,
+        "show_badge": true,
+        "badge_text": "OFERTA",
+        "show_pix_text": true,
+        "pix_text": "À vista no PIX",
+        "button_label": "COMPRAR 🛒",
+        "show_footer_cta": true,
+        "footer_cta_label": "Explorar todos os produtos",
+        "image_ratio": "1 / 1",
+        "image_fit": "contain",
+        "media_background": "#f5f6f8",
+        "media_radius": 14,
+        "max_width": 1600,
+        "grid_gap": 22,
+        "card_padding": 12,
+        "card_radius": 18,
+        "button_radius": 10,
+        "section_bg": "rgba(0,0,0,0)",
+        "card_background": "#ffffff",
+        "card_border": "#e8ebf0",
+        "card_text": "#111827",
+        "heading_color": "#111827",
+        "accent_color": "#135ee8",
+        "price_color": "#111827",
+        "badge_color": "#ff6500",
+        "button_color": "#ff6500",
+        "button_text_color": "#ffffff",
+        "padding_y": 40,
+        "mobile_padding_y": 60,
+        "mobile_gap": 12
       }
     }
   },
   "order": [
     "hero_banner",
+    "premium_benefits",
+    "category_showcase",
     "featured_collection"
   ]
 }

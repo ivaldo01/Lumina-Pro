@@ -1,0 +1,133 @@
+{% style %}
+  .categories-{{ section.id }}{padding:{{ section.settings.padding_top }}px clamp(1rem,4vw,3rem) {{ section.settings.padding_bottom }}px;background:{{ section.settings.background }}}
+  .categories-{{ section.id }} .categories__inner{max-width:{{ section.settings.max_width }}px;margin:auto}
+  .categories-{{ section.id }} .categories__head{display:flex;align-items:end;justify-content:space-between;gap:1rem;margin-bottom:clamp(1.5rem,4vw,2.75rem)}
+  .categories-{{ section.id }} .categories__eyebrow{margin:0 0 .45rem;color:{{ section.settings.accent }};font-size:.72rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+  .categories-{{ section.id }} h2{margin:0;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.035em}
+  .categories-{{ section.id }} .categories__intro{max-width:500px;margin:.75rem 0 0;color:var(--color-text-secondary)}
+  .categories-{{ section.id }} .categories__grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:{{ section.settings.row_height }}px;gap:{{ section.settings.gap }}px}
+  .categories-{{ section.id }} .category-card{position:relative;grid-column:span 4;overflow:hidden;border-radius:{{ section.settings.radius }}px;background:#111;color:#fff;isolation:isolate}
+  .categories-{{ section.id }} .category-card:nth-child(1),.categories-{{ section.id }} .category-card:nth-child(4n){grid-column:span 6}
+  .categories-{{ section.id }} .category-card:nth-child(2),.categories-{{ section.id }} .category-card:nth-child(3){grid-column:span 3}
+  .categories-{{ section.id }} .category-card__media,.categories-{{ section.id }} .category-card img,.categories-{{ section.id }} .category-card svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+  .categories-{{ section.id }} .category-card::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent 70%);z-index:1}
+  .categories-{{ section.id }} .category-card__content{position:absolute;z-index:2;inset:auto 0 0;padding:clamp(1.1rem,3vw,2rem)}
+  .categories-{{ section.id }} .category-card__kicker{font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;opacity:.75}
+  .categories-{{ section.id }} .category-card h3{margin:.35rem 0 0;color:#fff;font-size:clamp(1.25rem,2.2vw,2rem)}
+  .categories-{{ section.id }} .category-card__arrow{position:absolute;z-index:3;right:1.25rem;top:1.25rem;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);transition:.3s ease}
+  .categories-{{ section.id }} .category-card:hover img,.categories-{{ section.id }} .category-card:hover svg{transform:scale(1.07)}
+  .categories-{{ section.id }} .category-card:hover .category-card__arrow{background:#fff;color:#111;transform:rotate(45deg)}
+  @media(max-width:900px){.categories-{{ section.id }} .categories__grid{grid-auto-rows:300px}.categories-{{ section.id }} .category-card{grid-column:span 6!important}}
+  @media(max-width:600px){
+    .categories-{{ section.id }}{
+      padding-top:{{ section.settings.mobile_padding_top }}px;
+      padding-bottom:{{ section.settings.mobile_padding_bottom }}px;
+      padding-inline:14px;
+    }
+    .categories-{{ section.id }} .categories__head{
+      display:block;
+      margin-bottom:1.5rem;
+    }
+    .categories-{{ section.id }} .categories__head>a{
+      display:inline-flex;
+      margin-top:1rem;
+      font-weight:700;
+    }
+    .categories-{{ section.id }} .categories__grid{
+      display:grid;
+      grid-template-columns:repeat({{ section.settings.mobile_columns }},minmax(0,1fr));
+      grid-auto-rows:auto;
+      gap:{{ section.settings.mobile_gap }}px;
+      overflow:visible;
+    }
+    .categories-{{ section.id }} .category-card{
+      width:100%;
+      height:{{ section.settings.mobile_card_height }}px;
+      min-width:0;
+    }
+    .categories-{{ section.id }} .category-card__content{
+      padding:{% if section.settings.mobile_columns == '2' %}1rem{% else %}1.25rem{% endif %};
+    }
+    .categories-{{ section.id }} .category-card h3{
+      font-size:{% if section.settings.mobile_columns == '2' %}1rem{% else %}1.4rem{% endif %};
+      line-height:1.2;
+      overflow-wrap:anywhere;
+    }
+    .categories-{{ section.id }} .category-card__kicker{
+      font-size:{% if section.settings.mobile_columns == '2' %}.58rem{% else %}.7rem{% endif %};
+    }
+    .categories-{{ section.id }} .category-card__arrow{
+      width:36px;
+      height:36px;
+      right:.85rem;
+      top:.85rem;
+    }
+  }
+{% endstyle %}
+
+<section class="categories-{{ section.id }}">
+  <div class="categories__inner">
+    <div class="categories__head" data-reveal>
+      <div>
+        {% if section.settings.eyebrow != blank %}<p class="categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+        <h2>{{ section.settings.heading | escape }}</h2>
+        {% if section.settings.intro != blank %}<div class="categories__intro">{{ section.settings.intro }}</div>{% endif %}
+      </div>
+      {% if section.settings.link_label != blank %}<a href="{{ section.settings.link | default: routes.collections_url }}">{{ section.settings.link_label | escape }} →</a>{% endif %}
+    </div>
+    <div class="categories__grid">
+      {% for block in section.blocks %}
+        <a class="category-card" href="{{ block.settings.link | default: routes.collections_url }}" data-reveal style="--reveal-delay:{{ forloop.index0 | times: 80 }}ms" {{ block.shopify_attributes }}>
+          <div class="category-card__media">
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url: width: 1000 }}" alt="{{ block.settings.image.alt | default: block.settings.heading | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy">
+            {% else %}{{ 'collection-1' | placeholder_svg_tag }}{% endif %}
+          </div>
+          <span class="category-card__arrow" aria-hidden="true">↗</span>
+          <div class="category-card__content">
+            {% if block.settings.kicker != blank %}<span class="category-card__kicker">{{ block.settings.kicker | escape }}</span>{% endif %}
+            <h3>{{ block.settings.heading | escape }}</h3>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Mosaico de categorias",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Chamada", "default": "Explore seu estilo" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Categorias em destaque" },
+    { "type": "richtext", "id": "intro", "label": "Introdução", "default": "<p>Uma curadoria visual para levar seus clientes direto ao que procuram.</p>" },
+    { "type": "text", "id": "link_label", "label": "Texto do link", "default": "Ver todas" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "range", "id": "max_width", "min": 1000, "max": 2000, "step": 100, "unit": "px", "label": "Largura máxima", "default": 1600 },
+    { "type": "range", "id": "row_height", "min": 260, "max": 600, "step": 20, "unit": "px", "label": "Altura dos cards no desktop", "default": 400 },
+    { "type": "range", "id": "gap", "min": 8, "max": 40, "step": 2, "unit": "px", "label": "Espaço entre cards", "default": 18 },
+    { "type": "range", "id": "radius", "min": 0, "max": 32, "step": 2, "unit": "px", "label": "Arredondamento", "default": 18 },
+    { "type": "range", "id": "padding_top", "min": 20, "max": 140, "step": 10, "unit": "px", "label": "Espaço superior", "default": 90 },
+    { "type": "range", "id": "padding_bottom", "min": 20, "max": 140, "step": 10, "unit": "px", "label": "Espaço inferior", "default": 90 },
+    { "type": "header", "content": "Celular" },
+    { "type": "select", "id": "mobile_columns", "label": "Colunas", "options": [{ "value": "1", "label": "1 coluna" }, { "value": "2", "label": "2 colunas" }], "default": "1" },
+    { "type": "range", "id": "mobile_gap", "min": 6, "max": 24, "step": 2, "unit": "px", "label": "Espaço entre cards", "default": 12 },
+    { "type": "range", "id": "mobile_card_height", "min": 300, "max": 560, "step": 20, "unit": "px", "label": "Altura do card", "default": 420 },
+    { "type": "range", "id": "mobile_padding_top", "min": 20, "max": 100, "step": 10, "unit": "px", "label": "Espaço superior", "default": 60 },
+    { "type": "range", "id": "mobile_padding_bottom", "min": 20, "max": 100, "step": 10, "unit": "px", "label": "Espaço inferior", "default": 60 },
+    { "type": "color", "id": "background", "label": "Fundo", "default": "#f6f7f9" },
+    { "type": "color", "id": "accent", "label": "Destaque", "default": "#135ee8" }
+  ],
+  "blocks": [{
+    "type": "category", "name": "Categoria",
+    "settings": [
+      { "type": "image_picker", "id": "image", "label": "Imagem" },
+      { "type": "text", "id": "kicker", "label": "Chamada curta", "default": "Descubra" },
+      { "type": "text", "id": "heading", "label": "Título", "default": "Tecnologia" },
+      { "type": "url", "id": "link", "label": "Link" }
+    ]
+  }],
+  "presets": [{ "name": "Mosaico de categorias", "category": "Premium", "blocks": [{ "type": "category", "settings": { "heading": "Tecnologia" } }, { "type": "category", "settings": { "heading": "Casa inteligente" } }, { "type": "category", "settings": { "heading": "Universo pet" } }, { "type": "category", "settings": { "heading": "Presentes criativos" } }] }]
+}
+{% endschema %}

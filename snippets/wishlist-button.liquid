@@ -4,7 +4,7 @@
   data-product-id="{{ product.id }}"
   data-product-title="{{ product.title | escape }}"
   data-product-url="{{ product.url }}"
-  data-product-image="{{ product.featured_image | img_url: '200x' }}"
+  data-product-image="{{ product.featured_image | image_url: width: 200 }}"
   data-product-price="{{ product.price | money }}"
   aria-label="Adicionar à lista de desejos"
   style="background: none; border: none; cursor: pointer; padding: 0.5rem; transition: transform 0.2s ease;"

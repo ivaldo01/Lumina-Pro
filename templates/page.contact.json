@@ -10,8 +10,10 @@
 {
   "sections": {
     "main": {
-      "type": "search-results",
-      "settings": {}
+      "type": "contact-form",
+      "settings": {
+        "heading": "Entre em Contato"
+      }
     }
   },
   "order": [

@@ -1,0 +1,130 @@
+<section class="contact-page">
+  <div class="contact-page__header">
+    <p class="contact-page__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ section.settings.heading | escape }}</h1>
+    {% if section.settings.intro != blank %}
+      <div class="contact-page__intro">{{ section.settings.intro }}</div>
+    {% endif %}
+  </div>
+
+  <div class="contact-page__grid">
+    <div class="contact-card contact-card--form">
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <div class="contact-alert contact-alert--success" role="status" tabindex="-1">
+            {{ section.settings.success_message }}
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="contact-alert contact-alert--error" role="alert" tabindex="-1">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="contact-field">
+          <label for="ContactForm-name">Nome <span aria-hidden="true">*</span></label>
+          <input id="ContactForm-name" type="text" name="contact[name]" value="{{ form.name | escape }}" autocomplete="name" required>
+        </div>
+
+        <div class="contact-field">
+          <label for="ContactForm-email">E-mail <span aria-hidden="true">*</span></label>
+          <input id="ContactForm-email" type="email" name="contact[email]" value="{{ form.email | escape }}" autocomplete="email" autocorrect="off" autocapitalize="off" required
+            {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="ContactForm-email-error"{% endif %}>
+          {% if form.errors contains 'email' %}
+            <small id="ContactForm-email-error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</small>
+          {% endif %}
+        </div>
+
+        {% if section.settings.show_phone %}
+          <div class="contact-field">
+            <label for="ContactForm-phone">Telefone</label>
+            <input id="ContactForm-phone" type="tel" name="contact[phone]" value="{{ form.phone | escape }}" autocomplete="tel">
+          </div>
+        {% endif %}
+
+        <div class="contact-field">
+          <label for="ContactForm-body">Mensagem <span aria-hidden="true">*</span></label>
+          <textarea id="ContactForm-body" name="contact[body]" rows="7" required>{{ form.body }}</textarea>
+        </div>
+
+        <button type="submit" class="button contact-page__submit">{{ section.settings.button_label }}</button>
+      {% endform %}
+    </div>
+
+    <aside class="contact-page__aside" aria-label="Informações de contato">
+      <div class="contact-card">
+        <h2>{{ section.settings.info_heading }}</h2>
+        {% if section.settings.email != blank %}
+          <a class="contact-detail" href="mailto:{{ section.settings.email | escape }}">
+            <span aria-hidden="true">✉</span><span>{{ section.settings.email }}</span>
+          </a>
+        {% endif %}
+        {% if section.settings.phone != blank %}
+          <a class="contact-detail" href="tel:{{ section.settings.phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">
+            <span aria-hidden="true">☎</span><span>{{ section.settings.phone }}</span>
+          </a>
+        {% endif %}
+        {% if section.settings.address != blank %}
+          <div class="contact-detail"><span aria-hidden="true">⌖</span><span>{{ section.settings.address }}</span></div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.hours != blank %}
+        <div class="contact-card">
+          <h2>{{ section.settings.hours_heading }}</h2>
+          <div class="contact-page__hours">{{ section.settings.hours }}</div>
+        </div>
+      {% endif %}
+    </aside>
+  </div>
+</section>
+
+{% style %}
+  .contact-page{max-width:var(--container-width);margin:0 auto;padding:clamp(2.5rem,6vw,5rem) var(--container-padding)}
+  .contact-page__header{max-width:720px;margin:0 auto clamp(2rem,5vw,3.5rem);text-align:center}
+  .contact-page__eyebrow{margin:0 0 .5rem;color:var(--color-accent);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}
+  .contact-page__header h1{margin:0;font-size:clamp(2rem,5vw,3.5rem)}
+  .contact-page__intro{margin-top:1rem;color:var(--color-text-secondary);line-height:1.7}
+  .contact-page__grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr);gap:clamp(1.25rem,4vw,3rem);align-items:start}
+  .contact-page__aside{display:grid;gap:1.25rem}
+  .contact-card{padding:clamp(1.25rem,4vw,2rem);background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-card)}
+  .contact-card h2{margin:0 0 1.25rem;font-size:1.2rem}
+  .contact-field{display:grid;gap:.5rem;margin-bottom:1.25rem}
+  .contact-field label{font-weight:700;font-size:.9rem}
+  .contact-field input,.contact-field textarea{width:100%;padding:.85rem 1rem;border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface);color:var(--color-text);font:inherit}
+  .contact-field textarea{resize:vertical}
+  .contact-field input:focus,.contact-field textarea:focus{outline:3px solid color-mix(in srgb,var(--color-primary) 22%,transparent);border-color:var(--color-primary)}
+  .contact-field small{color:var(--color-error)}
+  .contact-page__submit{width:100%}
+  .contact-alert{padding:1rem;border-radius:var(--radius-sm);margin-bottom:1.5rem}
+  .contact-alert--success{background:#e8f7ed;color:#146c2e}
+  .contact-alert--error{background:#fff0f0;color:var(--color-error)}
+  .contact-detail{display:flex;gap:.75rem;align-items:flex-start;margin-top:1rem;color:var(--color-text);text-decoration:none;overflow-wrap:anywhere}
+  a.contact-detail:hover{text-decoration:underline}
+  .contact-detail>span:first-child{color:var(--color-accent);font-size:1.25rem;line-height:1}
+  .contact-page__hours{color:var(--color-text-secondary);line-height:1.8}
+  @media(max-width:760px){.contact-page__grid{grid-template-columns:1fr}.contact-page{padding-inline:var(--spacing-sm)}}
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Formulário de contato",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Chamada", "default": "Fale conosco" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Como podemos ajudar?" },
+    { "type": "richtext", "id": "intro", "label": "Introdução", "default": "<p>Envie sua mensagem e nossa equipe responderá assim que possível.</p>" },
+    { "type": "checkbox", "id": "show_phone", "label": "Solicitar telefone no formulário", "default": true },
+    { "type": "text", "id": "button_label", "label": "Texto do botão", "default": "Enviar mensagem" },
+    { "type": "text", "id": "success_message", "label": "Mensagem de sucesso", "default": "Mensagem enviada com sucesso. Em breve entraremos em contato." },
+    { "type": "header", "content": "Informações de contato" },
+    { "type": "text", "id": "info_heading", "label": "Título", "default": "Outros canais" },
+    { "type": "text", "id": "email", "label": "E-mail" },
+    { "type": "text", "id": "phone", "label": "Telefone" },
+    { "type": "textarea", "id": "address", "label": "Endereço" },
+    { "type": "text", "id": "hours_heading", "label": "Título dos horários", "default": "Horário de atendimento" },
+    { "type": "richtext", "id": "hours", "label": "Horários", "default": "<p>Segunda a sexta, das 9h às 18h.<br>Sábado, das 9h às 14h.</p>" }
+  ],
+  "presets": [{ "name": "Formulário de contato" }]
+}
+{% endschema %}

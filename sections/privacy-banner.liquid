@@ -1,0 +1,59 @@
+<script src="{{ 'privacy-consent.js' | asset_url }}" defer="defer"></script>
+
+{% style %}
+  .privacy-{{ section.id }}{position:relative;z-index:9999}
+  .privacy-{{ section.id }} .privacy-banner{position:fixed;right:clamp(12px,3vw,32px);bottom:clamp(12px,3vw,32px);left:clamp(12px,3vw,32px);width:min(100% - 24px,680px);margin-left:auto;padding:1.25rem;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(7,15,29,.97);color:#fff;box-shadow:0 28px 80px rgba(0,0,0,.38);backdrop-filter:blur(18px);opacity:0;transform:translateY(28px) scale(.98);transition:opacity .3s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
+  .privacy-{{ section.id }} .privacy-banner.is-visible{opacity:1;transform:none}
+  .privacy-{{ section.id }} .privacy-banner[hidden]{display:none}
+  .privacy-{{ section.id }} .privacy-banner__eyebrow{margin:0 0 .35rem;color:{{ section.settings.accent }};font-size:.65rem;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+  .privacy-{{ section.id }} .privacy-banner__title{margin:0;color:#fff;font-size:1.15rem}
+  .privacy-{{ section.id }} .privacy-banner__text{margin:.55rem 0 0;color:rgba(255,255,255,.7);font-size:.76rem;line-height:1.55}
+  .privacy-{{ section.id }} .privacy-banner__text a{color:#fff;text-decoration:underline}
+  .privacy-{{ section.id }} .privacy-banner__actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+  .privacy-{{ section.id }} .privacy-banner__button{min-height:40px;padding:.65rem .9rem;border:1px solid rgba(255,255,255,.2);border-radius:10px;background:transparent;color:#fff;font:inherit;font-size:.68rem;font-weight:800;cursor:pointer}
+  .privacy-{{ section.id }} .privacy-banner__button--primary{border-color:{{ section.settings.accent }};background:{{ section.settings.accent }}}
+  .privacy-{{ section.id }} .privacy-banner__preferences{display:grid;gap:.65rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.12)}
+  .privacy-{{ section.id }} .privacy-banner__preference{display:flex;align-items:flex-start;gap:.65rem;color:rgba(255,255,255,.78);font-size:.72rem}.privacy-{{ section.id }} .privacy-banner__preference input{margin-top:3px;accent-color:{{ section.settings.accent }}}
+  .privacy-{{ section.id }} .privacy-banner__preference strong{display:block;color:#fff}.privacy-{{ section.id }} .privacy-banner__preference span{display:block;margin-top:.1rem;color:rgba(255,255,255,.55)}
+  .privacy-{{ section.id }} .privacy-banner__status{margin:.65rem 0 0;color:#ffaaaa;font-size:.7rem}
+  @media(max-width:749px){.privacy-{{ section.id }} .privacy-banner{max-height:calc(100vh - 24px);overflow-y:auto;padding:1rem;border-radius:15px}.privacy-{{ section.id }} .privacy-banner__actions{display:grid;grid-template-columns:1fr 1fr}.privacy-{{ section.id }} .privacy-banner__button--primary{grid-column:1/-1}}
+{% endstyle %}
+
+{% if section.settings.enabled %}
+  <div class="privacy-{{ section.id }}" data-privacy-root>
+    <section class="privacy-banner" data-privacy-banner hidden role="dialog" aria-modal="false" aria-labelledby="PrivacyTitle-{{ section.id }}">
+      <p class="privacy-banner__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      <h2 class="privacy-banner__title" id="PrivacyTitle-{{ section.id }}">{{ section.settings.title | escape }}</h2>
+      <div class="privacy-banner__text">
+        {{ section.settings.text }}
+        {% if shop.privacy_policy != blank %}<a href="{{ shop.privacy_policy.url }}">Leia a Política de Privacidade</a>.{% endif %}
+      </div>
+      <div class="privacy-banner__actions">
+        <button class="privacy-banner__button" type="button" data-privacy-reject>Recusar opcionais</button>
+        <button class="privacy-banner__button" type="button" data-privacy-customize>Personalizar</button>
+        <button class="privacy-banner__button privacy-banner__button--primary" type="button" data-privacy-accept>Aceitar todos</button>
+      </div>
+      <div class="privacy-banner__preferences" data-privacy-preferences hidden>
+        <label class="privacy-banner__preference"><input type="checkbox" checked disabled><span><strong>Necessários</strong><span>Essenciais para navegação, segurança, carrinho e checkout.</span></span></label>
+        <label class="privacy-banner__preference"><input type="checkbox" name="privacy_preferences"><span><strong>Preferências</strong><span>Memorizam idioma, região e escolhas de navegação.</span></span></label>
+        <label class="privacy-banner__preference"><input type="checkbox" name="privacy_analytics"><span><strong>Análise</strong><span>Ajudam a entender o uso da loja e melhorar a experiência.</span></span></label>
+        <label class="privacy-banner__preference"><input type="checkbox" name="privacy_marketing"><span><strong>Marketing</strong><span>Permitem personalizar anúncios e medir campanhas.</span></span></label>
+        <button class="privacy-banner__button privacy-banner__button--primary" type="button" data-privacy-save>Salvar preferências</button>
+      </div>
+      <p class="privacy-banner__status" data-privacy-status hidden role="status"></p>
+    </section>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Privacidade e cookies",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Ativar consentimento de cookies", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Chamada", "default": "Sua privacidade importa" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Você controla seus dados" },
+    { "type": "richtext", "id": "text", "label": "Descrição", "default": "<p>Usamos cookies necessários para a loja funcionar e, com sua permissão, cookies de preferências, análise e marketing. Você pode alterar sua escolha a qualquer momento.</p>" },
+    { "type": "color", "id": "accent", "label": "Cor de destaque", "default": "#135ee8" }
+  ]
+}
+{% endschema %}

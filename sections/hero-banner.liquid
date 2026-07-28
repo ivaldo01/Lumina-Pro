@@ -1,101 +1,162 @@
-<style>
-  .hero-slider-{{ section.id }} {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    gap: 0;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  .hero-slider-{{ section.id }}::-webkit-scrollbar { display: none; }
+<script src="{{ 'hero-slider.js' | asset_url }}" defer="defer"></script>
 
-  .hero-slider-{{ section.id }} .hero-slide {
-    flex: 0 0 100%;
-    width: 100%;
-    scroll-snap-align: center;
-    position: relative;
-    overflow: hidden;
-    background: #f5f5f5;
-    display: block;
-    height: {{ section.settings.desktop_height }}px;
+{% style %}
+  #shopify-section-{{ section.id }}{--hero-radius:{{ section.settings.border_radius }}px;--hero-content-width:{{ section.settings.content_width }}px}
+  .hero-pro-{{ section.id }}{position:relative;overflow:hidden;background:{{ section.settings.background }};color:{{ section.settings.text_color }};border-radius:var(--hero-radius)}
+  .hero-pro-{{ section.id }} .hero-pro__track{display:flex;overflow:hidden;scroll-behavior:smooth;scroll-snap-type:x mandatory}
+  .hero-pro-{{ section.id }} .hero-pro__slide{position:relative;flex:0 0 100%;min-width:100%;height:{{ section.settings.desktop_height }}px;scroll-snap-align:start;isolation:isolate}
+  .hero-pro-{{ section.id }} .hero-pro__media,.hero-pro-{{ section.id }} .hero-pro__media picture,.hero-pro-{{ section.id }} .hero-pro__media img,.hero-pro-{{ section.id }} .hero-pro__placeholder{position:absolute;inset:0;width:100%;height:100%}
+  .hero-pro-{{ section.id }} .hero-pro__media img{object-fit:{{ section.settings.image_fit }};object-position:var(--desktop-position,center)}
+  .hero-pro-{{ section.id }} .hero-pro__placeholder{background:linear-gradient(135deg,#071427,#142d52);color:#fff}
+  .hero-pro-{{ section.id }} .hero-pro__overlay{position:absolute;inset:0;background:linear-gradient(var(--overlay-direction),rgba(0,0,0,var(--overlay-opacity)),transparent 75%);z-index:1}
+  .hero-pro-{{ section.id }} .hero-pro__inner{position:relative;z-index:2;display:flex;align-items:var(--vertical);justify-content:var(--horizontal);height:100%;max-width:{{ section.settings.max_width }}px;margin:auto;padding:clamp(1.5rem,5vw,5rem)}
+  .hero-pro-{{ section.id }} .hero-pro__content{width:min(100%,var(--hero-content-width));text-align:var(--text-align);color:var(--slide-color)}
+  .hero-pro-{{ section.id }} .hero-pro__eyebrow{display:inline-flex;margin:0 0 1rem;padding:.45rem .8rem;border:1px solid currentColor;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(8px)}
+  .hero-pro-{{ section.id }} .hero-pro__title{margin:0;color:inherit;font-size:clamp(2rem,5vw,{{ section.settings.heading_size }}px);line-height:.98;letter-spacing:-.045em;text-wrap:balance}
+  .hero-pro-{{ section.id }} .hero-pro__text{margin:1.25rem 0 0;font-size:clamp(.95rem,1.5vw,1.15rem);line-height:1.65;opacity:.9}
+  .hero-pro-{{ section.id }} .hero-pro__buttons{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem;justify-content:var(--horizontal)}
+  .hero-pro-{{ section.id }} .hero-pro__button{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:.8rem 1.4rem;border:1px solid var(--button-bg);border-radius:{{ section.settings.button_radius }}px;background:var(--button-bg);color:var(--button-color);font-weight:800;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+  .hero-pro-{{ section.id }} .hero-pro__button:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(0,0,0,.25)}
+  .hero-pro-{{ section.id }} .hero-pro__button--outline{background:transparent;color:inherit;border-color:currentColor}
+  .hero-pro-{{ section.id }} .hero-pro__controls{position:absolute;z-index:4;inset:auto clamp(1rem,3vw,2.5rem) 1.5rem;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+  .hero-pro-{{ section.id }} .hero-pro__arrows,.hero-pro-{{ section.id }} .hero-pro__dots{display:flex;gap:.5rem;pointer-events:auto}
+  .hero-pro-{{ section.id }} .hero-pro__arrow{display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(255,255,255,.4);border-radius:999px;background:rgba(0,0,0,.25);color:#fff;cursor:pointer;backdrop-filter:blur(10px);transition:.25s ease}
+  .hero-pro-{{ section.id }} .hero-pro__arrow:hover{background:#fff;color:#111;transform:scale(1.05)}
+  .hero-pro-{{ section.id }} .hero-pro__dot{width:28px;height:4px;padding:0;border:0;border-radius:99px;background:rgba(255,255,255,.4);cursor:pointer;transition:.3s ease}
+  .hero-pro-{{ section.id }} .hero-pro__dot[aria-current="true"]{width:52px;background:#fff}
+  .hero-pro-{{ section.id }} [data-hero-content]{opacity:0;transform:translateY(28px)}
+  .hero-pro-{{ section.id }} .is-active [data-hero-content]{animation:hero-content-in .75s cubic-bezier(.2,.8,.2,1) .15s forwards}
+  @keyframes hero-content-in{to{opacity:1;transform:none}}
+  @media(max-width:749px){
+    #shopify-section-{{ section.id }}{--hero-radius:{{ section.settings.mobile_border_radius }}px}
+    .hero-pro-{{ section.id }} .hero-pro__slide{height:{{ section.settings.mobile_height }}px;min-height:420px}
+    .hero-pro-{{ section.id }} .hero-pro__media img{object-position:var(--mobile-position,center)}
+    .hero-pro-{{ section.id }} .hero-pro__inner{align-items:var(--mobile-vertical);justify-content:var(--mobile-horizontal);padding:1.5rem 1.15rem 4.5rem}
+    .hero-pro-{{ section.id }} .hero-pro__content{text-align:var(--mobile-text-align)}
+    .hero-pro-{{ section.id }} .hero-pro__title{font-size:{{ section.settings.mobile_heading_size }}px;line-height:1.03}
+    .hero-pro-{{ section.id }} .hero-pro__buttons{justify-content:var(--mobile-horizontal)}
+    .hero-pro-{{ section.id }} .hero-pro__button{width:{% if section.settings.mobile_full_buttons %}100%{% else %}auto{% endif %}}
+    .hero-pro-{{ section.id }} .hero-pro__controls{inset:auto 1rem 1rem}
+    .hero-pro-{{ section.id }} .hero-pro__arrow{width:40px;height:40px}
   }
-  .hero-slider-{{ section.id }} .hero-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: {{ section.settings.image_fit }};
-    object-position: center;
-    display: block;
-  }
-  @media (max-width: 768px) {
-    .hero-slider-{{ section.id }} .hero-slide {
-      height: {{ section.settings.mobile_height }}px;
-    }
-  }
-</style>
+  @media(prefers-reduced-motion:reduce){.hero-pro-{{ section.id }} *{scroll-behavior:auto!important;animation:none!important;transition:none!important}.hero-pro-{{ section.id }} [data-hero-content]{opacity:1;transform:none}}
+{% endstyle %}
 
-<section class="hero-slider-{{ section.id }}">
-  {% for block in section.blocks %}
-    <a href="{{ block.settings.link | default: '#' }}" class="hero-slide" {{ block.shopify_attributes }}>
-      {% if block.settings.image != blank %}
-        <img src="{{ block.settings.image | image_url: width: 2000 }}"
-             alt="{{ block.settings.image.alt | escape }}"
-             loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
-      {% else %}
-        <div style="width:100%;height:100%;background:#333;display:flex;align-items:center;justify-content:center;color:#fff;">
-          Banner de Exemplo {{ forloop.index }}
+<hero-slider class="hero-pro-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.autoplay_speed | times: 1000 }}" aria-roledescription="carrossel">
+  <div class="hero-pro__track" data-hero-track>
+    {% for block in section.blocks %}
+      <article class="hero-pro__slide{% if forloop.first %} is-active{% endif %}"
+        style="--overlay-opacity:{{ block.settings.overlay_opacity | divided_by: 100.0 }};--overlay-direction:{{ block.settings.overlay_direction }};--slide-color:{{ block.settings.text_color }};--button-bg:{{ block.settings.button_background }};--button-color:{{ block.settings.button_text }};--desktop-position:{{ block.settings.desktop_position }};--mobile-position:{{ block.settings.mobile_position }};--vertical:{{ block.settings.vertical_alignment }};--horizontal:{{ block.settings.horizontal_alignment }};--text-align:{{ block.settings.text_alignment }};--mobile-vertical:{{ block.settings.mobile_vertical_alignment }};--mobile-horizontal:{{ block.settings.mobile_horizontal_alignment }};--mobile-text-align:{{ block.settings.mobile_text_alignment }}"
+        data-hero-slide aria-label="Slide {{ forloop.index }} de {{ section.blocks.size }}" {{ block.shopify_attributes }}>
+        <div class="hero-pro__media">
+          {% if block.settings.image != blank %}
+            <picture>
+              {% if block.settings.mobile_image != blank %}
+                <source media="(max-width:749px)" srcset="{{ block.settings.mobile_image | image_url: width: 900 }}">
+              {% endif %}
+              <img src="{{ block.settings.image | image_url: width: 2200 }}" alt="{{ block.settings.image.alt | default: block.settings.heading | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+            </picture>
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-pro__placeholder' }}
+          {% endif %}
+        </div>
+        <div class="hero-pro__overlay"></div>
+        <div class="hero-pro__inner">
+          {% if block.settings.eyebrow != blank or block.settings.heading != blank or block.settings.text != blank %}
+            <div class="hero-pro__content" data-hero-content>
+              {% if block.settings.eyebrow != blank %}<p class="hero-pro__eyebrow">{{ block.settings.eyebrow | escape }}</p>{% endif %}
+              {% if block.settings.heading != blank %}<h2 class="hero-pro__title">{{ block.settings.heading }}</h2>{% endif %}
+              {% if block.settings.text != blank %}<div class="hero-pro__text">{{ block.settings.text }}</div>{% endif %}
+              {% if block.settings.button_label != blank or block.settings.secondary_button_label != blank %}
+                <div class="hero-pro__buttons">
+                  {% if block.settings.button_label != blank %}<a class="hero-pro__button" href="{{ block.settings.button_link | default: routes.all_products_collection_url }}">{{ block.settings.button_label | escape }}</a>{% endif %}
+                  {% if block.settings.secondary_button_label != blank %}<a class="hero-pro__button hero-pro__button--outline" href="{{ block.settings.secondary_button_link | default: routes.collections_url }}">{{ block.settings.secondary_button_label | escape }}</a>{% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </article>
+    {% else %}
+      <article class="hero-pro__slide is-active"><div class="hero-pro__media">{{ 'lifestyle-1' | placeholder_svg_tag: 'hero-pro__placeholder' }}</div></article>
+    {% endfor %}
+  </div>
+
+  {% if section.blocks.size > 1 %}
+    <div class="hero-pro__controls">
+      {% if section.settings.show_arrows %}
+        <div class="hero-pro__arrows">
+          <button class="hero-pro__arrow" type="button" data-hero-prev aria-label="Slide anterior">←</button>
+          <button class="hero-pro__arrow" type="button" data-hero-next aria-label="Próximo slide">→</button>
+        </div>
+      {% else %}<span></span>{% endif %}
+      {% if section.settings.show_dots %}
+        <div class="hero-pro__dots" aria-label="Escolher slide">
+          {% for block in section.blocks %}<button class="hero-pro__dot" type="button" data-hero-dot="{{ forloop.index0 }}" aria-label="Ir para slide {{ forloop.index }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}"></button>{% endfor %}
         </div>
       {% endif %}
-    </a>
-  {% endfor %}
-
-  {% if section.blocks.size == 0 %}
-    <div class="hero-slide">
-      <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop" alt="Oferta Tech" loading="eager">
     </div>
   {% endif %}
-</section>
+</hero-slider>
 
 {% schema %}
 {
-  "name": "Slider de Banners (Pro)",
-  "max_blocks": 5,
+  "name": "Banner premium",
+  "max_blocks": 6,
   "settings": [
-    { "type": "header", "content": "Altura do Banner" },
-    {
-      "type": "range", "id": "desktop_height",
-      "min": 200, "max": 1000, "step": 25, "unit": "px",
-      "label": "Altura no Computador", "default": 500
-    },
-    {
-      "type": "range", "id": "mobile_height",
-      "min": 150, "max": 800, "step": 25, "unit": "px",
-      "label": "Altura no Celular", "default": 300
-    },
-    {
-      "type": "select", "id": "image_fit",
-      "label": "Comportamento da Imagem",
-      "options": [
-        { "value": "cover", "label": "Preencher tela (Pode cortar as bordas)" },
-        { "value": "contain", "label": "Encaixar (Mostra a imagem inteira)" }
-      ],
-      "default": "cover"
-    }
+    { "type": "header", "content": "Layout — desktop" },
+    { "type": "range", "id": "desktop_height", "min": 400, "max": 950, "step": 25, "unit": "px", "label": "Altura", "default": 650 },
+    { "type": "range", "id": "max_width", "min": 1000, "max": 2000, "step": 100, "unit": "px", "label": "Largura do conteúdo", "default": 1600 },
+    { "type": "range", "id": "content_width", "min": 360, "max": 800, "step": 20, "unit": "px", "label": "Largura do texto", "default": 560 },
+    { "type": "range", "id": "heading_size", "min": 36, "max": 100, "step": 2, "unit": "px", "label": "Tamanho do título", "default": 68 },
+    { "type": "range", "id": "border_radius", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Arredondamento", "default": 0 },
+    { "type": "header", "content": "Layout — celular" },
+    { "type": "range", "id": "mobile_height", "min": 420, "max": 800, "step": 20, "unit": "px", "label": "Altura", "default": 580 },
+    { "type": "range", "id": "mobile_heading_size", "min": 26, "max": 54, "step": 2, "unit": "px", "label": "Tamanho do título", "default": 38 },
+    { "type": "range", "id": "mobile_border_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Arredondamento", "default": 0 },
+    { "type": "checkbox", "id": "mobile_full_buttons", "label": "Botões ocupam toda a largura", "default": true },
+    { "type": "header", "content": "Slider e efeitos" },
+    { "type": "checkbox", "id": "autoplay", "label": "Troca automática", "default": true },
+    { "type": "range", "id": "autoplay_speed", "min": 3, "max": 10, "step": 1, "unit": "s", "label": "Tempo entre slides", "default": 6 },
+    { "type": "checkbox", "id": "show_arrows", "label": "Mostrar setas", "default": true },
+    { "type": "checkbox", "id": "show_dots", "label": "Mostrar indicadores", "default": true },
+    { "type": "select", "id": "image_fit", "label": "Ajuste das imagens", "options": [{ "value": "cover", "label": "Preencher" }, { "value": "contain", "label": "Mostrar inteira" }], "default": "cover" },
+    { "type": "range", "id": "button_radius", "min": 0, "max": 30, "step": 2, "unit": "px", "label": "Arredondamento dos botões", "default": 8 },
+    { "type": "color", "id": "background", "label": "Fundo", "default": "#071427" },
+    { "type": "color", "id": "text_color", "label": "Texto padrão", "default": "#ffffff" }
   ],
-  "blocks": [
-    {
-      "type": "slide", "name": "Banner",
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Imagem do Banner" },
-        { "type": "url", "id": "link", "label": "Link do Banner" }
-      ]
-    }
-  ],
-  "presets": [
-    { "name": "Slider de Banners Lumina", "category": "Image", "blocks": [ { "type": "slide" } ] }
-  ]
+  "blocks": [{
+    "type": "slide", "name": "Slide premium",
+    "settings": [
+      { "type": "header", "content": "Imagens" },
+      { "type": "image_picker", "id": "image", "label": "Imagem para desktop" },
+      { "type": "image_picker", "id": "mobile_image", "label": "Imagem exclusiva para celular" },
+      { "type": "select", "id": "desktop_position", "label": "Foco da imagem no desktop", "options": [{ "value": "left center", "label": "Esquerda" }, { "value": "center", "label": "Centro" }, { "value": "right center", "label": "Direita" }], "default": "center" },
+      { "type": "select", "id": "mobile_position", "label": "Foco da imagem no celular", "options": [{ "value": "left center", "label": "Esquerda" }, { "value": "center", "label": "Centro" }, { "value": "right center", "label": "Direita" }], "default": "center" },
+      { "type": "header", "content": "Conteúdo" },
+      { "type": "text", "id": "eyebrow", "label": "Chamada curta", "default": "Novidades selecionadas" },
+      { "type": "inline_richtext", "id": "heading", "label": "Título", "default": "Design que transforma o cotidiano" },
+      { "type": "richtext", "id": "text", "label": "Descrição", "default": "<p>Descubra produtos escolhidos para surpreender, facilitar e inspirar.</p>" },
+      { "type": "text", "id": "button_label", "label": "Botão principal", "default": "Explorar agora" },
+      { "type": "url", "id": "button_link", "label": "Link principal" },
+      { "type": "text", "id": "secondary_button_label", "label": "Botão secundário", "default": "Ver coleções" },
+      { "type": "url", "id": "secondary_button_link", "label": "Link secundário" },
+      { "type": "color", "id": "text_color", "label": "Cor do texto", "default": "#ffffff" },
+      { "type": "color", "id": "button_background", "label": "Fundo do botão", "default": "#ffffff" },
+      { "type": "color", "id": "button_text", "label": "Texto do botão", "default": "#071427" },
+      { "type": "header", "content": "Posição — desktop" },
+      { "type": "select", "id": "horizontal_alignment", "label": "Horizontal", "options": [{ "value": "flex-start", "label": "Esquerda" }, { "value": "center", "label": "Centro" }, { "value": "flex-end", "label": "Direita" }], "default": "flex-start" },
+      { "type": "select", "id": "vertical_alignment", "label": "Vertical", "options": [{ "value": "flex-start", "label": "Topo" }, { "value": "center", "label": "Centro" }, { "value": "flex-end", "label": "Rodapé" }], "default": "center" },
+      { "type": "select", "id": "text_alignment", "label": "Texto", "options": [{ "value": "left", "label": "Esquerda" }, { "value": "center", "label": "Centro" }, { "value": "right", "label": "Direita" }], "default": "left" },
+      { "type": "header", "content": "Posição — celular" },
+      { "type": "select", "id": "mobile_horizontal_alignment", "label": "Horizontal", "options": [{ "value": "flex-start", "label": "Esquerda" }, { "value": "center", "label": "Centro" }, { "value": "flex-end", "label": "Direita" }], "default": "center" },
+      { "type": "select", "id": "mobile_vertical_alignment", "label": "Vertical", "options": [{ "value": "flex-start", "label": "Topo" }, { "value": "center", "label": "Centro" }, { "value": "flex-end", "label": "Rodapé" }], "default": "flex-end" },
+      { "type": "select", "id": "mobile_text_alignment", "label": "Texto", "options": [{ "value": "left", "label": "Esquerda" }, { "value": "center", "label": "Centro" }, { "value": "right", "label": "Direita" }], "default": "center" },
+      { "type": "header", "content": "Sobreposição" },
+      { "type": "range", "id": "overlay_opacity", "min": 0, "max": 90, "step": 5, "unit": "%", "label": "Intensidade", "default": 50 },
+      { "type": "select", "id": "overlay_direction", "label": "Direção", "options": [{ "value": "90deg", "label": "Esquerda para direita" }, { "value": "270deg", "label": "Direita para esquerda" }, { "value": "0deg", "label": "De baixo para cima" }], "default": "90deg" }
+    ]
+  }],
+  "presets": [{ "name": "Banner premium", "category": "Premium", "blocks": [{ "type": "slide" }] }]
 }
 {% endschema %}

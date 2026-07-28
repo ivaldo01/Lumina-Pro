@@ -22,15 +22,17 @@
     <meta property="og:type" content="{% if template contains 'product' %}product{% elsif template contains 'article' %}article{% else %}website{% endif %}">
     <meta property="og:url" content="{{ canonical_url }}">
     {% if template contains 'product' %}
-      <meta property="og:image" content="{{ product.featured_image | img_url: 'master' }}">
+      <meta property="og:image" content="{{ product.featured_image | image_url: width: 1600 }}">
       <meta property="og:description" content="{{ product.description | strip_html | truncate: 160 | escape }}">
       <meta property="product:price:amount" content="{{ product.price | money_without_currency }}">
       <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
     {% elsif template contains 'article' %}
-      <meta property="og:image" content="{{ article.image | img_url: 'master' }}">
+      <meta property="og:image" content="{{ article.image | image_url: width: 1600 }}">
       <meta property="og:description" content="{{ article.excerpt | strip_html | truncate: 160 | escape }}">
     {% else %}
-      <meta property="og:image" content="{{ 'logo.png' | asset_url }}">
+      {% if settings.logo != blank %}
+        <meta property="og:image" content="{{ settings.logo | image_url: width: 1200 }}">
+      {% endif %}
       <meta property="og:description" content="{{ shop.description | default: page_description | escape }}">
     {% endif %}
     <meta property="og:site_name" content="{{ shop.name | escape }}">
@@ -40,13 +42,12 @@
     <meta name="twitter:title" content="{{ page_title | escape }}">
     <meta name="twitter:description" content="{{ page_description | default: shop.description | escape }}">
 
-    <!-- Fontes Dinâmicas -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family={{ settings.font_family_body }}:wght@300;400;500;600;700&family={{ settings.font_family_heading }}:wght@400;500;600;700;800;900&family={{ settings.font_family_button }}:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <!-- Injeção Dinâmica de Variáveis de Tema -->
     <style>
+      {{ settings.font_family_body | font_face: font_display: 'swap' }}
+      {{ settings.font_family_body | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+      {{ settings.font_family_heading | font_face: font_display: 'swap' }}
+      {{ settings.font_family_button | font_face: font_display: 'swap' }}
       :root {
         /* Cores Principais */
         --color-primary: {{ settings.color_primary }};
@@ -85,9 +86,9 @@
         --color-info: {{ settings.color_info }};
         
         /* Tipografia */
-        --font-body: '{{ settings.font_family_body }}', sans-serif;
-        --font-heading: '{{ settings.font_family_heading }}', sans-serif;
-        --font-button: '{{ settings.font_family_button }}', sans-serif;
+        --font-body: {{ settings.font_family_body.family }}, {{ settings.font_family_body.fallback_families }};
+        --font-heading: {{ settings.font_family_heading.family }}, {{ settings.font_family_heading.fallback_families }};
+        --font-button: {{ settings.font_family_button.family }}, {{ settings.font_family_button.fallback_families }};
         
         /* Tamanhos de Fonte */
         --font-size-base: {{ settings.font_size_base }}px;
@@ -147,13 +148,12 @@
 
     <!-- CSS e JS -->
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    <script src="{{ 'security.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'mobile-menu.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'product.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'collection.js' | asset_url }}" defer="defer"></script>
+    {% if request.page_type == 'product' %}<script src="{{ 'product.js' | asset_url }}" defer="defer"></script>{% endif %}
+    {% if request.page_type == 'cart' %}<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>{% endif %}
     <script src="{{ 'search.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'theme-motion.js' | asset_url }}" defer="defer"></script>
 
     <!-- Structured Data for SEO -->
     {% render 'structured-data' %}
@@ -165,9 +165,9 @@
 
     {{ content_for_header }}
   </head>
-  <body class="template-{{ template.name | handle }} protected-content">
+  <body class="template-{{ template.name | handle }}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
-      Skip to content
+      Ir para o conteúdo
     </a>
 
     {% section 'header' %}
@@ -177,6 +177,7 @@
     </main>
 
     {% section 'footer' %}
+    {% section 'privacy-banner' %}
 
   </body>
 </html>

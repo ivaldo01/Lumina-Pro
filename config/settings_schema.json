@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Lumina Commerce",
+    "theme_name": "Lumina Pro",
     "theme_author": "Ivaldo Silva",
-    "theme_version": "2.1.0",
-    "theme_documentation_url": "https://help.shopify.com",
-    "theme_support_url": "https://support.shopify.com"
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://github.com/ivaldo01/Lumina-Pro",
+    "theme_support_url": "https://github.com/ivaldo01/Lumina-Pro/issues"
   },
   {
     "name": "Cores Globais",
@@ -188,112 +188,22 @@
         "content": "Fontes"
       },
       {
-        "type": "select",
+        "type": "font_picker",
         "id": "font_family_body",
-        "label": "Fonte do Corpo do Texto",
-        "options": [
-          {
-            "value": "Roboto",
-            "label": "Roboto"
-          },
-          {
-            "value": "Inter",
-            "label": "Inter"
-          },
-          {
-            "value": "Montserrat",
-            "label": "Montserrat"
-          },
-          {
-            "value": "Open Sans",
-            "label": "Open Sans"
-          },
-          {
-            "value": "Lato",
-            "label": "Lato"
-          },
-          {
-            "value": "Poppins",
-            "label": "Poppins"
-          },
-          {
-            "value": "Source Sans Pro",
-            "label": "Source Sans Pro"
-          }
-        ],
-        "default": "Roboto"
+        "label": "Fonte do corpo do texto",
+        "default": "assistant_n4"
       },
       {
-        "type": "select",
+        "type": "font_picker",
         "id": "font_family_heading",
-        "label": "Fonte dos Títulos",
-        "options": [
-          {
-            "value": "Roboto",
-            "label": "Roboto"
-          },
-          {
-            "value": "Inter",
-            "label": "Inter"
-          },
-          {
-            "value": "Montserrat",
-            "label": "Montserrat"
-          },
-          {
-            "value": "Open Sans",
-            "label": "Open Sans"
-          },
-          {
-            "value": "Lato",
-            "label": "Lato"
-          },
-          {
-            "value": "Poppins",
-            "label": "Poppins"
-          },
-          {
-            "value": "Oswald",
-            "label": "Oswald"
-          },
-          {
-            "value": "Playfair Display",
-            "label": "Playfair Display"
-          }
-        ],
-        "default": "Montserrat"
+        "label": "Fonte dos títulos",
+        "default": "assistant_n7"
       },
       {
-        "type": "select",
+        "type": "font_picker",
         "id": "font_family_button",
-        "label": "Fonte dos Botões",
-        "options": [
-          {
-            "value": "Roboto",
-            "label": "Roboto"
-          },
-          {
-            "value": "Inter",
-            "label": "Inter"
-          },
-          {
-            "value": "Montserrat",
-            "label": "Montserrat"
-          },
-          {
-            "value": "Open Sans",
-            "label": "Open Sans"
-          },
-          {
-            "value": "Poppins",
-            "label": "Poppins"
-          },
-          {
-            "value": "Oswald",
-            "label": "Oswald"
-          }
-        ],
-        "default": "Montserrat"
+        "label": "Fonte dos botões",
+        "default": "assistant_n7"
       },
       {
         "type": "header",
@@ -698,7 +608,7 @@
         "type": "text",
         "id": "announcement_text",
         "label": "Texto do Anúncio",
-        "default": "Frete Grátis para compras acima de R$ 199"
+        "default": "Compre com segurança e praticidade"
       },
       {
         "type": "color",

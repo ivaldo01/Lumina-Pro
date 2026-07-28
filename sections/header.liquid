@@ -86,8 +86,16 @@
   }
   @media (max-width: 900px) {
     .lumina-header .desktop-nav { display: none !important; }
-    .lumina-header .header-search-input { width: 140px; }
+    .lumina-header .lumina-header__inner{padding:{{ hdr.mobile_padding_y | default: 14 }}px 14px!important;gap:.75rem!important;justify-content:space-between}
+    .lumina-header .lumina-header__logo{min-width:0;flex:1}
+    .lumina-header .lumina-header__logo img{max-width:{{ hdr.mobile_logo_width | default: 150 }}px;height:auto!important;max-height:{{ hdr.mobile_logo_height | default: 58 }}px}
+    .lumina-header .lumina-header__actions{gap:8px!important}
+    .lumina-header .header__search{display:{% if hdr.show_search_mobile %}flex{% else %}none{% endif %}!important}
+    .lumina-header .header-search-input{width:120px}
+    {% unless hdr.show_account_mobile %}.lumina-header .header-account{display:none!important}{% endunless %}
+    {% unless hdr.show_wishlist_mobile %}.lumina-header .header-wishlist{display:none!important}{% endunless %}
     .lumina-header .mobile-toggle { display: flex !important; }
+    .lumina-announcement{padding:7px 12px;font-size:10px;letter-spacing:1.4px}
   }
   @media (min-width: 901px) {
     .lumina-header .mobile-toggle { display: none !important; }
@@ -106,17 +114,19 @@
   {% endif %}
 
   <header class="lumina-header">
-    <div style="max-width: {{ hdr.header_max_width | default: 1600 }}px; margin: 0 auto; padding: {{ hdr.header_padding_y | default: 18 }}px 40px; display: flex; align-items: center; gap: 2rem;">
+    <div class="lumina-header__inner" style="max-width: {{ hdr.header_max_width | default: 1600 }}px; margin: 0 auto; padding: {{ hdr.header_padding_y | default: 18 }}px 40px; display: flex; align-items: center; gap: 2rem;">
 
       <!-- Logo -->
-      <div style="flex-shrink: 0;">
+      <div class="lumina-header__logo" style="flex-shrink: 0;">
         <a href="{{ routes.root_url }}" style="display: block; text-decoration: none;">
-          {%- assign _logo = hdr.logo | default: settings.logo -%}
-          {%- assign _logo_width = hdr.logo_height | default: settings.logo_width | default: 45 -%}
-          {% if _logo != blank %}
-            <img src="{{ _logo | image_url: width: 800 }}"
+          {%- assign header_logo = hdr.logo | default: settings.logo -%}
+          {%- assign header_logo_width = hdr.logo_height | default: settings.logo_width | default: 45 -%}
+          {% if header_logo != blank %}
+            <img src="{{ header_logo | image_url: width: 800 }}"
                  alt="{{ shop.name | escape }}"
-                 style="height: {{ _logo_width }}px; width: auto; object-fit: contain; display: block;">
+                 width="{{ header_logo.width }}"
+                 height="{{ header_logo.height }}"
+                 style="height: {{ header_logo_width }}px; width: auto; object-fit: contain; display: block;">
           {% else %}
             <span style="font-size: {{ hdr.logo_text_size | default: 22 }}px; font-weight: {{ hdr.logo_text_weight | default: '700' }}; color: {{ hdr.header_text_color | default: '#0a0a0a' }}; letter-spacing: 3px; text-transform: uppercase; text-decoration: none;">
               {{ shop.name | escape }}
@@ -146,7 +156,7 @@
       </nav>
 
       <!-- Ícones e ações -->
-      <div style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
+      <div class="lumina-header__actions" style="display: flex; align-items: center; gap: 14px; flex-shrink: 0;">
 
         {% if hdr.show_search %}
           <form class="header__search" action="{{ routes.search_url }}" method="get" role="search"
@@ -170,7 +180,7 @@
         {% endif %}
 
         {% if hdr.show_account %}
-          <a href="{{ routes.account_url }}" class="icon-btn" aria-label="Minha Conta" style="text-decoration: none; position: relative;">
+          <a href="{{ routes.account_url }}" class="icon-btn header-account" aria-label="Minha Conta" style="text-decoration: none; position: relative;">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" style="width: {{ hdr.icon_size | default: 22 }}px; height: {{ hdr.icon_size | default: 22 }}px;">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
             </svg>
@@ -178,7 +188,7 @@
         {% endif %}
 
         {% if hdr.show_wishlist %}
-          <a href="/pages/wishlist" class="icon-btn" aria-label="Lista de Desejos" style="text-decoration: none; position: relative;">
+          <a href="/pages/wishlist" class="icon-btn header-wishlist" aria-label="Lista de Desejos" style="text-decoration: none; position: relative;">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" style="width: {{ hdr.icon_size | default: 22 }}px; height: {{ hdr.icon_size | default: 22 }}px;">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
             </svg>
@@ -227,7 +237,7 @@
       "type": "text",
       "id": "announcement_text",
       "label": "Texto do Anúncio",
-      "default": "Frete grátis acima de R$ 299 🎉"
+      "default": "Compre com segurança e praticidade"
     },
     {
       "type": "url",
@@ -287,6 +297,58 @@
         { "value": "900", "label": "Black" }
       ],
       "default": "700"
+    },
+    {
+      "type": "header",
+      "content": "Cabeçalho no celular"
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "label": "Largura máxima do logo",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_height",
+      "label": "Altura máxima do logo",
+      "min": 30,
+      "max": 90,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_y",
+      "label": "Espaçamento vertical",
+      "min": 8,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search_mobile",
+      "label": "Mostrar busca no cabeçalho",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account_mobile",
+      "label": "Mostrar conta no cabeçalho",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist_mobile",
+      "label": "Mostrar favoritos no cabeçalho",
+      "default": false
     },
     {
       "type": "header",

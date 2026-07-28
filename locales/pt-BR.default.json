@@ -65,7 +65,8 @@
     "apply_filters": "Aplicar Filtros",
     "clear_filters": "Limpar Filtros",
     "no_products": "Nenhum produto encontrado nesta coleção",
-    "view_all": "Ver Todos"
+    "view_all": "Ver Todos",
+    "products": "produtos"
   },
   "cart": {
     "title": "Meu Carrinho",
@@ -80,7 +81,11 @@
     "calculate_shipping": "Calcular Frete",
     "free_shipping": "Frete Grátis",
     "estimated_shipping": "Frete estimado",
-    "continue_to_checkout": "Continuar para Finalização"
+    "continue_to_checkout": "Continuar para Finalização",
+    "remove": "Remover",
+    "apply": "Aplicar",
+    "subtotal": "Subtotal",
+    "continue_shopping": "Continuar comprando"
   },
   "header": {
     "announcement": "COMPRE EM ATÉ 12X SEM JUROS PARA TODO O BRASIL!",

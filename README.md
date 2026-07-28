@@ -1,126 +1,97 @@
-# Lumina Commerce - Shopify Premium Theme
+# Lumina Pro — tema Shopify
 
-Tema Shopify premium desenvolvido para e-commerce brasileiro, com design elegante e funcionalidades avançadas.
+Tema Online Store 2.0 responsivo para lojas de catálogo variado, com foco em apresentação visual, compra móvel e personalização pelo editor da Shopify.
 
-## 🚀 Características
+## Versão
 
-- **Shopify 2.0**: Arquitetura JSON templates
-- **Design Responsivo**: Mobile-first approach
-- **Customização Avançada**: Cores, fontes e layout configuráveis
-- **Performance Otimizada**: Lazy loading, WebP, critical CSS
-- **SEO Ready**: Structured data, Open Graph, meta tags
-- **Acessibilidade**: ARIA labels, focus states, WCAG compliant
-- **Funcionalidades E-commerce**: Variantes, filtros, carrinho ajax, busca instantânea
+`1.0.0`
 
-## 📁 Estrutura do Projeto
+## Recursos
 
-```
-lumina-commerce/
-├── assets/              # CSS e JavaScript
-├── config/              # Configurações do tema
-├── layout/              # Layout principal
-├── locales/             # Traduções (i18n)
-├── sections/            # Seções modulares
-├── snippets/            # Componentes reutilizáveis
-├── templates/           # Templates de página
-└── LICENSE.txt          # Licença de uso
+- Página inicial modular com slideshow, benefícios, mosaico e vitrine premium.
+- Destaques individuais intercalados na grade de produtos.
+- Coleções com filtros por tags, ordenação, paginação e compra rápida.
+- Página de produto com galeria, variantes dinâmicas e políticas da loja.
+- Carrinho, busca preditiva, contato, lista de desejos local e página 404.
+- Rodapé com newsletter, meios de pagamento, menus e preferências de privacidade.
+- Customer Privacy API da Shopify para consentimento granular.
+- Fontes hospedadas pela Shopify, imagens responsivas e JavaScript carregado sob demanda.
+- Metadados Open Graph, URL canônica e dados estruturados nativos para produtos.
+
+## Instalação com Shopify CLI
+
+```powershell
+shopify theme dev --store sua-loja.myshopify.com --theme-editor-sync --open
 ```
 
-## 🛠️ Instalação
+Para enviar como tema não publicado:
 
-1. Faça download do tema
-2. Acesse o painel Shopify > Loja Online > Temas
-3. Clique em "Carregar tema"
-4. Selecione o arquivo ZIP do tema
-5. Clique em "Publicar"
+```powershell
+shopify theme push --store sua-loja.myshopify.com --unpublished
+```
 
-## ⚙️ Configuração
+Revise a prévia antes de publicar. Não envie `config/settings_data.json` de uma loja cliente para outra sem revisar os dados e as imagens configuradas.
 
-### Cores Globais
-- Cor Principal (Menus e Destaques)
-- Cor Secundária
-- Cor de Destaque (Botões de Compra)
-- Fundo da Loja
-- Cor do Texto Base
-- Cor de Preços em Destaque
+## Configuração obrigatória
 
-### Layout e Tipografia
-- Largura Máxima da Loja (1000-1600px)
-- Fonte Principal (Roboto, Inter, Montserrat)
+1. Defina logo, cores e fontes em **Configurações do tema**.
+2. Selecione os menus do cabeçalho e do rodapé.
+3. Substitua contatos, copyright, redes sociais e textos de demonstração.
+4. Configure meios de pagamento, frete, mercados e domínio no Admin.
+5. Publique as políticas de privacidade, reembolso, envio e termos de serviço.
+6. Em **Configurações > Privacidade do cliente**, defina as regiões que exigem consentimento.
+7. Teste um pedido completo usando o modo de teste do provedor de pagamento.
 
-## 📝 Seções Disponíveis
+## Privacidade e LGPD
 
-- **Header Lumina**: Barra de aviso, logo, mega busca, menu departamentos
-- **Hero Slider**: Banner rotativo com altura configurável
-- **Vitrine de Produtos**: Grid customizável com selos de oferta
-- **Footer Lumina**: Colunas configuráveis com menus e texto
-- **Página de Produto**: Galeria, variantes, avaliações
-- **Coleção Principal**: Filtros, ordenação, paginação
-- **Carrinho**: Controle de quantidade, cupom, cálculo de frete
+O tema registra preferências por meio da Customer Privacy API oficial. Ele não lê nem altera cookies internos da Shopify. Cookies opcionais devem ser carregados somente quando o método correspondente da API permitir.
 
-## 🔧 Personalização
+O tema não substitui:
 
-### Menu Mobile
-O tema inclui menu hamburger responsivo que ativa automaticamente em telas menores que 768px.
+- inventário de dados e operadores;
+- definição de base legal e finalidade;
+- contrato com fornecedores;
+- canal para direitos dos titulares;
+- política de retenção e resposta a incidentes;
+- revisão jurídica aplicável ao negócio.
 
-### Variantes de Produto
-Suporte completo para seleção de variantes (cor, tamanho, etc.) com atualização dinâmica de preço e imagem.
+Consulte [LGPD-CHECKLIST.md](LGPD-CHECKLIST.md).
 
-### Filtros de Coleção
-Filtros por preço, cor, tamanho e marca com atualização via AJAX.
+## Segurança
 
-## 🌐 SEO
+- Dados vindos da busca são renderizados com APIs seguras do DOM.
+- URLs armazenadas pela lista de desejos são normalizadas e limitadas.
+- Formulários usam endpoints e tags nativas da Shopify.
+- Consentimento é registrado somente após interação do visitante.
+- Scripts e fontes do tema são servidos pela CDN da Shopify.
+- Checkout, autenticação, pagamentos e infraestrutura são controlados pela Shopify.
 
-O tema inclui:
-- Structured data (JSON-LD) para produtos
-- Meta tags Open Graph
-- Breadcrumbs com schema markup
-- Canonical tags dinâmicas
-- Meta descriptions otimizadas
+Consulte [SECURITY.md](SECURITY.md) para limitações e reporte responsável.
 
-## ♿ Acessibilidade
+## Metafields opcionais
 
-- ARIA labels em elementos interativos
-- Focus states visíveis
-- Skip link funcional
-- Contraste WCAG AA compliant
-- Alt text descritivo
+- `custom.specifications`: especificações técnicas exibidas na página do produto.
+- `reviews.rating`: avaliação real fornecida por integração compatível.
+- `reviews.rating_count`: quantidade real de avaliações.
 
-## 📱 Performance
+O tema não gera avaliações, visitantes, vendas ou urgência fictícios.
 
-- Lazy loading de imagens
-- Formato WebP/AVIF
-- Critical CSS inline
-- JavaScript defer
-- Preload de fontes
+## Validação
 
-## 🔐 Segurança
+```powershell
+shopify theme check
+node --check assets\product.js
+node --check assets\search.js
+node --check assets\privacy-consent.js
+```
 
-Proteção contra cópia de conteúdo (configurável via settings):
-- Desabilita botão direito
-- Bloqueia atalhos de desenvolvedor
-- Previne drag de imagens
+Antes de lançar, siga também [QA-CHECKLIST.md](QA-CHECKLIST.md).
 
-## 📄 Licença
+## Suporte
 
-Copyright (c) 2026 Ivaldo Silva
+- Issues: https://github.com/ivaldo01/Lumina-Pro/issues
+- Documentação: https://github.com/ivaldo01/Lumina-Pro
 
-Este tema foi construído do zero, sendo um trabalho original e livre de royalties de terceiros.
+## Licença
 
-## 🆘 Suporte
-
-Para suporte e documentação adicional, acesse:
-- https://help.shopify.com
-- https://support.shopify.com
-
-## 📝 Changelog
-
-### v2.1.0 (2026)
-- Renomeado para Lumina Commerce
-- Adicionado menu mobile responsivo
-- Implementado seleção de variantes
-- Adicionado filtros de coleção
-- Melhorias de SEO (structured data)
-- Otimização de performance
-- Melhorias de acessibilidade
-- Refatoração CSS (removido inline styles)
+Defina uma licença comercial antes de distribuir ou vender o tema. Imagens de demonstração e marcas de produtos podem possuir direitos próprios e não devem ser redistribuídas sem autorização.

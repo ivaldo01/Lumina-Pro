@@ -61,15 +61,15 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 ## 4. Catálogo e conteúdo
 
-- [ ] Revisar títulos de todos os produtos.
-- [ ] Revisar descrições e especificações.
+- [x] Revisar títulos de todos os produtos.
+- [x] Revisar descrições e especificações.
 - [ ] Revisar fornecedores exibidos nos cards.
-- [ ] Revisar preços, preços comparativos e descontos.
-- [ ] Revisar variantes e combinações indisponíveis.
-- [ ] Revisar estoque e política de continuar vendendo sem estoque.
-- [ ] Revisar qualidade, proporção e enquadramento das imagens.
-- [ ] Adicionar texto alternativo às imagens importantes.
-- [ ] Testar produto disponível, esgotado, com desconto e sem desconto.
+- [x] Revisar preços, preços comparativos e descontos.
+- [x] Revisar variantes e combinações indisponíveis.
+- [x] Revisar estoque e política de continuar vendendo sem estoque.
+- [x] Revisar qualidade, proporção e enquadramento das imagens.
+- [x] Adicionar texto alternativo às imagens importantes.
+- [x] Testar produto disponível, esgotado, com desconto e sem desconto.
 - [ ] Testar produto com uma imagem e com várias imagens.
 - [ ] Testar produto com uma variante e com várias variantes.
 - [ ] Testar coleção vazia, pequena e paginada.

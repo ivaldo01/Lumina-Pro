@@ -108,9 +108,9 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [ ] Confirmar edição de perfil e endereços.
 - [ ] Confirmar saída da conta.
 - [ ] Definir se a conta será opcional ou obrigatória no checkout.
-- [ ] Personalizar logo, cores, tipografia e estilo das contas no editor de checkout e contas.
-- [ ] Implementar fluxo de solicitação de cancelamento antes do processamento.
-- [ ] Definir regras e prazo de cancelamento exibidos ao cliente.
+- [x] Personalizar logo, cores, tipografia e estilo das contas no editor de checkout e contas.
+- [x] Implementar fluxo de solicitação de cancelamento antes do processamento.
+- [x] Definir regras e prazo de cancelamento exibidos ao cliente.
 
 ## 7. E-mails e atendimento
 

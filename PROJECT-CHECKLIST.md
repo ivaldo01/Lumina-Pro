@@ -104,10 +104,13 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Tela unificada de entrar/criar conta confirmada.
 - [ ] Criar uma conta usando um e-mail de teste.
 - [ ] Confirmar recebimento e uso do código de seis dígitos.
-- [ ] Confirmar histórico de pedidos.
+- [x] Confirmar histórico e detalhes do pedido na conta do cliente.
 - [ ] Confirmar edição de perfil e endereços.
 - [ ] Confirmar saída da conta.
 - [ ] Definir se a conta será opcional ou obrigatória no checkout.
+- [ ] Personalizar logo, cores, tipografia e estilo das contas no editor de checkout e contas.
+- [ ] Implementar fluxo de solicitação de cancelamento antes do processamento.
+- [ ] Definir regras e prazo de cancelamento exibidos ao cliente.
 
 ## 7. E-mails e atendimento
 

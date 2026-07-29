@@ -70,3 +70,9 @@ Os relatórios JSON completos permanecem locais e não são versionados, pois s�
 ## Medição de controle após limpeza externa
 
 O embed do detector de links quebrados do TinySEO e o widget visual do Google & YouTube foram desativados. Na página inicial mobile, a medição de controle registrou desempenho 47, acessibilidade 92 e SEO 100, com TBT de 3.650 ms. O diagnóstico detalhado está em `EXTERNAL-SCRIPTS-AUDIT.md`.
+
+## Otimização de imagens e estabilidade do banner
+
+O logo, as imagens do banner e o mosaico passaram a usar fontes responsivas e tamanhos adequados ao viewport. A primeira troca automática do banner foi adiada para evitar movimentação durante a renderização inicial, sem remover setas, animações ou autoplay.
+
+No novo teste da página inicial mobile, o desempenho chegou a 57, a acessibilidade permaneceu em 92 e o SEO em 100. O LCP caiu para 3,4 s e o CLS chegou a 0. O TBT de 4.490 ms continua dominado por scripts de terceiros.

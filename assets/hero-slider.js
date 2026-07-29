@@ -20,7 +20,7 @@ if (!customElements.get('hero-slider')) {
         const slide = event.target.closest?.('[data-hero-slide]');
         if (slide && this.contains(slide)) this.go(this.slides.indexOf(slide));
       });
-      this.start();
+      this.scheduleStart();
     }
 
     go(nextIndex) {
@@ -48,7 +48,14 @@ if (!customElements.get('hero-slider')) {
       this.timer = setInterval(() => this.go(this.index + 1), Number(this.dataset.speed) || 6000);
     }
 
+    scheduleStart() {
+      if (this.dataset.autoplay !== 'true' || this.reducedMotion) return;
+      this.stop();
+      this.startTimer = setTimeout(() => this.start(), Math.max(Number(this.dataset.speed) || 6000, 12000));
+    }
+
     stop() {
+      clearTimeout(this.startTimer);
       clearInterval(this.timer);
     }
 

@@ -50,3 +50,10 @@ O teste anterior da mesma página havia registrado desempenho 19, TBT 10.100 ms 
 6. Repetir Lighthouse no tema publicado, sem a barra de prévia.
 
 Não se deve remover um pixel responsável por campanhas ativas sem antes confirmar atribuição, conversões e consentimento.
+
+## Estado após revisão dos pixels
+
+- AB Google Analytics, Instant AI Page Builder e SendWILL foram removidos dos Eventos de clientes.
+- Colaborações e Preços inteligentes foram preservados porque fazem parte da operação.
+- Facebook & Instagram, Google & YouTube, Judge.me, TikTok e UpPromote foram preservados.
+- Após otimizar as imagens e estabilizar a primeira troca do banner, a página inicial mobile alcançou desempenho 57, acessibilidade 92 e SEO 100.

@@ -27,7 +27,7 @@ Este material é operacional e não substitui aconselhamento jurídico.
 - [x] Salvar preferências personalizadas.
 - [ ] Reabrir e alterar a escolha pelo rodapé.
 - [ ] Confirmar consentimento no checkout.
-- [ ] Confirmar que a loja funciona com opcionais recusados.
+- [x] Confirmar que a loja funciona com opcionais recusados.
 
 ## Referência
 

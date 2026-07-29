@@ -166,7 +166,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Publicar Política de Frete e Entrega.
 - [x] Configurar as regiões de consentimento no Admin.
 - [x] Testar aceitar, rejeitar e personalizar cookies.
-- [ ] Confirmar funcionamento da loja com cookies opcionais recusados.
+- [x] Confirmar funcionamento da loja com cookies opcionais recusados.
 - [x] Definir processo para solicitações dos titulares.
 - [ ] Fazer revisão jurídica antes da publicação comercial.
 

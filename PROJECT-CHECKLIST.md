@@ -158,7 +158,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 - [x] Identificar controlador, operadores e canal de privacidade.
 - [x] Mapear dados coletados pela Shopify, aplicativos, pixels e logística.
-- [ ] Documentar finalidade, base legal, retenção e compartilhamento.
+- [x] Documentar finalidade, base legal, retenção e compartilhamento.
 - [x] Publicar Política de Privacidade revisada.
 - [x] Publicar Política de Cookies revisada.
 - [x] Publicar Termos de Serviço.

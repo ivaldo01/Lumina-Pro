@@ -6,7 +6,7 @@ Este material é operacional e não substitui aconselhamento jurídico.
 
 - [x] Identificar controlador, operadores e encarregado/canal de privacidade.
 - [x] Mapear dados coletados por Shopify, aplicativos, pixels, atendimento e logística.
-- [ ] Documentar finalidade, base legal, compartilhamento e retenção.
+- [x] Documentar finalidade, base legal, compartilhamento e retenção.
 - [x] Publicar aviso de privacidade claro e acessível.
 - [x] Publicar política de cookies com categorias e fornecedores.
 - [x] Configurar regiões de consentimento no Admin da Shopify.

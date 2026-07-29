@@ -39,3 +39,4 @@ A classificação abaixo é preliminar. O papel de cada fornecedor deve ser conf
 3. Não registrar CPF completo, dados de clientes, tokens ou segredos no GitHub.
 4. Revisar pelo menos uma vez por ano ou após incidente relevante.
 
+As atividades, finalidades, dados, bases preliminares, compartilhamentos e prazos propostos estão documentados em `DATA-INVENTORY.md`.

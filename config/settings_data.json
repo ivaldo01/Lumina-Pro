@@ -255,24 +255,6 @@
           "hide_price": false
         }
       },
-      "4015264832934714879": {
-        "type": "shopify://apps/sendwillcwill-popup-email/blocks/app/a5670cf8-5705-4b01-ad9e-447033feae26",
-        "disabled": true,
-        "settings": {
-          "enable_gdpr_mode": false,
-          "enable_cwtracks_listener": false
-        }
-      },
-      "14421132865913305101": {
-        "type": "shopify://apps/ab-google-analytics/blocks/analytics/2fc433fa-79f5-4d1d-bab2-983d42099561",
-        "disabled": true,
-        "settings": {}
-      },
-      "16278478101612877664": {
-        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
-        "disabled": true,
-        "settings": {}
-      },
       "13768625480086291342": {
         "type": "shopify://apps/forms/blocks/forms/8744a304-fcb1-4347-b211-bb6b4759a76a",
         "disabled": true,
@@ -283,9 +265,9 @@
         "disabled": true,
         "settings": {}
       },
-      "1656560654682496077": {
-        "type": "shopify://apps/instant-ai-page-builder/blocks/instant_core/927e19d9-4e68-41db-99c7-d8debdc1f80d",
-        "disabled": true,
+      "pagefly-page-builder": {
+        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
+        "disabled": false,
         "settings": {}
       }
     }

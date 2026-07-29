@@ -175,17 +175,17 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Principais páginas adaptadas para celular.
 - [x] Controles importantes com rótulos acessíveis.
 - [x] Abas do produto com atributos ARIA.
-- [ ] Testar largura de 320 px.
-- [ ] Testar largura de 375 px.
-- [ ] Testar largura de 430 px.
-- [ ] Testar tablet.
-- [ ] Testar notebook e monitor grande.
-- [ ] Testar navegação apenas por teclado.
-- [ ] Testar zoom de 200%.
-- [ ] Testar foco visível.
-- [ ] Testar leitor de tela.
-- [ ] Testar preferência por movimento reduzido.
-- [ ] Confirmar contraste de textos e botões.
+- [x] Testar largura de 320 px.
+- [x] Testar largura de 375 px.
+- [x] Testar largura de 430 px.
+- [x] Testar tablet.
+- [x] Testar notebook e monitor grande.
+- [x] Testar navegação apenas por teclado.
+- [x] Testar zoom de 200%.
+- [x] Testar foco visível.
+- [x] Testar leitor de tela.
+- [x] Testar preferência por movimento reduzido.
+- [x] Confirmar contraste de textos e botões.
 
 ## 11. Navegadores e dispositivos reais
 
@@ -197,7 +197,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Chrome no Android.
 - [x] Samsung Internet.
 - [x] Testar conexão móvel lenta.
-- [ ] Confirmar que menus, modais e campos não ficam cortados.
+- [x] Confirmar que menus, modais e campos não ficam cortados.
 
 ## 12. Desempenho e SEO
 

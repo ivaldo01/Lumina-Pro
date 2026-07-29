@@ -1856,8 +1856,7 @@
       {
         "type": "text",
         "id": "seo_title_suffix",
-        "label": "Sufixo do Título",
-        "default": " | Lumina Commerce"
+        "label": "Sufixo do Título"
       },
       {
         "type": "textarea",

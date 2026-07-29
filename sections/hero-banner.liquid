@@ -75,7 +75,13 @@
           {% if block.settings.eyebrow != blank or block.settings.heading != blank or block.settings.text != blank %}
             <div class="hero-pro__content" data-hero-content>
               {% if block.settings.eyebrow != blank %}<p class="hero-pro__eyebrow">{{ block.settings.eyebrow | escape }}</p>{% endif %}
-              {% if block.settings.heading != blank %}<h2 class="hero-pro__title">{{ block.settings.heading }}</h2>{% endif %}
+              {% if block.settings.heading != blank %}
+                {% if forloop.first %}
+                  <h1 class="hero-pro__title">{{ block.settings.heading }}</h1>
+                {% else %}
+                  <h2 class="hero-pro__title">{{ block.settings.heading }}</h2>
+                {% endif %}
+              {% endif %}
               {% if block.settings.text != blank %}<div class="hero-pro__text">{{ block.settings.text }}</div>{% endif %}
               {% if block.settings.button_label != blank or block.settings.secondary_button_label != blank %}
                 <div class="hero-pro__buttons">

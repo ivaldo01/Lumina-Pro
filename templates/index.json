@@ -34,7 +34,7 @@
             "mobile_horizontal_alignment": "center",
             "mobile_vertical_alignment": "flex-start",
             "mobile_text_alignment": "center",
-            "overlay_opacity": 72,
+            "overlay_opacity": 70,
             "overlay_direction": "90deg"
           }
         },

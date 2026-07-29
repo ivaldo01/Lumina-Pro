@@ -59,7 +59,7 @@ O tema não substitui:
 - política de retenção e resposta a incidentes;
 - revisão jurídica aplicável ao negócio.
 
-Consulte [LGPD-CHECKLIST.md](LGPD-CHECKLIST.md).
+Consulte [LGPD-CHECKLIST.md](LGPD-CHECKLIST.md) e o registro de [governança de privacidade](LGPD-GOVERNANCE.md).
 
 ## Segurança
 

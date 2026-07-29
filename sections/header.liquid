@@ -90,6 +90,8 @@
     .lumina-header .desktop-nav { display: none !important; }
     .lumina-header .lumina-header__inner{padding:{{ hdr.mobile_padding_y | default: 14 }}px 14px!important;gap:.75rem!important;justify-content:space-between}
     .lumina-header .lumina-header__logo{min-width:0;flex:1}
+    .lumina-header .lumina-header__logo a{min-width:0;max-width:100%}
+    .lumina-header .lumina-header__logo-text{display:block;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:clamp(14px,5vw,{{ hdr.logo_text_size | default: 22 }}px)!important;letter-spacing:clamp(1.4px,.7vw,3px)!important}
     .lumina-header .lumina-header__logo img{max-width:{{ hdr.mobile_logo_width | default: 150 }}px;height:auto!important;max-height:{{ hdr.mobile_logo_height | default: 58 }}px}
     .lumina-header .lumina-header__actions{gap:8px!important}
     .lumina-header .header__search{display:{% if hdr.show_search_mobile %}flex{% else %}none{% endif %}!important}
@@ -132,7 +134,7 @@
                  height="{{ header_logo.height }}"
                  style="height: {{ header_logo_width }}px; width: auto; object-fit: contain; display: block;">
           {% else %}
-            <span style="font-size: {{ hdr.logo_text_size | default: 22 }}px; font-weight: {{ hdr.logo_text_weight | default: '700' }}; color: {{ hdr.header_text_color | default: '#0a0a0a' }}; letter-spacing: 3px; text-transform: uppercase; text-decoration: none;">
+            <span class="lumina-header__logo-text" style="font-size: {{ hdr.logo_text_size | default: 22 }}px; font-weight: {{ hdr.logo_text_weight | default: '700' }}; color: {{ hdr.header_text_color | default: '#0a0a0a' }}; letter-spacing: 3px; text-transform: uppercase; text-decoration: none;">
               {{ shop.name | escape }}
             </span>
           {% endif %}

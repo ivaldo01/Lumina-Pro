@@ -234,7 +234,11 @@
           {% endfor %}
         {% endfor %}
       {% else %}
-        {% for i in (1..section.settings.limit) %}
+        {% comment %}
+          Keep the onboarding preview concise. Once a real collection is selected,
+          the merchant-controlled product limit above remains fully respected.
+        {% endcomment %}
+        {% for i in (1..8) %}
           {% assign placeholder_index = forloop.index0 | modulo: 6 | plus: 1 %}
           <article class="product-pro" data-reveal>
             <div class="product-pro__media">{{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}</div>

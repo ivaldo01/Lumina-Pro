@@ -19,10 +19,14 @@
         {% endif %}
         {% if product.featured_image %}
           <img id="product-main-image"
-               src="{{ product.featured_image | image_url: width: 1200 }}"
+               src="{{ product.featured_image | image_url: width: 720 }}"
+               srcset="{{ product.featured_image | image_url: width: 480 }} 480w, {{ product.featured_image | image_url: width: 720 }} 720w, {{ product.featured_image | image_url: width: 960 }} 960w, {{ product.featured_image | image_url: width: 1200 }} 1200w"
+               sizes="(max-width: 749px) calc(100vw - 26px), 50vw"
                alt="{{ product.featured_image.alt | escape }}"
                width="{{ product.featured_image.width }}"
                height="{{ product.featured_image.height }}"
+               loading="eager"
+               fetchpriority="high"
                data-zoom="{{ product.featured_image | image_url: width: 2000 }}">
         {% else %}
           <div class="pdp__media-empty">Sem imagem</div>

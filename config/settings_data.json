@@ -13,8 +13,8 @@
       "header": {
         "type": "header",
         "settings": {
-          "announcement_bar_enabled": false,
-          "announcement_text": "Frete grátis acima de R$ 299 🎉",
+          "announcement_bar_enabled": true,
+          "announcement_text": "Frete grátis para todo Brasil🎉",
           "announcement_link": "",
           "announcement_bg": "#0a0a0a",
           "announcement_text_color": "#ffffff",
@@ -94,7 +94,7 @@
           "newsletter_button": "Quero receber",
           "show_trust_strip": true,
           "use_shop_contact_info": true,
-          "footer_contact_phone": "+55 (11) 99999-9999",
+          "footer_contact_phone": "+55 (94)99280-3499",
           "footer_contact_email": "zetavariedades.contato@gmail.com",
           "footer_contact_address": "Rua Exemplo, 123 - São Paulo, SP",
           "footer_social_facebook": "",
@@ -132,12 +132,12 @@
     "blocks": {
       "15154131639906026026": {
         "type": "shopify://apps/tinyseo/blocks/broken-link-embed/0605268f-f7c4-4e95-b560-e43df7d59ae4",
-        "disabled": true,
+        "disabled": false,
         "settings": {}
       },
       "6159598353363395418": {
         "type": "shopify://apps/google-youtube/blocks/store_widget/14ec7bd0-ac77-49a9-9417-90752398bdff",
-        "disabled": true,
+        "disabled": false,
         "settings": {
           "widget_position": "LEFT_BOTTOM",
           "side_margin": 36,

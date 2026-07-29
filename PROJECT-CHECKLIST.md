@@ -237,12 +237,12 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 ## 14. Preparação da versão comercial
 
-- [ ] Criar uma branch separada para a edição comercial.
-- [ ] Remover marca, textos, contatos e produtos da Zeta Variedades.
+- [x] Criar uma branch separada para a edição comercial. (`codex/commercial-v1`)
+- [x] Remover marca, textos, contatos e produtos da Zeta Variedades.
 - [ ] Criar identidade demonstrativa neutra e licenciada.
-- [ ] Remover configurações e identificadores específicos da loja.
-- [ ] Criar dados iniciais seguros, neutros e fáceis de substituir.
-- [ ] Definir quais recursos pertencem ao tema e quais exigem aplicativo.
+- [x] Remover configurações e identificadores específicos da loja.
+- [x] Criar dados iniciais seguros, neutros e fáceis de substituir.
+- [x] Definir quais recursos pertencem ao tema e quais exigem aplicativo.
 - [ ] Avaliar uma edição sem favoritos para submissão à Theme Store.
 - [ ] Garantir licença comercial de imagens, ícones e demais ativos.
 - [ ] Definir navegadores e versões suportados.

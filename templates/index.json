@@ -15,7 +15,7 @@
         "slide_Vnzemi": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/banners-6a5410c88a885.webp",
+            "image": "",
             "desktop_position": "center",
             "mobile_position": "center",
             "eyebrow": "Checkout seguro, compra tranquila",
@@ -41,8 +41,8 @@
         "slide_BNpE8Q": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/banners-6a5410c88a884.webp",
-            "mobile_image": "shopify://shop_images/Imagem_1_gerada_4.png",
+            "image": "",
+            "mobile_image": "",
             "desktop_position": "center",
             "mobile_position": "center",
             "eyebrow": "",
@@ -68,8 +68,8 @@
         "slide_1": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/BANNER_3_0b7e4743-ded5-41e9-b23a-9fb861432400.png",
-            "mobile_image": "shopify://shop_images/Imagem_1_gerada_3.png",
+            "image": "",
+            "mobile_image": "",
             "desktop_position": "center",
             "mobile_position": "center",
             "eyebrow": "Novidades selecionadas",
@@ -184,46 +184,46 @@
         "category_TnpQen": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/Imagem_1_gerada_5.png",
+            "image": "",
             "kicker": "Presenteie quem você ama",
             "heading": "Com Novidades Selecionadas",
-            "link": "shopify://collections/new-arrivals"
+            "link": ""
           }
         },
         "category_1": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/geek_53b17e54-0d7c-4e39-a3c6-4b00ec2ba493.png",
+            "image": "",
             "kicker": "Explore",
             "heading": "Geek",
-            "link": "shopify://collections/geek"
+            "link": ""
           }
         },
         "category_2": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/lazer_ed780317-791a-40ac-85e4-31d3f83d7845.png",
+            "image": "",
             "kicker": "Descubra",
             "heading": "O Melhor Para o Seu Lazer",
-            "link": "shopify://collections/lazer-zeta"
+            "link": ""
           }
         },
         "category_3": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/pets_5a504b3e-2822-4474-9847-08c79d4b4f93.png",
+            "image": "",
             "kicker": "Para eles",
             "heading": "Universo pet",
-            "link": "shopify://collections/pets"
+            "link": ""
           }
         },
         "category_4": {
           "type": "category",
           "settings": {
-            "image": "shopify://shop_images/tecnologia_72f66ca5-7e85-4c06-8c16-6e4e3fb1cae3.png",
+            "image": "",
             "kicker": "Surpreenda",
             "heading": "Tecnologia Que Impressiona",
-            "link": "shopify://collections/lazer"
+            "link": ""
           }
         }
       },
@@ -261,7 +261,7 @@
         "spotlight_first": {
           "type": "product_spotlight",
           "settings": {
-            "product": "revoltech-yamaguchi-ninja-gaiden-ryu-hayabusa-figura-de-acao-articulada-em-escal",
+            "product": "",
             "after_rows": 2,
             "image_fit": "contain",
             "image_position": "center",
@@ -278,7 +278,7 @@
         "spotlight_second": {
           "type": "product_spotlight",
           "settings": {
-            "product": "controle-sem-fio-easysmx-d10-para-pc-com-base-de-carregamento-tmr-compativel-co",
+            "product": "",
             "after_rows": 4,
             "image_fit": "contain",
             "image_position": "center",
@@ -312,7 +312,7 @@
         "benefit_2_text": "Seus dados sempre protegidos",
         "benefit_3_title": "Pagamento seguro",
         "benefit_3_text": "Ambiente criptografado e confiável",
-        "collection": "todos-os-produtos",
+        "collection": "",
         "limit": 20,
         "columns_desktop": 4,
         "columns_mobile": "2",

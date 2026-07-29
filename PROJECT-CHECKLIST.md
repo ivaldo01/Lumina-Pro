@@ -223,16 +223,16 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 ## 13. Homologação e publicação na Zeta
 
-- [ ] Duplicar o tema atual publicado como backup.
-- [ ] Renomear claramente o tema candidato à produção.
-- [ ] Conferir configurações do tema no editor.
-- [ ] Executar toda a homologação em tema não publicado.
-- [ ] Corrigir problemas encontrados.
-- [ ] Repetir os testes críticos após as correções.
-- [ ] Aprovar visual, conteúdo, compra e documentos legais.
-- [ ] Definir janela de publicação.
-- [ ] Publicar o tema na loja.
-- [ ] Fazer teste rápido imediatamente após a publicação.
+- [x] Duplicar o tema atual publicado como backup.
+- [x] Renomear claramente o tema candidato à produção.
+- [x] Conferir configurações do tema no editor.
+- [x] Executar toda a homologação em tema não publicado.
+- [x] Corrigir problemas encontrados.
+- [x] Repetir os testes críticos após as correções.
+- [x] Aprovar visual, conteúdo, compra e documentos legais.
+- [x] Definir janela de publicação.
+- [x] Publicar o tema na loja.
+- [x] Fazer teste rápido imediatamente após a publicação.
 - [ ] Monitorar erros, pedidos e atendimento nas primeiras 48 horas.
 
 ## 14. Preparação da versão comercial

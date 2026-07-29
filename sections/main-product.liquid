@@ -12,7 +12,7 @@
 
   <div class="pdp__grid">
     <!-- Gallery -->
-    <div class="pdp__gallery" data-reveal>
+    <div class="pdp__gallery">
       <div class="pdp__media">
         {% if has_discount and settings.show_savings %}
           <span class="pdp__flag">-{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%</span>

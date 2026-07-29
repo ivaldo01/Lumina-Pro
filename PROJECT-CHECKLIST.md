@@ -213,10 +213,10 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Alcançar média mínima de 90 em acessibilidade.
 - [x] Revisar títulos e descrições SEO.
 - [x] Revisar URLs canônicas.
-- [ ] Validar dados estruturados no Google Rich Results Test.
+- [x] Validar dados estruturados no Google Rich Results Test.
 - [x] Verificar sitemap e indexação.
-- [ ] Configurar Google Search Console.
-- [ ] Configurar ferramenta de análise somente após consentimento aplicável.
+- [x] Configurar Google Search Console.
+- [x] Configurar ferramenta de análise somente após consentimento aplicável.
 
 ## 13. Homologação e publicação na Zeta
 
@@ -271,4 +271,8 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 ## Próxima ação
 
-- [ ] Reduzir scripts de aplicativos e pixels opcionais, sincronizar as correções e repetir o Lighthouse até alcançar as metas.
+- [x] Investigar e corrigir a entidade inválida indicada nos relatórios de
+  compras do Google Search Console.
+- [ ] Acompanhar no Search Console a validação da correção do artigo.
+  Validação iniciada em 29/07/2026; aguardando o novo rastreamento e a
+  conclusão do Google.

@@ -59,11 +59,22 @@ Também foram detectados iframes externos sem título acessível. Esses pontos p
 
 ## Ações pendentes
 
-1. Garantir que Analytics, anúncios e pixels opcionais só carreguem após consentimento aplicável.
+1. Analytics e pixels opcionais revisados: integrações desnecessárias removidas,
+   Google & YouTube mantido como `Otimizado` pela Customer Privacy API e loja
+   testada com cookies opcionais recusados.
 2. Avaliar a remoção do widget Google Merchant durante uma nova medição.
 3. Repetir as seis auditorias no tema publicado, sem barra de prévia.
-4. Validar produto no Google Rich Results Test.
-5. Concluir configuração e verificação de propriedade no Google Search Console.
+4. Produto validado no Google Rich Results Test em 29/07/2026: dois itens
+   válidos (`Snippets do produto` e `Listagens do comerciante`), sem erros
+   críticos. Permanecem somente os avisos opcionais de `review` e
+   `aggregateRating`.
+5. Google Search Console confirmado em 29/07/2026 com propriedade de domínio
+   verificada e sitemap principal processado, contendo 112 páginas encontradas.
+6. A entidade `Product` incompleta inserida manualmente no artigo sobre
+   aquecimento muscular foi removida em 29/07/2026. O Rich Results Test deixou
+   de detectar erros críticos. A validação da correção foi iniciada no Search
+   Console em 29/07/2026; resta aguardar o novo rastreamento e a conclusão do
+   Google.
 
 Os relatórios JSON completos permanecem locais e não são versionados, pois são arquivos grandes e específicos da execução.
 

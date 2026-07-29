@@ -56,5 +56,8 @@ Não se deve remover um pixel responsável por campanhas ativas sem antes confir
 - AB Google Analytics, Instant AI Page Builder e SendWILL foram removidos dos Eventos de clientes.
 - Colaborações e Preços inteligentes foram preservados porque fazem parte da operação.
 - Facebook & Instagram, Google & YouTube, Judge.me, TikTok e UpPromote foram preservados.
+- Google & YouTube permanece com tratamento de dados `Otimizado` pela
+  Customer Privacy API; o funcionamento com cookies opcionais recusados foi
+  testado e aprovado.
 - Após otimizar as imagens e estabilizar a primeira troca do banner, a página inicial mobile alcançou desempenho 57, acessibilidade 92 e SEO 100.
 - Após otimizar coleção e produto, a média de desempenho das seis auditorias chegou a 60,3 e atingiu a meta do projeto.

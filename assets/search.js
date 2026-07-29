@@ -8,6 +8,7 @@ const initializePredictiveSearch = root => {
 
   const suggestions = document.createElement('div');
   suggestions.className = 'search-suggestions';
+  suggestions.id = searchInput.getAttribute('aria-controls');
   suggestions.hidden = true;
   suggestions.setAttribute('role', 'region');
   suggestions.setAttribute('aria-label', 'Sugestões de pesquisa');

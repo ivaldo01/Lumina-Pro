@@ -75,6 +75,20 @@ Também foram detectados iframes externos sem título acessível. Esses pontos p
    de detectar erros críticos. A validação da correção foi iniciada no Search
    Console em 29/07/2026; resta aguardar o novo rastreamento e a conclusão do
    Google.
+7. Auditoria direta da loja publicada em 29/07/2026 confirmou canonical,
+   meta description e um único H1 no produto e na coleção, sem estouro
+   horizontal. A página inicial ainda não possui meta description e todas as
+   três páginas declaram `lang="en"`; esses dois pontos devem ser corrigidos
+   nas preferências e idiomas da Shopify.
+8. O tema candidato `142341308519` foi verificado pela URL de prévia. O sufixo
+   padrão `Lumina Commerce` foi removido dos títulos e o primeiro título do
+   banner passou a ser o único H1 da página inicial. Após a sincronização, a
+   página inicial apresentou título `Zeta Variedades`, meta description, um
+   único H1 e nenhum estouro horizontal. Na primeira verificação, o idioma
+   publicado ainda era `en`.
+9. Português (Brasil) foi definido como idioma padrão dos domínios da loja e
+   confirmado diretamente na prévia em 29/07/2026: o documento passou a
+   declarar `lang="pt-BR"`.
 
 Os relatórios JSON completos permanecem locais e não são versionados, pois são arquivos grandes e específicos da execução.
 
@@ -102,3 +116,31 @@ As imagens principais de coleção e produto passaram a usar `fetchpriority="hig
 | Produto | Desktop | 60 | 87 | 100 | 1,2 s | 2.040 ms | 0,001 |
 
 A média final de desempenho chegou a 60,3 e atingiu a meta mínima de 60. O SEO permaneceu em 100. A acessibilidade ficou em 89,3 nesta rodada, mas atingiu 91,8 na rodada anterior; a oscilação está associada principalmente a componentes externos e deve ser confirmada no tema publicado, sem a barra de prévia.
+
+## Auditoria final do tema candidato
+
+Em 29/07/2026, o tema candidato `142341308519` foi auditado diretamente pela
+URL `shopifypreview.com`. Após a primeira rodada, foram corrigidos o papel ARIA
+do campo de pesquisa, o contraste do preço antigo na coleção e o tamanho das
+miniaturas do produto. Os dois testes afetados foram repetidos.
+
+| Página | Perfil | Desempenho | Acessibilidade | Boas práticas | SEO | LCP | TBT | CLS |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Página inicial | Mobile | 60 | 92 | 73 | 69 | 3,2 s | 3.190 ms | 0 |
+| Página inicial | Desktop | 67 | 92 | 73 | 69 | 1,5 s | 740 ms | 0 |
+| Coleção | Mobile | 59 | 92 | 73 | 69 | 3,3 s | 2.410 ms | 0,018 |
+| Coleção | Desktop | 88 | 97 | 73 | 69 | 0,8 s | 240 ms | 0,01 |
+| Produto | Mobile | 59 | 97 | 73 | 69 | 3,0 s | 2.610 ms | 0,018 |
+| Produto | Desktop | 83 | 93 | 73 | 69 | 1,2 s | 270 ms | 0,001 |
+
+A média final do candidato ficou em **69,3 para desempenho** e **93,8 para
+acessibilidade**, acima das metas do projeto. O SEO 69 nesta execução não
+representa o tema: a URL de prévia é intencionalmente bloqueada para indexação,
+e o único teste SEO reprovado foi `is-crawlable`. Na loja pública, as medições
+anteriores registraram SEO 100.
+
+O resultado de boas práticas 73 também é dominado pelo ambiente e por
+integrações externas: cookies de terceiros, erros de console de aplicativos e
+avisos do painel do Chrome. O iframe sem título pertence à barra de prévia da
+Shopify. No produto mobile, o custo de JavaScript restante é concentrado em
+Vitals, Meta Pixel, Shopify Web Pixels, Conversion Bear e UpPromote.

@@ -212,6 +212,9 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Alcançar média mínima de 60 em desempenho.
 - [x] Alcançar média mínima de 90 em acessibilidade.
 - [x] Revisar títulos e descrições SEO.
+  Página inicial, produto e coleção validados no tema candidato.
+- [x] Corrigir o idioma principal publicado de `en` para português do Brasil
+  (`pt-BR`) nas configurações de idiomas da Shopify.
 - [x] Revisar URLs canônicas.
 - [x] Validar dados estruturados no Google Rich Results Test.
 - [x] Verificar sitemap e indexação.

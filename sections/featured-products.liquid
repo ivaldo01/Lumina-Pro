@@ -244,6 +244,78 @@
             <div class="product-pro__media">{{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}</div>
             <div class="product-pro__content"><p class="product-pro__vendor">Sua marca</p><h3 class="product-pro__title">Produto de demonstração {{ i }}</h3><div class="product-pro__price"><span class="product-pro__price-current">R$ 149,90</span><span class="product-pro__price-old">R$ 249,90</span></div><p class="product-pro__pix">{{ section.settings.pix_text }}</p></div>
           </article>
+
+          {% assign current_product_position = forloop.index %}
+          {% for block in section.blocks %}
+            {% if block.type == 'product_spotlight' %}
+              {% assign spotlight_position = block.settings.after_rows | times: section.settings.columns_desktop %}
+              {% if current_product_position == spotlight_position %}
+                {% assign spotlight_product = block.settings.product %}
+                {% assign spotlight_url = routes.all_products_collection_url %}
+                {% if spotlight_product != blank %}
+                  {% assign spotlight_url = spotlight_product.url %}
+                {% endif %}
+
+                <article
+                  class="product-spotlight product-spotlight--{{ block.settings.image_position }}"
+                  style="--spotlight-accent: {{ block.settings.accent_color }}; --spotlight-bg: {{ block.settings.background_color }}; --spotlight-text: {{ block.settings.text_color }};"
+                  data-spotlight-reveal
+                  {{ block.shopify_attributes }}
+                >
+                  <a class="product-spotlight__media" href="{{ spotlight_url }}">
+                    {% if block.settings.image != blank %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 1100
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '360, 540, 720, 900, 1100',
+                          class: 'product-spotlight__image',
+                          alt: block.settings.title
+                      }}
+                    {% elsif spotlight_product != blank and spotlight_product.featured_image != blank %}
+                      {{
+                        spotlight_product.featured_image
+                        | image_url: width: 1100
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '360, 540, 720, 900, 1100',
+                          class: 'product-spotlight__image',
+                          alt: spotlight_product.featured_image.alt
+                      }}
+                    {% else %}
+                      {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg product-spotlight__image' }}
+                    {% endif %}
+                  </a>
+
+                  <div class="product-spotlight__content">
+                    {% if block.settings.eyebrow != blank %}
+                      <p class="product-spotlight__eyebrow">{{ block.settings.eyebrow }}</p>
+                    {% endif %}
+                    <h3 class="product-spotlight__title">{{ block.settings.title }}</h3>
+                    {% if block.settings.text != blank %}
+                      <div class="product-spotlight__text">{{ block.settings.text }}</div>
+                    {% endif %}
+                    <div class="product-spotlight__price">
+                      {% if spotlight_product != blank %}
+                        <span>{{ spotlight_product.price | money }}</span>
+                        {% if spotlight_product.compare_at_price > spotlight_product.price %}
+                          <s>{{ spotlight_product.compare_at_price | money }}</s>
+                        {% endif %}
+                      {% else %}
+                        <span>R$ 149,90</span>
+                        <s>R$ 249,90</s>
+                      {% endif %}
+                    </div>
+                    <a class="product-spotlight__button" href="{{ spotlight_url }}">
+                      {{ block.settings.button_label }}
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  </div>
+                </article>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
         {% endfor %}
       {% endif %}
     </div>

@@ -243,6 +243,9 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Remover configurações e identificadores específicos da loja.
 - [x] Criar dados iniciais seguros, neutros e fáceis de substituir.
 - [x] Definir quais recursos pertencem ao tema e quais exigem aplicativo.
+- [x] Instalar a branch comercial como tema rascunho e validar a página
+  inicial com conteúdo demonstrativo neutro.
+- [x] Corrigir e validar o template inicial diretamente na Shopify.
 - [ ] Avaliar uma edição sem favoritos para submissão à Theme Store.
 - [ ] Garantir licença comercial de imagens, ícones e demais ativos.
 - [ ] Definir navegadores e versões suportados.

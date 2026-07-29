@@ -239,7 +239,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 - [x] Criar uma branch separada para a edição comercial. (`codex/commercial-v1`)
 - [x] Remover marca, textos, contatos e produtos da Zeta Variedades.
-- [ ] Criar identidade demonstrativa neutra e licenciada.
+- [x] Criar identidade demonstrativa neutra e licenciada.
 - [x] Remover configurações e identificadores específicos da loja.
 - [x] Criar dados iniciais seguros, neutros e fáceis de substituir.
 - [x] Definir quais recursos pertencem ao tema e quais exigem aplicativo.

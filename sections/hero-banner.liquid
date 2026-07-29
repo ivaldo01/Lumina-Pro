@@ -67,7 +67,18 @@
                 {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
             </picture>
           {% else %}
-            {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-pro__placeholder' }}
+            <picture>
+              <source
+                media="(max-width:749px)"
+                srcset="{{ 'lumina-demo-hero-mobile.webp' | asset_url }}"
+                sizes="100vw">
+              <img
+                src="{{ 'lumina-demo-hero-desktop.webp' | asset_url }}"
+                alt="{{ block.settings.heading | default: 'Seleção de produtos da loja' | escape }}"
+                width="1672"
+                height="941"
+                {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}>
+            </picture>
           {% endif %}
         </div>
         <div class="hero-pro__overlay"></div>

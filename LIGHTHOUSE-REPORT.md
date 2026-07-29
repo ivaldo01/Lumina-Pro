@@ -76,3 +76,18 @@ O embed do detector de links quebrados do TinySEO e o widget visual do Google & 
 O logo, as imagens do banner e o mosaico passaram a usar fontes responsivas e tamanhos adequados ao viewport. A primeira troca automática do banner foi adiada para evitar movimentação durante a renderização inicial, sem remover setas, animações ou autoplay.
 
 No novo teste da página inicial mobile, o desempenho chegou a 57, a acessibilidade permaneceu em 92 e o SEO em 100. O LCP caiu para 3,4 s e o CLS chegou a 0. O TBT de 4.490 ms continua dominado por scripts de terceiros.
+
+## Resultado otimizado de coleção e produto
+
+As imagens principais de coleção e produto passaram a usar `fetchpriority="high"`, carregamento imediato e fontes responsivas. O efeito de revelação foi removido apenas das imagens acima da dobra para não atrasar sua pintura; as animações do restante da página foram preservadas.
+
+| Página | Perfil | Desempenho | Acessibilidade | SEO | LCP | TBT | CLS |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Página inicial | Mobile | 57 | 92 | 100 | 3,4 s | 4.490 ms | 0 |
+| Página inicial | Desktop | 59 | 92 | 100 | 1,6 s | 1.360 ms | 0 |
+| Coleção | Mobile | 51 | 89 | 100 | 4,1 s | 4.050 ms | 0,018 |
+| Coleção | Desktop | 81 | 89 | 100 | 0,8 s | 350 ms | 0,01 |
+| Produto | Mobile | 54 | 87 | 100 | 3,2 s | 7.960 ms | 0,017 |
+| Produto | Desktop | 60 | 87 | 100 | 1,2 s | 2.040 ms | 0,001 |
+
+A média final de desempenho chegou a 60,3 e atingiu a meta mínima de 60. O SEO permaneceu em 100. A acessibilidade ficou em 89,3 nesta rodada, mas atingiu 91,8 na rodada anterior; a oscilação está associada principalmente a componentes externos e deve ser confirmada no tema publicado, sem a barra de prévia.

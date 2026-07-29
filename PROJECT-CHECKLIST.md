@@ -209,7 +209,7 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Executar Lighthouse na página inicial — celular e desktop.
 - [x] Executar Lighthouse no produto — celular e desktop.
 - [x] Executar Lighthouse na coleção — celular e desktop.
-- [ ] Alcançar média mínima de 60 em desempenho.
+- [x] Alcançar média mínima de 60 em desempenho.
 - [x] Alcançar média mínima de 90 em acessibilidade.
 - [x] Revisar títulos e descrições SEO.
 - [x] Revisar URLs canônicas.

@@ -57,3 +57,4 @@ Não se deve remover um pixel responsável por campanhas ativas sem antes confir
 - Colaborações e Preços inteligentes foram preservados porque fazem parte da operação.
 - Facebook & Instagram, Google & YouTube, Judge.me, TikTok e UpPromote foram preservados.
 - Após otimizar as imagens e estabilizar a primeira troca do banner, a página inicial mobile alcançou desempenho 57, acessibilidade 92 e SEO 100.
+- Após otimizar coleção e produto, a média de desempenho das seis auditorias chegou a 60,3 e atingiu a meta do projeto.

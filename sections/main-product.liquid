@@ -41,7 +41,7 @@
                     data-image="{{ image | image_url: width: 1200 }}"
                     data-zoom="{{ image | image_url: width: 2000 }}"
                     aria-label="Ver imagem {{ forloop.index }}">
-              <img src="{{ image | image_url: width: 200 }}" alt="{{ image.alt | default: product.title | escape }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy">
+              <img src="{{ image | image_url: width: 100 }}" alt="{{ image.alt | default: product.title | escape }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy">
             </button>
           {% endfor %}
         </div>

@@ -206,15 +206,15 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 - [x] Dependências externas de fontes removidas.
 - [x] `shopify theme check` com zero ocorrências.
 - [x] Todos os JavaScripts validados sintaticamente.
-- [ ] Executar Lighthouse na página inicial — celular e desktop.
-- [ ] Executar Lighthouse no produto — celular e desktop.
-- [ ] Executar Lighthouse na coleção — celular e desktop.
+- [x] Executar Lighthouse na página inicial — celular e desktop.
+- [x] Executar Lighthouse no produto — celular e desktop.
+- [x] Executar Lighthouse na coleção — celular e desktop.
 - [ ] Alcançar média mínima de 60 em desempenho.
 - [ ] Alcançar média mínima de 90 em acessibilidade.
-- [ ] Revisar títulos e descrições SEO.
-- [ ] Revisar URLs canônicas.
+- [x] Revisar títulos e descrições SEO.
+- [x] Revisar URLs canônicas.
 - [ ] Validar dados estruturados no Google Rich Results Test.
-- [ ] Verificar sitemap e indexação.
+- [x] Verificar sitemap e indexação.
 - [ ] Configurar Google Search Console.
 - [ ] Configurar ferramenta de análise somente após consentimento aplicável.
 
@@ -271,4 +271,4 @@ Esta é a lista oficial de acompanhamento do projeto. Um item só deve ser marca
 
 ## Próxima ação
 
-- [ ] Iniciar a homologação pelo **fluxo completo de compra em modo de teste**, registrando o resultado de cada item da seção 5.
+- [ ] Reduzir scripts de aplicativos e pixels opcionais, sincronizar as correções e repetir o Lighthouse até alcançar as metas.

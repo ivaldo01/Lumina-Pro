@@ -21,3 +21,6 @@ Thumbs.db
 # Dependencies
 node_modules/
 package-lock.json
+
+# Local performance audits
+/reports/lighthouse/*.json

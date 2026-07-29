@@ -80,7 +80,14 @@
         <a class="category-card" href="{{ block.settings.link | default: routes.collections_url }}" data-reveal style="--reveal-delay:{{ forloop.index0 | times: 80 }}ms" {{ block.shopify_attributes }}>
           <div class="category-card__media">
             {% if block.settings.image != blank %}
-              <img src="{{ block.settings.image | image_url: width: 1000 }}" alt="{{ block.settings.image.alt | default: block.settings.heading | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy">
+              <img
+                src="{{ block.settings.image | image_url: width: 600 }}"
+                srcset="{{ block.settings.image | image_url: width: 384 }} 384w, {{ block.settings.image | image_url: width: 600 }} 600w, {{ block.settings.image | image_url: width: 800 }} 800w, {{ block.settings.image | image_url: width: 1000 }} 1000w"
+                sizes="(max-width: 600px) calc(100vw - 28px), (max-width: 900px) 50vw, 50vw"
+                alt="{{ block.settings.image.alt | default: block.settings.heading | escape }}"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+                loading="lazy">
             {% else %}{{ 'collection-1' | placeholder_svg_tag }}{% endif %}
           </div>
           <span class="category-card__arrow" aria-hidden="true">↗</span>

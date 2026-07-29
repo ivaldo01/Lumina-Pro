@@ -124,7 +124,9 @@
           {%- assign header_logo = hdr.logo | default: settings.logo -%}
           {%- assign header_logo_width = hdr.logo_height | default: settings.logo_width | default: 45 -%}
           {% if header_logo != blank %}
-            <img src="{{ header_logo | image_url: width: 800 }}"
+            <img src="{{ header_logo | image_url: width: 320 }}"
+                 srcset="{{ header_logo | image_url: width: 160 }} 160w, {{ header_logo | image_url: width: 240 }} 240w, {{ header_logo | image_url: width: 320 }} 320w"
+                 sizes="(max-width: 749px) 150px, 240px"
                  alt="{{ shop.name | escape }}"
                  width="{{ header_logo.width }}"
                  height="{{ header_logo.height }}"

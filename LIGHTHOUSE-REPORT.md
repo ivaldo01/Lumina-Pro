@@ -66,3 +66,7 @@ Também foram detectados iframes externos sem título acessível. Esses pontos p
 5. Concluir configuração e verificação de propriedade no Google Search Console.
 
 Os relatórios JSON completos permanecem locais e não são versionados, pois são arquivos grandes e específicos da execução.
+
+## Medição de controle após limpeza externa
+
+O embed do detector de links quebrados do TinySEO e o widget visual do Google & YouTube foram desativados. Na página inicial mobile, a medição de controle registrou desempenho 47, acessibilidade 92 e SEO 100, com TBT de 3.650 ms. O diagnóstico detalhado está em `EXTERNAL-SCRIPTS-AUDIT.md`.

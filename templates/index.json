@@ -17,7 +17,7 @@
           "settings": {
             "image": "shopify://shop_images/banners-6a5410c88a885.webp",
             "desktop_position": "center",
-            "mobile_position": "center",
+            "mobile_position": "left center",
             "eyebrow": "Checkout seguro, compra tranquila",
             "heading": "Seus dados e pagamentos protegidos em todas as etapas.",
             "text": "<p>Acompanhe seu pedido e consulte as condições de entrega.</p>",
@@ -44,7 +44,7 @@
             "image": "shopify://shop_images/banners-6a5410c88a884.webp",
             "mobile_image": "shopify://shop_images/Imagem_1_gerada_4.png",
             "desktop_position": "center",
-            "mobile_position": "center",
+            "mobile_position": "left center",
             "eyebrow": "",
             "heading": "Frete Sem Complicação",
             "text": "<p>Acompanhe tudo do ínicio ao fim de sua compra</p>",

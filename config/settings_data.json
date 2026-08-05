@@ -263,6 +263,11 @@
         "type": "shopify://apps/areviews-reviews-importer/blocks/areviewsAppEmbed/ab0ec5fe-c95b-4fd6-bfb8-db2a30d0756f",
         "disabled": true,
         "settings": {}
+      },
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
       }
     }
   }

@@ -258,6 +258,11 @@
         "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
         "disabled": false,
         "settings": {}
+      },
+      "1505609436086533697": {
+        "type": "shopify://apps/areviews-reviews-importer/blocks/areviewsAppEmbed/ab0ec5fe-c95b-4fd6-bfb8-db2a30d0756f",
+        "disabled": true,
+        "settings": {}
       }
     }
   }

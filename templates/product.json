@@ -11,29 +11,53 @@
   "sections": {
     "main": {
       "type": "main-product",
-      "settings": {}
+      "settings": {
+        "show_trust_badges": true,
+        "show_related_products": true
+      }
     },
     "areviews_1785902024_e9c01b": {
       "type": "apps",
       "blocks": {
-        "areviews_reviews_importer_areviews_display_reviews_4F6F74": {
-          "type": "shopify://apps/areviews-reviews-importer/blocks/AreviewsDisplayReviews/ab0ec5fe-c95b-4fd6-bfb8-db2a30d0756f",
+        "judge_me_reviews_review_snippet_widget_LBFzVf": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
-            "hide_areviews_title_rating": false,
-            "areviews_theme_font": "inherit",
-            "areviews_stars_colors": "#f3c621",
-            "areviews_write_reviews_botton_color": "#373737"
+            "reviews_selection": "auto",
+            "products": [],
+            "filter_pinned": false,
+            "filter_featured": false,
+            "filter_custom_tags": "",
+            "min_star_rating": "inherit",
+            "show_review_media": true,
+            "max_reviews": 5,
+            "review_length": "medium",
+            "text_size": "medium",
+            "max_width": 1100,
+            "max_image_size": "small",
+            "arrows_visibility": "always_shown",
+            "transition_speed": 5,
+            "corner_styling": "inherit",
+            "text_color": "",
+            "card_color": "",
+            "stars_color": "",
+            "arrows_color": "",
+            "arrows_background_color": ""
           }
         }
       },
       "block_order": [
-        "areviews_reviews_importer_areviews_display_reviews_4F6F74"
+        "judge_me_reviews_review_snippet_widget_LBFzVf"
       ],
+      "settings": {}
+    },
+    "17859040541c4198ed": {
+      "type": "apps",
       "settings": {}
     }
   },
   "order": [
     "main",
-    "areviews_1785902024_e9c01b"
+    "areviews_1785902024_e9c01b",
+    "17859040541c4198ed"
   ]
 }

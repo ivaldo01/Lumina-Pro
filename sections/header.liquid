@@ -88,14 +88,14 @@
   }
   @media (max-width: 900px) {
     .lumina-header .desktop-nav { display: none !important; }
-    .lumina-header .lumina-header__inner{padding:{{ hdr.mobile_padding_y | default: 14 }}px 14px!important;gap:.75rem!important;justify-content:space-between}
-    .lumina-header .lumina-header__logo{min-width:0;flex:1}
-    .lumina-header .lumina-header__logo a{min-width:0;max-width:100%}
+    .lumina-header .lumina-header__inner{padding:{{ hdr.mobile_padding_y | default: 14 }}px 14px!important;gap:clamp(12px,3vw,18px)!important;justify-content:space-between}
+    .lumina-header .lumina-header__logo{min-width:0;flex:1 1 auto;overflow:hidden}
+    .lumina-header .lumina-header__logo a{display:flex!important;align-items:center;width:100%;min-width:0;max-width:100%}
     .lumina-header .lumina-header__logo-text{display:block;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:clamp(14px,5vw,{{ hdr.logo_text_size | default: 22 }}px)!important;letter-spacing:clamp(1.4px,.7vw,3px)!important}
-    .lumina-header .lumina-header__logo img{max-width:{{ hdr.mobile_logo_width | default: 150 }}px;height:auto!important;max-height:{{ hdr.mobile_logo_height | default: 58 }}px}
-    .lumina-header .lumina-header__actions{gap:8px!important}
-    .lumina-header .header__search{display:{% if hdr.show_search_mobile %}flex{% else %}none{% endif %}!important}
-    .lumina-header .header-search-input{width:120px}
+    .lumina-header .lumina-header__logo img{width:auto!important;max-width:100%!important;height:auto!important;max-height:{{ hdr.mobile_logo_height | default: 58 }}px}
+    .lumina-header .lumina-header__actions{flex:0 1 auto;min-width:0;margin-left:auto;gap:clamp(4px,1.5vw,8px)!important}
+    .lumina-header .header__search{min-width:0;flex:0 1 auto;display:{% if hdr.show_search_mobile %}flex{% else %}none{% endif %}!important}
+    .lumina-header .header-search-input{width:clamp(80px,27vw,120px);min-width:0}
     {% unless hdr.show_account_mobile %}.lumina-header .header-account{display:none!important}{% endunless %}
     {% unless hdr.show_wishlist_mobile %}.lumina-header .header-wishlist{display:none!important}{% endunless %}
     .lumina-header .mobile-toggle { display: flex !important; }

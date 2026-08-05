@@ -83,6 +83,7 @@
           "text_HTeT7x"
         ],
         "settings": {
+          "logo": "shopify://shop_images/Imagem_1_gerada.png",
           "logo_width": 180,
           "use_shop_description": true,
           "brand_text": "<p>Produtos selecionados para surpreender, facilitar sua rotina e transformar cada compra em uma ótima experiência.<br/>entre em contato <br/>zetavariedades.contato@gmail.com</p>",
@@ -185,18 +186,6 @@
           "agent_inherit_fonts": true,
           "agent_font": "system_ui_n4",
           "agent_border_radius": 16
-        }
-      },
-      "14060646107696862457": {
-        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-        "disabled": false,
-        "settings": {}
-      },
-      "13047258039897440615": {
-        "type": "shopify://apps/judge-me-reviews/blocks/cart_drawer_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-        "disabled": false,
-        "settings": {
-          "widget_type": "review-widget"
         }
       },
       "5134484470793087125": {
